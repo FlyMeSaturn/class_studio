@@ -60,11 +60,6 @@ components:
     textColor: "{colors.white}"
     rounded: "{rounded.control}"
     padding: "11px 20px"
-  button-share:
-    backgroundColor: "{colors.white}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
-    padding: "9px 14px"
   lesson-card:
     textColor: "{colors.ink}"
     padding: "24px 0 28px"
@@ -118,7 +113,7 @@ public/assets/class-studio-logo.png를 모든 페이지의 홈 링크에 사용�
 
 ### Main image
 
-public/assets/workshop-hero.webp는 AI로 만든 가상의 작업실 장면이다. 인물은 없다. 왼쪽 하단에 수업 목록 바로가기를 둔다. 사용자의 요청에 따라 이미지 제작 문구는 화면에 표시하지 않고 출처 기록은 저장소에 보관한다. 검색이나 홍보 문구를 이미지 위에 추가하지 않는다.
+public/assets/workshop-hero.webp는 AI로 만든 가상의 작업실 장면이다. 인물은 없다. 수업 목록 이동은 상단의 수업자료 메뉴로 통일한다. 사용자의 요청에 따라 이미지 제작 문구는 화면에 표시하지 않고 출처 기록은 저장소에 보관한다. 검색이나 홍보 문구를 이미지 위에 추가하지 않는다.
 
 ### Navigation
 
@@ -134,7 +129,7 @@ public/assets/workshop-hero.webp는 AI로 만든 가상의 작업실 장면이�
 
 ### Accessibility
 
-포커스는 3px 외곽선과 5px 간격으로 표시한다. 본문 바로가기는 고정 헤더보다 앞에 표시하고 앵커 도착 위치는 헤더 높이를 고려한다. 주소 복사는 성공 문구와 직접 복사할 수 있는 입력란을 제공한다. 등록된 수업이 없으면 빈 상태를, 없는 주소에는 404 안내와 목록 링크를 표시한다.
+포커스는 3px 외곽선과 5px 간격으로 표시한다. 본문 바로가기는 고정 헤더보다 앞에 표시하고 앵커 도착 위치는 헤더 높이를 고려한다. 등록된 수업이 없으면 빈 상태를, 없는 주소에는 404 안내와 목록 링크를 표시한다.
 
 ## Do's and Don'ts
 

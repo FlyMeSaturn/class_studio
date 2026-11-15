@@ -90,14 +90,6 @@
       "refersTo": "button-primary"
     },
     {
-      "name": "주소 복사 버튼",
-      "kind": "button",
-      "description": "상세 페이지에서 주소를 복사하는 보조 행동.",
-      "html": "<button class=\"ds-share\" type=\"button\">수업 주소 복사</button>",
-      "css": ".ds-share{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;min-height:45px;width:100%;background:var(--white,#fff);color:var(--ink,#332c26);border:1px solid #9caea2;border-radius:0;font-size:.85rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-share:hover{background:var(--tint,#f1ece5)}.ds-share:focus-visible{outline:3px solid var(--focus,#91571f);outline-offset:5px}",
-      "refersTo": "button-share"
-    },
-    {
       "name": "주 메뉴",
       "kind": "nav",
       "description": "소개 · 수업자료 · 자료집 순서의 은은한 글라스 메뉴.",

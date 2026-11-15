@@ -86,13 +86,6 @@ svg { flex: none; vertical-align: middle; }
 .home-header.is-scrolled { background: rgba(252, 250, 247, .88); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .hero { position: relative; width: 100%; height: 100svh; min-height: 620px; }
 .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.hero-browse {
-  position: absolute; left: max(48px, calc((100% - 1280px) / 2)); bottom: 40px;
-  display: inline-flex; align-items: center; justify-content: space-between; gap: 40px;
-  padding: 15px 22px; min-height: 58px; background: var(--paper); color: var(--ink);
-  font-size: .95rem; text-decoration: none;
-}
-.hero-browse:hover { background: var(--tint); }
 .library { padding-top: 76px; scroll-margin-top: 0; }
 .library-heading { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .part-index { display: flex; flex-wrap: wrap; gap: 20px 32px; }
@@ -151,11 +144,6 @@ svg { flex: none; vertical-align: middle; }
 .lesson-info dl { display: grid; grid-template-columns: 95px minmax(0, 1fr); gap: 14px 8px; margin: 0; font-size: .85rem; }
 .lesson-info dt { color: var(--muted); }
 .lesson-info dd { margin: 0; overflow-wrap: anywhere; }
-.share-button { width: 100%; min-height: 46px; margin-top: 24px; padding: 9px 14px; border: 1px solid var(--line); background: var(--white); font-size: .85rem; }
-.share-button:hover { background: var(--tint); }
-.share-status { color: var(--accent); font-size: .8rem; margin-top: 9px; min-height: 1.7em; }
-.share-fallback { font-size: .8rem; }
-.share-fallback input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid var(--line); font-size: .8rem; }
 .source-note { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); max-width: 760px; }
 .source-note h2 { font-size: 1rem; }
 .source-note p, .source-note a { margin-top: 9px; font-size: .85rem; color: var(--muted); }
@@ -202,7 +190,6 @@ svg { flex: none; vertical-align: middle; }
   .lesson-body { gap: 48px; }
   .library-heading { align-items: start; }
   .part-index { gap: 12px 24px; max-width: 340px; }
-  .hero-browse { left: 32px; }
 }
 @media (max-width: 640px) {
   body { font-size: 15px; }
@@ -214,7 +201,6 @@ svg { flex: none; vertical-align: middle; }
   .site-header nav a { min-height: 44px; font-size: .85rem; padding: 9px 17px; }
   .hero { min-height: 600px; }
   .hero-image { object-position: 58% center; }
-  .hero-browse { left: 22px; bottom: calc(24px + env(safe-area-inset-bottom)); gap: 20px; padding: 13px 16px; min-height: 52px; font-size: .85rem; }
   .library { padding-top: 44px; }
   .library-heading { display: block; }
   h1 { font-size: 2rem; }
@@ -248,8 +234,6 @@ svg { flex: none; vertical-align: middle; }
   .lesson-body { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
   .lesson-info { order: -1; }
   .lesson-info dl { grid-template-columns: 110px minmax(0, 1fr); gap: 10px; font-size: .82rem; }
-  .share-button { max-width: 240px; margin-top: 18px; }
-  .share-status { min-height: 0; }
   .lesson-overview > p { font-size: .95rem; }
   .source-note { margin-top: 34px; }
   .source-note p { word-break: keep-all; }

@@ -15,7 +15,6 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
 const arrow = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
-const down = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v17m-6-6 6 6 6-6"/></svg>';
 const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
 
@@ -67,7 +66,6 @@ const home = page({
   current: '', home: true,
   body: `<section class="hero" aria-label="수업공방">
 <img class="hero-image" src="${href('assets/workshop-hero.webp')}" width="1672" height="941" alt="수업공방을 표현한 이미지. 햇빛이 드는 나무 작업대에 종이와 수업 카드, 필기도구가 놓여 있습니다." fetchpriority="high" decoding="async">
-<a class="hero-browse" href="#lessons">수업 자료 보기 ${down}</a>
 </section>
 <div class="shell library">
 <div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
@@ -102,7 +100,7 @@ for (const l of lessons) {
 <section class="resources" aria-labelledby="resource-title"><div class="resource-heading"><h2 id="resource-title">수업 자료</h2>${l.status === 'published' ? `<span>${l.files.length}개 파일</span>` : ''}</div>${resources(l)}</section>
 <div class="lesson-body"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
 <aside class="lesson-info" aria-label="수업 정보"><dl><dt>교과</dt><dd>${esc(l.subjects.join(' · '))}</dd><dt>대상</dt><dd>${esc(l.grades.join(' · '))}</dd><dt>작성</dt><dd>${esc(l.author)}</dd><dt>정보 확인일</dt><dd><time datetime="${l.updated}">${l.updated.replaceAll('-', '. ')}</time></dd></dl>
-<button type="button" class="share-button" data-share>수업 주소 복사</button><p class="share-status" role="status" aria-live="polite"></p><label class="share-fallback" hidden>수업 주소<input type="url" readonly value="${origin}${href(`lessons/${l.id}/`)}"></label></aside></div>
+</aside></div>
 <section class="source-note"><h2>출처·이용 안내</h2><p>${esc(l.source)}</p><p>${esc(l.usage || '이용 범위는 자료 공개 시 안내합니다.')}</p></section>
 <a class="back-link" href="${base}#${p.id}">수업 목록으로</a></div>`
   }));
