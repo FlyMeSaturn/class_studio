@@ -41,8 +41,10 @@ PRD v0.2: https://app.notion.com/p/419acf57be0f818d9bcde9df4eec1b50 . Current us
 
 ## Accessibility & Inclusion
 
-Mobile layout, keyboard navigation, visible focus, labeled controls, live search-result announcements, semantic headings, no forced motion.
+Mobile layout, keyboard navigation, visible focus, labeled controls, semantic headings, no forced motion.
 
 ## Latest user decisions · 2026-11-15
 
 Use the actual workshop logo from the local logo folder. Always spell out 개념 기반 탐구학습, never the abbreviation. Remove search and all filters at the current scale. Delete promotional filler and shorten explanatory copy with humanizer-kr while preserving verified lesson facts. Use Collective Gallery as a design reference: a full-viewport, people-free workshop image, generated with the available built-in imagegen tool, with quiet navigation and generous spacing. The tool exposes no model-version selector; do not claim a specific image model version.
+
+The latest refinement uses a brown rendition of the actual logo, a translucent fixed header with navigation ordered 소개 → 수업자료 → 자료집, and a persistent bottom-right HOME link. The introduction keeps only the workshop description; usage/source sections and the image-generation label are removed from that page. Image provenance stays in repository documentation, and lesson-level sources remain with each lesson.

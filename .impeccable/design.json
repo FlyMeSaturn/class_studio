@@ -6,129 +6,39 @@
     "colorMeta": {
       "ink": {
         "role": "neutral",
-        "displayName": "녹색 먹색",
-        "tonalRamp": [
-          "oklch(0.15 0.0048 170.85)",
-          "oklch(0.26 0.0101 170.85)",
-          "oklch(0.38 0.0159 170.85)",
-          "oklch(0.50 0.0169 170.85)",
-          "oklch(0.62 0.0169 170.85)",
-          "oklch(0.74 0.0146 170.85)",
-          "oklch(0.86 0.0079 170.85)",
-          "oklch(0.95 0.0028 170.85)"
-        ]
+        "displayName": "짙은 브라운"
       },
       "muted": {
         "role": "neutral",
-        "displayName": "차분한 회녹색",
-        "tonalRamp": [
-          "oklch(0.15 0.0055 162.17)",
-          "oklch(0.26 0.0116 162.17)",
-          "oklch(0.38 0.0183 162.17)",
-          "oklch(0.50 0.0194 162.17)",
-          "oklch(0.62 0.0194 162.17)",
-          "oklch(0.74 0.0168 162.17)",
-          "oklch(0.86 0.0090 162.17)",
-          "oklch(0.95 0.0032 162.17)"
-        ]
+        "displayName": "차분한 회갈색"
       },
-      "green": {
+      "accent": {
         "role": "primary",
-        "displayName": "숲 녹색",
-        "tonalRamp": [
-          "oklch(0.15 0.0231 168.99)",
-          "oklch(0.26 0.0485 168.99)",
-          "oklch(0.38 0.0762 168.99)",
-          "oklch(0.50 0.0808 168.99)",
-          "oklch(0.62 0.0808 168.99)",
-          "oklch(0.74 0.0700 168.99)",
-          "oklch(0.86 0.0377 168.99)",
-          "oklch(0.95 0.0135 168.99)"
-        ]
+        "displayName": "브라운"
       },
-      "green-dark": {
+      "accent-dark": {
         "role": "primary",
-        "displayName": "깊은 숲 녹색",
-        "tonalRamp": [
-          "oklch(0.15 0.0193 168.33)",
-          "oklch(0.26 0.0405 168.33)",
-          "oklch(0.38 0.0637 168.33)",
-          "oklch(0.50 0.0675 168.33)",
-          "oklch(0.62 0.0675 168.33)",
-          "oklch(0.74 0.0585 168.33)",
-          "oklch(0.86 0.0315 168.33)",
-          "oklch(0.95 0.0113 168.33)"
-        ]
+        "displayName": "짙은 브라운 강조"
       },
       "tint": {
         "role": "primary",
-        "displayName": "옅은 숲빛",
-        "tonalRamp": [
-          "oklch(0.15 0.0024 157.09)",
-          "oklch(0.26 0.0050 157.09)",
-          "oklch(0.38 0.0078 157.09)",
-          "oklch(0.50 0.0083 157.09)",
-          "oklch(0.62 0.0083 157.09)",
-          "oklch(0.74 0.0072 157.09)",
-          "oklch(0.86 0.0039 157.09)",
-          "oklch(0.95 0.0014 157.09)"
-        ]
+        "displayName": "옅은 종이색"
       },
       "line": {
         "role": "neutral",
-        "displayName": "경계선",
-        "tonalRamp": [
-          "oklch(0.15 0.0039 152.58)",
-          "oklch(0.26 0.0081 152.58)",
-          "oklch(0.38 0.0127 152.58)",
-          "oklch(0.50 0.0135 152.58)",
-          "oklch(0.62 0.0135 152.58)",
-          "oklch(0.74 0.0117 152.58)",
-          "oklch(0.86 0.0063 152.58)",
-          "oklch(0.95 0.0023 152.58)"
-        ]
+        "displayName": "경계선"
       },
       "paper": {
         "role": "neutral",
-        "displayName": "종이",
-        "tonalRamp": [
-          "oklch(0.15 0.0008 128.49)",
-          "oklch(0.26 0.0017 128.49)",
-          "oklch(0.38 0.0027 128.49)",
-          "oklch(0.50 0.0028 128.49)",
-          "oklch(0.62 0.0028 128.49)",
-          "oklch(0.74 0.0024 128.49)",
-          "oklch(0.86 0.0013 128.49)",
-          "oklch(0.95 0.0005 128.49)"
-        ]
+        "displayName": "종이"
       },
       "white": {
         "role": "neutral",
-        "displayName": "흰색",
-        "tonalRamp": [
-          "oklch(0.15 0.0000 89.88)",
-          "oklch(0.26 0.0000 89.88)",
-          "oklch(0.38 0.0000 89.88)",
-          "oklch(0.50 0.0000 89.88)",
-          "oklch(0.62 0.0000 89.88)",
-          "oklch(0.74 0.0000 89.88)",
-          "oklch(0.86 0.0000 89.88)",
-          "oklch(0.95 0.0000 89.88)"
-        ]
+        "displayName": "흰색"
       },
       "focus": {
         "role": "neutral",
-        "displayName": "황갈색 포커스",
-        "tonalRamp": [
-          "oklch(0.15 0.0358 49.45)",
-          "oklch(0.26 0.0752 49.45)",
-          "oklch(0.38 0.1182 49.45)",
-          "oklch(0.50 0.1254 49.45)",
-          "oklch(0.62 0.1254 49.45)",
-          "oklch(0.74 0.1086 49.45)",
-          "oklch(0.86 0.0585 49.45)",
-          "oklch(0.95 0.0209 49.45)"
-        ]
+        "displayName": "황갈색 포커스"
       }
     },
     "typographyMeta": {
@@ -176,7 +86,7 @@
       "kind": "button",
       "description": "404 안내에서 수업 목록으로 이동하는 행동.",
       "html": "<a class=\"ds-button\" href=\"#lessons\">수업 목록으로</a>",
-      "css": ".ds-button{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border:1px solid var(--green,#17634d);background:var(--green,#17634d);color:var(--white,#fff);padding:10px 18px;border-radius:0;font-size:.9rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-button:hover{background:var(--green-dark,#104c3a)}.ds-button:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}",
+      "css": ".ds-button{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border:1px solid var(--accent,#6b4b36);background:var(--accent,#6b4b36);color:var(--white,#fff);padding:10px 18px;border-radius:0;font-size:.9rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-button:hover{background:var(--accent-dark,#513728)}.ds-button:focus-visible{outline:3px solid var(--focus,#91571f);outline-offset:5px}",
       "refersTo": "button-primary"
     },
     {
@@ -184,22 +94,22 @@
       "kind": "button",
       "description": "상세 페이지에서 주소를 복사하는 보조 행동.",
       "html": "<button class=\"ds-share\" type=\"button\">수업 주소 복사</button>",
-      "css": ".ds-share{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;min-height:45px;width:100%;background:var(--white,#fff);color:var(--ink,#202b27);border:1px solid #9caea2;border-radius:0;font-size:.85rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-share:hover{background:var(--tint,#edf3ef)}.ds-share:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}",
+      "css": ".ds-share{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;min-height:45px;width:100%;background:var(--white,#fff);color:var(--ink,#332c26);border:1px solid #9caea2;border-radius:0;font-size:.85rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-share:hover{background:var(--tint,#f1ece5)}.ds-share:focus-visible{outline:3px solid var(--focus,#91571f);outline-offset:5px}",
       "refersTo": "button-share"
     },
     {
       "name": "주 메뉴",
       "kind": "nav",
-      "description": "현재 위치를 의미와 아래 선으로 표시하는 문자 메뉴.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"주 메뉴\"><a href=\"#library\" aria-current=\"page\">수업 자료</a><a href=\"#collection\">전체 자료집</a><a href=\"#about\">소개</a></nav>",
-      "css": ".ds-nav{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:flex;align-items:center;gap:34px;flex-wrap:wrap}.ds-nav a{color:var(--ink,#202b27);font-size:.95rem;line-height:1.65;font-weight:550;text-decoration:none;padding:12px 0;border-bottom:2px solid transparent}.ds-nav a:hover{color:var(--green,#17634d)}.ds-nav a[aria-current]{border-color:var(--green,#17634d);color:var(--green,#17634d);font-weight:700}.ds-nav a:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}"
+      "description": "소개 · 수업자료 · 자료집 순서의 은은한 글라스 메뉴.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"주 메뉴\"><a href=\"#about\">소개</a><a href=\"#library\" aria-current=\"page\">수업자료</a><a href=\"#collection\">자료집</a></nav>",
+      "css": ".ds-nav{display:flex;gap:2px;padding:6px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(252,250,247,.52);backdrop-filter:blur(18px) saturate(1.12)}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;padding:10px 19px;border-radius:999px;color:var(--ink,#332c26);text-decoration:none;font-size:.95rem}.ds-nav a[aria-current],.ds-nav a:hover{background:rgba(107,75,54,.1);color:var(--accent-dark,#513728)}.ds-nav a:focus-visible{outline:3px solid var(--focus,#91571f);outline-offset:5px}"
     },
     {
       "name": "수업 카드",
       "kind": "card",
       "description": "상단 선으로 구분한 클릭 가능한 수업 카드.",
       "html": "<a class=\"ds-card\" href=\"#lesson\"><p>과학 · 중학교 1학년</p><h3>힘, 변화의 시작</h3><p>생활 속 힘의 사례를 분류하고 힘의 크기와 방향을 화살표로 나타냅니다.</p><span>자료 준비 중 · 자료 보기</span></a>",
-      "css": ".ds-card{display:flex;flex-direction:column;min-height:275px;padding:24px 0 28px;border-top:1px solid #202b27;color:#202b27;text-decoration:none;font-family:Pretendard,sans-serif}.ds-card h3{font-size:1.4rem;line-height:1.5}.ds-card span{margin-top:auto}.ds-card:hover h3{text-decoration:underline}.ds-card:focus-visible{outline:3px solid #9c4b13;outline-offset:5px}",
+      "css": ".ds-card{display:flex;flex-direction:column;min-height:275px;padding:24px 0 28px;border-top:1px solid #332c26;color:#332c26;text-decoration:none;font-family:Pretendard,sans-serif}.ds-card h3{font-size:1.4rem;line-height:1.5}.ds-card span{margin-top:auto}.ds-card:hover h3{text-decoration:underline}.ds-card:focus-visible{outline:3px solid #91571f;outline-offset:5px}",
       "refersTo": "lesson-card"
     },
     {
@@ -207,7 +117,7 @@
       "kind": "custom",
       "description": "미공개 파일은 준비 상태 한 문장만 표시한다.",
       "html": "<p class=\"ds-pending\">자료 준비 중입니다.</p>",
-      "css": ".ds-pending{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;background:var(--tint,#edf3ef);padding:24px;color:var(--green-dark,#104c3a);line-height:1.65}.ds-pending h3{margin:0;font-size:1rem;font-weight:700;line-height:1.35;letter-spacing:-.02em}.ds-pending p{font-size:.9rem;margin:9px 0 0}",
+      "css": ".ds-pending{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;background:var(--tint,#f1ece5);padding:24px;color:var(--accent-dark,#513728);line-height:1.65}.ds-pending h3{margin:0;font-size:1rem;font-weight:700;line-height:1.35;letter-spacing:-.02em}.ds-pending p{font-size:.9rem;margin:9px 0 0}",
       "refersTo": "resource-pending"
     },
     {
@@ -215,7 +125,7 @@
       "kind": "custom",
       "description": "책을 닮은 HTML 활자 패널. 파일 미리보기가 아니다.",
       "html": "<div class=\"ds-book\"><span>2026</span><h2>수업공방 일반화자료집</h2><p>개념 기반 탐구학습<br>교과융합</p><strong>수업공방</strong></div>",
-      "css": ".ds-book{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;border:1px solid #bdd0c1;background:#e4eee4;aspect-ratio:3/4;width:280px;max-width:100%;padding:28px;display:flex;flex-direction:column;color:var(--green-dark,#104c3a);line-height:1.65}.ds-book>span{font-size:.85rem}.ds-book h2{font-size:1.7rem;font-weight:700;line-height:1.6;letter-spacing:-.025em;margin:28px 0 0;max-width:6em;word-break:keep-all}.ds-book p{font-size:.85rem;margin:18px 0 0}.ds-book strong{margin-top:auto;font-size:1.1rem}"
+      "css": ".ds-book{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;border:1px solid #bdd0c1;background:#e9dfd2;aspect-ratio:3/4;width:280px;max-width:100%;padding:28px;display:flex;flex-direction:column;color:var(--accent-dark,#513728);line-height:1.65}.ds-book>span{font-size:.85rem}.ds-book h2{font-size:1.7rem;font-weight:700;line-height:1.6;letter-spacing:-.025em;margin:28px 0 0;max-width:6em;word-break:keep-all}.ds-book p{font-size:.85rem;margin:18px 0 0}.ds-book strong{margin-top:auto;font-size:1.1rem}"
     }
   ],
   "narrative": {
@@ -223,9 +133,10 @@
     "overview": "실제 수업공방 로고와 간결한 메뉴를 전체 화면 작업실 이미지 위에 배치한다. 이미지 아래에 1부 개념 기반 탐구학습과 2부 교과융합의 수업 카드를 둔다. 검색과 홍보 문구는 없다.",
     "keyCharacteristics": [
       "전체 화면 작업실 이미지와 실제 로고.",
-      "밝은 바탕과 녹색 링크.",
+      "따뜻한 종이색 바탕과 브라운 링크.",
       "상단 선으로 구분한 수업 카드.",
-      "짧은 문구와 고유 자료 페이지."
+      "짧은 문구와 고유 자료 페이지.",
+      "소개 · 수업자료 · 자료집의 글라스 메뉴와 고정 HOME 버튼."
     ],
     "rules": [
       {

@@ -1,9 +1,12 @@
-import { mkdir, writeFile, copyFile, rm } from 'node:fs/promises';
+import { mkdir, writeFile, copyFile, rm, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { root, publicRoot, base, origin, esc, href, sizeLabel, loadCatalog, visibleLessons } from './catalog.mjs';
 
 const data = await loadCatalog();
 const lessons = visibleLessons(data);
+const assetVersions = Object.fromEntries(await Promise.all(['style.css', 'common.js', 'favicon.svg'].map(async name => [name, createHash('sha256').update(await readFile(path.join(publicRoot, 'assets', name))).digest('hex').slice(0, 10)])));
+const versionedAsset = name => `${href(`assets/${name}`)}?v=${assetVersions[name]}`;
 const hasPending = lessons.some(l => l.status === 'preparing') || data.collection.status === 'preparing';
 const dist = path.join(root, 'dist');
 // Replace generated output only. The local source-material folder is never copied.
@@ -14,7 +17,7 @@ await mkdir(dist, { recursive: true });
 const arrow = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
 const down = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v17m-6-6 6 6 6-6"/></svg>';
 const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>';
-const nav = (key, url, label, current) => `<a href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
+const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
 
 function page({ title, description, route = '', current = '', body, home = false }) {
   const libraryUrl = home ? '#lessons' : base + '#lessons';
@@ -22,22 +25,23 @@ function page({ title, description, route = '', current = '', body, home = false
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} · 수업공방</title><meta name="description" content="${esc(description)}">
-<meta name="theme-color" content="#17634d"><link rel="canonical" href="${origin}${href(route)}">
+<meta name="theme-color" content="#6b4b36"><link rel="canonical" href="${origin}${href(route)}">
 <meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="${esc(title)} · 수업공방"><meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${origin}${href(route)}">
-<link rel="icon" href="${href('assets/favicon.svg')}" type="image/svg+xml">
+<link rel="icon" href="${versionedAsset('favicon.svg')}" type="image/svg+xml">
 ${home ? `<link rel="preload" as="image" href="${href('assets/workshop-hero.webp')}">` : ''}
-<link rel="stylesheet" href="${href('assets/style.css')}">
-<script src="${href('assets/common.js')}" defer></script>
+<link rel="stylesheet" href="${versionedAsset('style.css')}">
+<script src="${versionedAsset('common.js')}" defer></script>
 </head><body${home ? ' class="home"' : ''}>
 <a class="skip-link" href="${home ? '#lessons' : '#main'}">본문으로 바로가기</a>
 <header class="site-header${home ? ' home-header' : ''}"><div class="shell header-inner">
 <a class="wordmark" href="${base}" aria-label="수업공방 홈"><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
-<nav aria-label="주 메뉴">${nav('library', libraryUrl, '수업 자료', current)}${nav('collection', href('collection/'), '전체 자료집', current)}${nav('about', href('about/'), '소개', current)}</nav>
+<nav aria-label="주 메뉴">${nav('about', href('about/'), '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
-<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/#usage')}">자료 이용 안내</a></div></footer>
+<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
+<a class="floating-home" href="${base}" aria-label="HOME: 메인 페이지로 이동" data-home><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 11 9-8 9 8M5 9v12h5v-7h4v7h5V9"/></svg><span>HOME</span></a>
 </body></html>`;
 }
 
@@ -60,13 +64,13 @@ ${items.length ? `<ul class="lesson-grid">${items.map(card).join('')}</ul>` : '<
 const home = page({
   title: '수업 자료',
   description: '수업공방 일반화자료실. 1부 개념 기반 탐구학습, 2부 교과융합 수업 자료.',
-  current: 'library', home: true,
+  current: '', home: true,
   body: `<section class="hero" aria-label="수업공방">
 <img class="hero-image" src="${href('assets/workshop-hero.webp')}" width="1672" height="941" alt="수업공방을 표현한 이미지. 햇빛이 드는 나무 작업대에 종이와 수업 카드, 필기도구가 놓여 있습니다." fetchpriority="high" decoding="async">
-<span class="hero-credit">AI 생성 이미지</span><a class="hero-browse" href="#lessons">수업 자료 보기 ${down}</a>
+<a class="hero-browse" href="#lessons">수업 자료 보기 ${down}</a>
 </section>
-<div class="shell library" id="lessons" tabindex="-1">
-<div class="library-heading"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
+<div class="shell library">
+<div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
 ${hasPending ? '<p class="preparation-note">자료 파일은 준비 중입니다.</p>' : ''}
 ${data.parts.map(section).join('')}
 <section class="collection-strip"><h2>전체 자료집</h2><a class="text-link" href="${href('collection/')}">자료집 보기 ${arrow}</a></section>
@@ -99,7 +103,7 @@ for (const l of lessons) {
 <div class="lesson-body"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
 <aside class="lesson-info" aria-label="수업 정보"><dl><dt>교과</dt><dd>${esc(l.subjects.join(' · '))}</dd><dt>대상</dt><dd>${esc(l.grades.join(' · '))}</dd><dt>작성</dt><dd>${esc(l.author)}</dd><dt>정보 확인일</dt><dd><time datetime="${l.updated}">${l.updated.replaceAll('-', '. ')}</time></dd></dl>
 <button type="button" class="share-button" data-share>수업 주소 복사</button><p class="share-status" role="status" aria-live="polite"></p><label class="share-fallback" hidden>수업 주소<input type="url" readonly value="${origin}${href(`lessons/${l.id}/`)}"></label></aside></div>
-<section class="source-note"><h2>출처·이용 안내</h2><p>${esc(l.source)}</p><p>${esc(l.usage || '이용 범위는 자료 공개 시 안내합니다.')}</p><a href="${href('about/#usage')}">자료 이용 안내</a></section>
+<section class="source-note"><h2>출처·이용 안내</h2><p>${esc(l.source)}</p><p>${esc(l.usage || '이용 범위는 자료 공개 시 안내합니다.')}</p></section>
 <a class="back-link" href="${base}#${p.id}">수업 목록으로</a></div>`
   }));
 }
@@ -117,10 +121,6 @@ await write('about/index.html', page({
   title: '수업공방 소개', description: '개념 기반 탐구학습과 교과융합 수업 자료를 개발하는 교육연구회 수업공방.', route: 'about/', current: 'about',
   body: `<div class="shell reading-page"><h1>수업공방 소개</h1><div class="prose">
 <p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p>
-<h2 id="usage">자료 이용 안내</h2><p>현재 자료집을 편집 중입니다. 파일은 준비되는 대로 공개합니다.</p>
-<p>자료를 사용할 때는 출처와 작성자를 밝혀 주십시오. 수정·재배포 범위는 각 자료의 이용 안내를 확인해 주십시오. 외부 이미지와 영상은 원저작자의 이용 조건을 따릅니다.</p>
-<h2>출처</h2><p>1부 소개는 수업공방 지도안 취합 원고, 2부 소개는 「전북교육」 제71호 수업공방 원고를 바탕으로 작성했습니다.</p>
-<p class="image-attribution">메인 이미지는 수업공방을 표현하기 위해 AI로 제작했습니다.</p>
 </div><a class="back-link" href="${base}#lessons">수업 목록으로</a></div>`
 }));
 
