@@ -31,7 +31,7 @@ function page({ title, description, route = '', current = '', body, home = false
 <meta property="og:url" content="${origin}${href(route)}">
 <link rel="icon" href="${versionedAsset('favicon.svg')}" type="image/svg+xml">
 ${home ? `<link rel="preload" as="image" href="${href('assets/workshop-hero.webp')}">` : ''}
-${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-Slogan.woff2')}" type="font/woff2" crossorigin>` : ''}
+${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-Slogan600.woff2')}" type="font/woff2" crossorigin>` : ''}
 <link rel="stylesheet" href="${versionedAsset('style.css')}">
 <script src="${versionedAsset('common.js')}" defer></script>
 </head><body${home ? ' class="home"' : ''}>
@@ -141,7 +141,8 @@ const selected = new Set([
   'assets/style.css', 'assets/common.js', 'assets/favicon.svg',
   'assets/class-studio-logo.png', 'assets/workshop-hero.webp',
   'assets/fonts/PretendardVariable.woff2', 'assets/fonts/OFL.txt',
-  'assets/fonts/NotoSerifKR-Slogan.woff2', 'assets/fonts/NotoSerifKR-OFL.txt'
+  'assets/fonts/NotoSerifKR-Slogan600.woff2', 'assets/fonts/NotoSerifKR-OFL.txt',
+  'assets/fonts/NotoSerifKR-Slogan.woff2' // Keep the previous face available for cached stylesheets.
 ]);
 for (const item of [...lessons, data.collection]) {
   if (item.status === 'published') for (const f of item.files) selected.add(f.path);

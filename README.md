@@ -71,7 +71,7 @@ PR에서는 검증과 빌드만 수행합니다. 저장소 **Settings → Pages 
 
 ## 용량
 
-현재 빌드는 약 2.29 MB이며 대부분은 자체 호스팅 글꼴입니다. 실제 수업 파일은 0개입니다. 확인한 1부 취합 HWPX는 약 13.5 MiB지만 미완성 원고로 업로드하지 않았습니다.
+현재 빌드는 약 2.30 MB이며 대부분은 자체 호스팅 글꼴입니다. 실제 수업 파일은 0개입니다. 확인한 1부 취합 HWPX는 약 13.5 MiB지만 미완성 원고로 업로드하지 않았습니다.
 
 프로젝트는 단일 파일 **50 MiB** 초과를 차단하고, 사이트 **950 MiB** 초과도 차단합니다. 이는 GitHub의 상한에 여유를 둔 자체 기준입니다. 큰 자료집은 압축·분할 등을 검토하고, GitHub Releases로 제공할 필요가 생기면 비로그인 접근·영구 URL·출처·용량을 확인한 뒤 외부 파일 지원을 추가합니다. 현재는 임시 서명 URL이나 외부 파일을 등록하지 않습니다.
 
@@ -89,7 +89,7 @@ GitHub Pages: 게시 사이트 최대 1 GB, 월 대역폭 소프트 한도 100 G
 - 실제 수업공방 로고와 새로 생성한 메인 이미지의 출처·프롬프트는 [이미지 기록](docs/image-assets.md)에 있습니다. 원본 로고 PNG를 보존하고 CSS로 투명 여백을 제외한 뒤 브라운으로 표시합니다.
 - 문구는 humanizer-kr 스킬로 두 차례 검토했습니다. [교정 기록](docs/copy-review.md).
 - Impeccable 공식 CLI로 프로젝트 스킬을 설치하고 설계·렌더링 검토·최종 검사를 참고했습니다. 사용자의 자율 구현 요청을 우선하여 추가 디자인 승인 단계는 만들지 않았습니다. 설치한 도구와 바이너리는 Git에서 제외합니다.
-- 슬로건 글꼴: [Noto Serif KR](https://github.com/google/fonts/tree/main/ofl/notoserifkr), SIL OFL 1.1. 공식 Google Fonts에서 사용자 제공 문장에 필요한 글자만 받은 WOFF2(7,448 bytes)를 자체 호스팅합니다. 라이선스는 `public/assets/fonts/NotoSerifKR-OFL.txt`에 있습니다. 슬로건 변경 시 새 글자에 맞춰 서브셋도 갱신해야 합니다.
+- 슬로건 글꼴: [Noto Serif KR](https://github.com/google/fonts/tree/main/ofl/notoserifkr), SIL OFL 1.1. 공식 Google Fonts에서 사용자 제공 문장에 필요한 글자만 받은 600 굵기의 WOFF2(7,584 bytes)를 자체 호스팅합니다. 라이선스는 `public/assets/fonts/NotoSerifKR-OFL.txt`에 있습니다. 슬로건 변경 시 새 글자에 맞춰 서브셋도 갱신해야 합니다.
 - 글꼴: [Pretendard v1.3.9](https://github.com/orioncactus/pretendard/tree/v1.3.9), SIL Open Font License 1.1. `public/assets/fonts/OFL.txt`에 원문을 포함합니다. **글꼴의 라이선스는 수업 자료의 이용허락과 별개입니다.**
 
 공개 파일이 없으므로 실제 수업 PDF/HWPX 다운로드 검증은 공개 시 추가로 수행해야 합니다. 화면·고유 주소·준비 상태와 변경 이력의 검증 기록은 `docs/verification.md`를 참고합니다.
