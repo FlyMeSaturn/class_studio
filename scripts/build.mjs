@@ -37,7 +37,7 @@ async function write(route, html) {
 }
 await write('index.html',home);
 function resources(item) {
-  if (item.status !== 'published') return `<div class="resource-pending"><div><h3>자료 공개 준비 중</h3><p>지도안·활동지·수업자료를 정리하고 있습니다.<br>완성된 파일과 이용 안내를 확인한 뒤 이곳에 공개합니다.</p></div><p class="pending-detail">파일 형식과 크기는<br>공개 시 안내합니다.</p></div>`;
+  if (item.status !== 'published') return `<div class="resource-pending"><div><h3>자료 공개 준비 중</h3><p>지도안·활동지·수업자료를 정리하고 있습니다.<br>완성된 파일과 이용 안내를 확인한 뒤 이곳에 공개합니다.</p></div><p class="pending-detail">파일 형식과 크기는<br> 공개 시 안내합니다.</p></div>`;
   return `<ul class="file-list">${item.files.map(f=>`<li><div><strong>${esc(f.label)}</strong><span>${esc(f.format)} · ${sizeLabel(f.bytes)}</span></div><div class="file-actions">${f.format==='PDF'?`<a class="text-link" href="${href(f.path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a>`:''}<a class="button" href="${href(f.path)}" download>${download} 다운로드<span class="sr-only">: ${esc(f.label)}</span></a></div></li>`).join('')}</ul>`;
 }
 for (const l of lessons) {
