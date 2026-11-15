@@ -31,12 +31,13 @@ function page({ title, description, route = '', current = '', body, home = false
 <meta property="og:url" content="${origin}${href(route)}">
 <link rel="icon" href="${versionedAsset('favicon.svg')}" type="image/svg+xml">
 ${home ? `<link rel="preload" as="image" href="${href('assets/workshop-hero.webp')}">` : ''}
+${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-Slogan.woff2')}" type="font/woff2" crossorigin>` : ''}
 <link rel="stylesheet" href="${versionedAsset('style.css')}">
 <script src="${versionedAsset('common.js')}" defer></script>
 </head><body${home ? ' class="home"' : ''}>
 <a class="skip-link" href="${home ? '#lessons' : '#main'}">본문으로 바로가기</a>
 <header class="site-header${home ? ' home-header' : ''}"><div class="shell header-inner">
-<a class="wordmark" href="${base}" aria-label="수업공방 홈"><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
+<a class="wordmark" href="${base}" aria-label="교단지원자료개발 교사연구회 수업공방 홈"><span class="brand-caption">교단지원자료개발 교사연구회</span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
 <nav aria-label="주 메뉴">${nav('about', href('about/'), '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
@@ -74,6 +75,7 @@ const home = page({
   current: '', home: true,
   body: `<section class="hero" aria-label="수업공방">
 <img class="hero-image" src="${href('assets/workshop-hero.webp')}" width="1672" height="941" alt="수업공방을 표현한 이미지. 햇빛이 드는 나무 작업대에 종이와 수업 카드, 필기도구가 놓여 있습니다." fetchpriority="high" decoding="async">
+<p class="hero-slogan"><span>장인이 정성껏 물건을 만들 듯,</span> <span>선생님들이 모여 정성스럽게</span> <span>수업 자료를 빚어내는 공간</span></p>
 </section>
 <div class="shell library">
 <div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
@@ -139,7 +141,8 @@ await write('404.html', page({
 const selected = new Set([
   'assets/style.css', 'assets/common.js', 'assets/favicon.svg',
   'assets/class-studio-logo.png', 'assets/workshop-hero.webp',
-  'assets/fonts/PretendardVariable.woff2', 'assets/fonts/OFL.txt'
+  'assets/fonts/PretendardVariable.woff2', 'assets/fonts/OFL.txt',
+  'assets/fonts/NotoSerifKR-Slogan.woff2', 'assets/fonts/NotoSerifKR-OFL.txt'
 ]);
 for (const item of [...lessons, data.collection]) {
   if (item.status === 'published') for (const f of item.files) selected.add(f.path);

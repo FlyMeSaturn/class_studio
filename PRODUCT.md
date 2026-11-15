@@ -50,3 +50,5 @@ Use the actual workshop logo from the local logo folder. Always spell out 개념
 The latest refinement uses a brown rendition of the actual logo, a translucent fixed header with navigation ordered 소개 → 수업자료 → 자료집, and a persistent bottom-right HOME link. The introduction keeps only the workshop description; usage/source sections and the image-generation label are removed from that page. Image provenance stays in repository documentation, and lesson-level sources remain with each lesson.
 
 Remove the lesson URL-copy controls and the duplicate hero browse button. Use the actual workshop pen symbol as the browser favicon, in the same brown as the header logo.
+
+Latest explicit user copy: the logo caption reads 교단지원자료개발 교사연구회. Center the exact slogan on the homepage: 장인이 정성껏 물건을 만들 듯, 선생님들이 모여 정성스럽게 수업 자료를 빚어내는 공간. This requested slogan supersedes the earlier no-slogan direction; do not add other promotional copy.

@@ -4,13 +4,13 @@ Mode: Operate (finding lessons), Read (lesson descriptions). User delegated mino
 
 ## Direction contract
 
-THESIS: A two-part teaching collection with the shortest visible path from a lesson to its resources. No promotional hero or invented results.
+THESIS: A two-part teaching collection with the shortest visible path from a lesson to its resources. Only the exact user-provided slogan may appear on the hero; no invented results.
 
 OWN-WORLD: Warm paper, brown-black text, brown selection, thin warm rules. Korean sans, restrained rectangular lesson cards, a subtle glass navigation requested by the user. The user-requested warm workshop image is the only large visual. No decorative motion.
 
 STORY: See the full-viewport workshop image, jump to the two-part lesson list, open a real lesson, understand the availability immediately, then read the teaching context.
 
-FIRST VIEWPORT: User-requested full-viewport generated workshop image, actual workshop logo displayed in brown and simple navigation over the image, a persistent bottom-right HOME control. The top 수업자료 menu is the sole visible shortcut to the lesson list. No promotional slogans. Two-part lesson cards follow, with no search or filters. Current reference: Collective Gallery.
+FIRST VIEWPORT: User-requested full-viewport generated workshop image, actual workshop logo displayed in brown and simple navigation over the image, a persistent bottom-right HOME control. The top 수업자료 menu is the sole visible shortcut to the lesson list. The exact user-provided slogan is centered in three calm serif lines. The logo carries the user-provided research-group caption above it. Two-part lesson cards follow, with no search or filters. Current reference: Collective Gallery.
 
 FORM: Educational archive catalog, from the reference principles of arte Library, MoMA's terms index and It's Nice That. Seven considered systems: public library, curriculum guide, exhibition index, research journal, educational archive, museum guide, lesson-study handout. Candidate 5; seed:e3bde014df5392fb. User task requirements govern composition and styling.
 
