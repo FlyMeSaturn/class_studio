@@ -37,7 +37,7 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 </head><body${home ? ' class="home"' : ''}>
 <a class="skip-link" href="${home ? '#lessons' : '#main'}">본문으로 바로가기</a>
 <header class="site-header${home ? ' home-header' : ''}"><div class="shell header-inner">
-<a class="wordmark" href="${base}" aria-label="교단지원자료개발 교사연구회 수업공방 홈"><span class="brand-caption">교단지원자료개발 교사연구회</span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
+<a class="wordmark" href="${base}" aria-label="교단지원 자료개발 교육연구회 수업공방 홈"><span class="brand-caption">교단지원 자료개발 교육연구회</span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
 <nav aria-label="주 메뉴">${nav('about', href('about/'), '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>

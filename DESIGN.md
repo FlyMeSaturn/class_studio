@@ -109,7 +109,7 @@ components:
 
 ### Logo
 
-public/assets/class-studio-logo.png를 모든 페이지의 홈 링크에 사용한다. 로고 왼쪽 위에는 ‘교단지원자료개발 교사연구회’를 작은 고딕체로 표시한다. 이미지 설명과 홈 링크 이름을 유지한다. 자세한 출처는 docs/image-assets.md에 있다.
+public/assets/class-studio-logo.png를 모든 페이지의 홈 링크에 사용한다. 로고 왼쪽 위에는 ‘교단지원 자료개발 교육연구회’를 작은 고딕체로 표시한다. 이미지 설명과 홈 링크 이름을 유지한다. 자세한 출처는 docs/image-assets.md에 있다.
 
 ### Main image
 

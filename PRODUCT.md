@@ -51,6 +51,6 @@ The latest refinement uses a brown rendition of the actual logo, a translucent f
 
 Remove the lesson URL-copy controls and the duplicate hero browse button. Use the actual workshop pen symbol as the browser favicon, in the same brown as the header logo.
 
-Latest explicit user copy: the logo caption reads 교단지원자료개발 교사연구회. Center the exact slogan on the homepage: 장인이 정성껏 물건을 만들 듯, 선생님들이 모여 정성스럽게 수업 자료를 빚어내는 공간. This requested slogan supersedes the earlier no-slogan direction; do not add other promotional copy.
+Latest explicit user copy: the logo caption reads 교단지원 자료개발 교육연구회. Center the exact slogan on the homepage: 장인이 정성껏 물건을 만들 듯, 선생님들이 모여 정성스럽게 수업 자료를 빚어내는 공간. This requested slogan supersedes the earlier no-slogan direction; do not add other promotional copy.
 
 The user removed the lesson-level 출처·이용 안내 block and its unconfirmed usage placeholder. Manuscripts used for editorial verification are internal evidence, not the provenance of the eventual downloadable teaching resources. Preserve verification records without displaying them as public attribution.
