@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-15T11:09:53.864340+00:00",
+  "generatedAt": "2026-11-15T11:53:05.759738+00:00",
   "title": "Design System: 수업공방",
   "extensions": {
     "colorMeta": {
@@ -129,54 +129,12 @@
           "oklch(0.86 0.0585 49.45)",
           "oklch(0.95 0.0209 49.45)"
         ]
-      },
-      "control-border": {
-        "role": "neutral",
-        "displayName": "입력 경계",
-        "tonalRamp": [
-          "oklch(0.15 0.0075 156.51)",
-          "oklch(0.26 0.0158 156.51)",
-          "oklch(0.38 0.0249 156.51)",
-          "oklch(0.50 0.0264 156.51)",
-          "oklch(0.62 0.0264 156.51)",
-          "oklch(0.74 0.0228 156.51)",
-          "oklch(0.86 0.0123 156.51)",
-          "oklch(0.95 0.0044 156.51)"
-        ]
-      },
-      "card-hover": {
-        "role": "neutral",
-        "displayName": "카드 호버",
-        "tonalRamp": [
-          "oklch(0.15 0.0022 139.44)",
-          "oklch(0.26 0.0047 139.44)",
-          "oklch(0.38 0.0074 139.44)",
-          "oklch(0.50 0.0078 139.44)",
-          "oklch(0.62 0.0078 139.44)",
-          "oklch(0.74 0.0068 139.44)",
-          "oklch(0.86 0.0036 139.44)",
-          "oklch(0.95 0.0013 139.44)"
-        ]
-      },
-      "card-active": {
-        "role": "neutral",
-        "displayName": "카드 누름",
-        "tonalRamp": [
-          "oklch(0.15 0.0042 142.23)",
-          "oklch(0.26 0.0088 142.23)",
-          "oklch(0.38 0.0138 142.23)",
-          "oklch(0.50 0.0147 142.23)",
-          "oklch(0.62 0.0147 142.23)",
-          "oklch(0.74 0.0127 142.23)",
-          "oklch(0.86 0.0068 142.23)",
-          "oklch(0.95 0.0024 142.23)"
-        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "목록 첫 제목",
-        "purpose": "첫 목록의 짧은 소개 제목."
+        "purpose": "수업 목록 제목."
       },
       "headline": {
         "displayName": "구획 제목",
@@ -191,18 +149,12 @@
         "purpose": "한국어 설명과 수업 기록."
       },
       "label": {
-        "displayName": "필터 레이블",
-        "purpose": "보이는 검색·선택 레이블."
+        "displayName": "교과·학년",
+        "purpose": "수업 카드의 교과와 학년."
       }
     },
     "shadows": [],
-    "motion": [
-      {
-        "name": "card-state",
-        "value": "border-color .15s, background-color .15s",
-        "purpose": "카드의 선과 바탕 상태 변화. reduced-motion에서 제거한다."
-      }
-    ],
+    "motion": [],
     "breakpoints": [
       {
         "name": "compact",
@@ -222,9 +174,9 @@
     {
       "name": "기본 버튼",
       "kind": "button",
-      "description": "전체 검색 조건 초기화와 404 복귀에 쓰는 주요 행동.",
-      "html": "<button class=\"ds-button\" type=\"button\">검색 조건 초기화</button>",
-      "css": ".ds-button{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border:1px solid var(--green,#17634d);background:var(--green,#17634d);color:var(--white,#fff);padding:10px 18px;border-radius:var(--radius,4px);font-size:.9rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-button:hover{background:var(--green-dark,#104c3a)}.ds-button:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}",
+      "description": "404 안내에서 수업 목록으로 이동하는 행동.",
+      "html": "<a class=\"ds-button\" href=\"#lessons\">수업 목록으로</a>",
+      "css": ".ds-button{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border:1px solid var(--green,#17634d);background:var(--green,#17634d);color:var(--white,#fff);padding:10px 18px;border-radius:0;font-size:.9rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-button:hover{background:var(--green-dark,#104c3a)}.ds-button:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}",
       "refersTo": "button-primary"
     },
     {
@@ -232,53 +184,29 @@
       "kind": "button",
       "description": "상세 페이지에서 주소를 복사하는 보조 행동.",
       "html": "<button class=\"ds-share\" type=\"button\">수업 주소 복사</button>",
-      "css": ".ds-share{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;min-height:45px;width:100%;background:var(--white,#fff);color:var(--ink,#202b27);border:1px solid #9caea2;border-radius:var(--radius,4px);font-size:.85rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-share:hover{background:var(--tint,#edf3ef)}.ds-share:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}",
+      "css": ".ds-share{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;min-height:45px;width:100%;background:var(--white,#fff);color:var(--ink,#202b27);border:1px solid #9caea2;border-radius:0;font-size:.85rem;font-weight:600;line-height:1.65;cursor:pointer}.ds-share:hover{background:var(--tint,#edf3ef)}.ds-share:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}",
       "refersTo": "button-share"
-    },
-    {
-      "name": "필터 초기화",
-      "kind": "button",
-      "description": "필터 옆에서 쓰는 절제된 텍스트 행동.",
-      "html": "<button class=\"ds-reset\" type=\"reset\">초기화</button>",
-      "css": ".ds-reset{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;border:0;background:transparent;padding:12px 4px;min-height:47px;text-decoration:underline;font-size:.85rem;line-height:1.65;color:var(--muted,#58655e);cursor:pointer}.ds-reset:hover{color:var(--green,#17634d)}.ds-reset:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}",
-      "refersTo": "button-reset"
-    },
-    {
-      "name": "수업 검색",
-      "kind": "input",
-      "description": "보이는 레이블이 있는 네이티브 검색 입력.",
-      "html": "<label class=\"ds-field\" for=\"ds-q\">수업 검색<input id=\"ds-q\" type=\"search\" placeholder=\"수업명, 주제, 교과로 찾아보세요\"></label>",
-      "css": ".ds-field{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:block;color:var(--ink,#202b27);font-size:.8rem;font-weight:650;line-height:1.65}.ds-field input{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:block;margin-top:7px;width:100%;height:47px;border:1px solid #9caea2;border-radius:var(--radius,4px);background:var(--white,#fff);color:var(--ink,#202b27);padding:10px 12px;font-size:.9rem;font-weight:400;caret-color:var(--green,#17634d)}.ds-field input::placeholder{color:var(--muted,#58655e)}.ds-field input:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}",
-      "refersTo": "input-search"
-    },
-    {
-      "name": "대상 학년 선택",
-      "kind": "input",
-      "description": "검색과 같은 시각 언어를 사용하는 네이티브 선택.",
-      "html": "<label class=\"ds-select-field\" for=\"ds-grade\">대상 학년<select id=\"ds-grade\"><option>모든 학년</option><option>중학교 1학년</option><option>중학교 2학년</option><option>중학교 3학년</option></select></label>",
-      "css": ".ds-select-field{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:block;color:var(--ink,#202b27);font-size:.8rem;font-weight:650;line-height:1.65}.ds-select-field select{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:block;margin-top:7px;width:100%;height:47px;border:1px solid #9caea2;border-radius:var(--radius,4px);background:var(--white,#fff);color:var(--ink,#202b27);padding:10px 24px 10px 12px;font-size:.9rem;font-weight:400;cursor:pointer}.ds-select-field select:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}",
-      "refersTo": "input-search"
     },
     {
       "name": "주 메뉴",
       "kind": "nav",
       "description": "현재 위치를 의미와 아래 선으로 표시하는 문자 메뉴.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"주 메뉴\"><a href=\"#library\" aria-current=\"page\">수업 자료</a><a href=\"#collection\">전체 자료집</a><a href=\"#about\">수업공방 소개</a></nav>",
-      "css": ".ds-nav{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:flex;align-items:center;gap:34px;flex-wrap:wrap}.ds-nav a{color:var(--ink,#202b27);font-size:.95rem;line-height:1.65;font-weight:550;text-decoration:none;padding:12px 0;border-bottom:2px solid transparent}.ds-nav a:hover{color:var(--green,#17634d)}.ds-nav a[aria-current]{border-color:var(--green,#17634d);color:var(--green,#17634d);font-weight:700}.ds-nav a:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}"
+      "html": "<nav class=\"ds-nav\" aria-label=\"주 메뉴\"><a href=\"#library\" aria-current=\"page\">수업 자료</a><a href=\"#collection\">전체 자료집</a><a href=\"#about\">소개</a></nav>",
+      "css": ".ds-nav{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:flex;align-items:center;gap:34px;flex-wrap:wrap}.ds-nav a{color:var(--ink,#202b27);font-size:.95rem;line-height:1.65;font-weight:550;text-decoration:none;padding:12px 0;border-bottom:2px solid transparent}.ds-nav a:hover{color:var(--green,#17634d)}.ds-nav a[aria-current]{border-color:var(--green,#17634d);color:var(--green,#17634d);font-weight:700}.ds-nav a:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:5px}"
     },
     {
       "name": "수업 카드",
       "kind": "card",
-      "description": "제목·교과·대상·공개 상태가 있는 전체 링크 카드.",
-      "html": "<a class=\"ds-card\" href=\"#lesson\"><div class=\"ds-meta\">과학<span>중학교 1학년</span></div><h3>힘, 변화의 시작</h3><p>일상 속 물체의 변화를 관찰하고 분류하며 힘의 개념을 만들고, 화살표로 힘을 표현합니다.</p><div class=\"ds-bottom\"><span>자료 준비 중</span><span class=\"ds-action\">수업 살펴보기 <svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></span></div></a>",
-      "css": ".ds-card{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;display:flex;flex-direction:column;min-height:268px;background:var(--white,#fff);color:var(--ink,#202b27);border:1px solid var(--line,#d6dfd8);border-radius:var(--radius,4px);padding:24px;text-decoration:none;line-height:1.65;transition:border-color .15s,background-color .15s}.ds-card:hover{border-color:var(--green,#17634d);background:#f6faf5}.ds-card:active{background:#e8f0e7}.ds-card:focus-visible{outline:3px solid var(--focus,#9c4b13);outline-offset:4px}.ds-meta{font-size:.8rem;font-weight:600;color:var(--green,#17634d);display:flex;flex-wrap:wrap;gap:4px 16px}.ds-meta span{font-weight:450;color:var(--muted,#58655e)}.ds-card h3{margin:17px 0 0;font-size:1.2rem;line-height:1.45;font-weight:650;letter-spacing:-.02em;word-break:keep-all;overflow-wrap:anywhere}.ds-card>p{font-size:.9rem;color:var(--muted,#58655e);margin:12px 0 0;word-break:keep-all;overflow-wrap:anywhere}.ds-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:24px;font-size:.75rem;color:var(--muted,#58655e)}.ds-action{display:flex;align-items:center;gap:6px;color:var(--green,#17634d);font-weight:600;white-space:nowrap}.ds-action svg{width:17px;height:17px}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}",
+      "description": "상단 선으로 구분한 클릭 가능한 수업 카드.",
+      "html": "<a class=\"ds-card\" href=\"#lesson\"><p>과학 · 중학교 1학년</p><h3>힘, 변화의 시작</h3><p>생활 속 힘의 사례를 분류하고 힘의 크기와 방향을 화살표로 나타냅니다.</p><span>자료 준비 중 · 자료 보기</span></a>",
+      "css": ".ds-card{display:flex;flex-direction:column;min-height:275px;padding:24px 0 28px;border-top:1px solid #202b27;color:#202b27;text-decoration:none;font-family:Pretendard,sans-serif}.ds-card h3{font-size:1.4rem;line-height:1.5}.ds-card span{margin-top:auto}.ds-card:hover h3{text-decoration:underline}.ds-card:focus-visible{outline:3px solid #9c4b13;outline-offset:5px}",
       "refersTo": "lesson-card"
     },
     {
       "name": "자료 준비 안내",
       "kind": "custom",
-      "description": "다운로드 대신 실제 공개 상태를 설명하는 안내 영역.",
-      "html": "<div class=\"ds-pending\"><h3>자료 공개 준비 중</h3><p>지도안·활동지·수업자료를 정리하고 있습니다.<br>완성된 파일과 이용 안내를 확인한 뒤 이곳에 공개합니다.</p></div>",
+      "description": "미공개 파일은 준비 상태 한 문장만 표시한다.",
+      "html": "<p class=\"ds-pending\">자료 준비 중입니다.</p>",
       "css": ".ds-pending{font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;background:var(--tint,#edf3ef);padding:24px;color:var(--green-dark,#104c3a);line-height:1.65}.ds-pending h3{margin:0;font-size:1rem;font-weight:700;line-height:1.35;letter-spacing:-.02em}.ds-pending p{font-size:.9rem;margin:9px 0 0}",
       "refersTo": "resource-pending"
     },
@@ -291,13 +219,13 @@
     }
   ],
   "narrative": {
-    "northStar": "두 부분의 교육 자료 아카이브",
-    "overview": "밝은 종이 위에 교사들의 수업 기록을 차분히 정리한다. 짙은 녹색의 탐색 요소, 얇은 구분선, 한국어 산세리프와 절제된 사각형 카드를 사용한다. 장식보다 제목과 교과·학년 정보가 먼저 읽히는 밀도다.\n\n목록은 탐색하기 쉽고, 상세 화면은 자료의 공개 상태를 먼저 확인한 다음 수업 이야기를 읽도록 구성한다. 실제 자료가 없는 상태는 준비 안내문으로 표현한다. 자료집의 책 모양 패널도 이미지 대신 HTML과 활자로 만든다.",
+    "northStar": "작업실 이미지와 두 부의 수업 목록",
+    "overview": "실제 수업공방 로고와 간결한 메뉴를 전체 화면 작업실 이미지 위에 배치한다. 이미지 아래에 1부 개념 기반 탐구학습과 2부 교과융합의 수업 카드를 둔다. 검색과 홍보 문구는 없다.",
     "keyCharacteristics": [
-      "밝은 바탕과 짙은 녹색의 한 가지 강조 계열.",
-      "한국어 제목의 자연스러운 줄바꿈과 충분한 본문 행간.",
-      "얇은 선, 작은 모서리, 그림자 없는 평면 구성.",
-      "두 부분의 구분과 자료 공개 상태를 유지하는 의미 있는 탐색."
+      "전체 화면 작업실 이미지와 실제 로고.",
+      "밝은 바탕과 녹색 링크.",
+      "상단 선으로 구분한 수업 카드.",
+      "짧은 문구와 고유 자료 페이지."
     ],
     "rules": [
       {
@@ -312,17 +240,14 @@
       }
     ],
     "dos": [
-      "**Do** 로컬 Pretendard와 한국어 줄바꿈 규칙을 유지한다.",
-      "**Do** 선과 바탕의 차이로 구획을 구분하고 카드에만 필요한 경계를 준다.",
-      "**Do** 키보드 포커스, 보이는 레이블, 현재 위치, 상태 문구를 유지한다.",
-      "**Do** 목록·상세·자료집에서 두 부분의 제목과 순서를 일관되게 보여 준다.",
-      "**Do** 실제로 공개된 파일이 있을 때만 확인된 파일 정보와 다운로드를 표시한다."
+      "실제 로고와 수업 정보를 보존한다.",
+      "키보드 포커스와 자료 공개 상태를 표시한다.",
+      "자료 영역은 상세 설명보다 앞에 둔다."
     ],
     "donts": [
-      "**Don't** 장식적 그라데이션·그림자·배지·불필요한 애니메이션을 추가한다.",
-      "**Don't** 준비 상태를 비활성 다운로드나 가짜 파일 정보로 표현한다.",
-      "**Don't** 긴 한국어 제목의 핵심 정보를 생략하거나 모바일 가로 스크롤을 추가한다.",
-      "**Don't** 검색 결과나 수업 공개 상태를 색상만으로 구분한다."
+      "검색과 필터를 다시 추가하지 않는다.",
+      "상투적인 홍보 문구를 추가하지 않는다.",
+      "미공개 파일에 가짜 다운로드를 만들지 않는다."
     ]
   }
 }

@@ -16,11 +16,11 @@ Teachers finding teaching resources by subject and grade, and visitors reading a
 
 ## Product Purpose
 
-Make the workshop's teaching records findable through 1부 개기탐 (개념 기반 탐구학습) and 2부 교과융합. A lesson card leads to a unique resource page with downloads at the top.
+Make the workshop's teaching records findable through 1부 개념 기반 탐구학습 and 2부 교과융합. A lesson card leads to a unique resource page with downloads at the top.
 
 ## Capabilities and Constraints
 
-Public, no login. Search and subject/grade filters, static lesson URLs, collection and introduction pages, keyboard and mobile access, useful empty and 404 states. No comments, analytics, visitor uploads, admin interface or AI features.
+Public, no login. Part jump links, static lesson URLs, collection and introduction pages, keyboard and mobile access, useful empty and 404 states. No comments, analytics, visitor uploads, admin interface or AI features.
 
 The user's current instruction forbids uploading actual teaching files. Show an honest preparation state, with no invented file formats, sizes, downloads or license. Verified lesson metadata may be published. The user confirmed two Part 2 projects and directed us to the Jeonbuk Education issue 71 manuscript: the Jagyeongnu science/history project and the constellation-myth history/science/art project. Grade 3 is cross-checked against the workshop's development-material leaflet.
 
@@ -42,3 +42,7 @@ PRD v0.2: https://app.notion.com/p/419acf57be0f818d9bcde9df4eec1b50 . Current us
 ## Accessibility & Inclusion
 
 Mobile layout, keyboard navigation, visible focus, labeled controls, live search-result announcements, semantic headings, no forced motion.
+
+## Latest user decisions · 2026-11-15
+
+Use the actual workshop logo from the local logo folder. Always spell out 개념 기반 탐구학습, never the abbreviation. Remove search and all filters at the current scale. Delete promotional filler and shorten explanatory copy with humanizer-kr while preserving verified lesson facts. Use Collective Gallery as a design reference: a full-viewport, people-free workshop image, generated with the available built-in imagegen tool, with quiet navigation and generous spacing. The tool exposes no model-version selector; do not claim a specific image model version.

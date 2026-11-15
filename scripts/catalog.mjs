@@ -17,7 +17,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
   const isDate = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && new Date(v).toISOString().slice(0,10) === v;
   const parts = Array.isArray(data.parts) ? data.parts : [];
   if (parts.length !== 2 || parts[0]?.id !== 'inquiry' || parts[1]?.id !== 'integration') errors.push('1부 inquiry와 2부 integration을 순서대로 유지해야 합니다.');
-  for (const p of parts) for (const k of ['number','title','subtitle','description']) requireText(p[k], `part.${k}`);
+  for (const p of parts) for (const k of ['number','title']) requireText(p[k], `part.${k}`);
   if (!isDate(data.updated)) errors.push('catalog.updated: 올바른 날짜가 필요합니다.');
   if (!Array.isArray(data.lessons)) errors.push('lessons: 배열이 필요합니다.');
   async function files(item, label) {
