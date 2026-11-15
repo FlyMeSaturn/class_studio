@@ -111,7 +111,6 @@ for (const l of lessons) {
 <div class="lesson-body"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
 <aside class="lesson-info" aria-label="수업 정보"><dl><dt>교과</dt><dd>${esc(l.subjects.join(' · '))}</dd><dt>대상</dt><dd>${esc(l.grades.join(' · '))}</dd><dt>작성</dt><dd>${esc(l.author)}</dd><dt>정보 확인일</dt><dd><time datetime="${l.updated}">${l.updated.replaceAll('-', '. ')}</time></dd></dl>
 </aside></div>
-<section class="source-note"><h2>출처·이용 안내</h2><p>${esc(l.source)}</p><p>${esc(l.usage || '이용 범위는 자료 공개 시 안내합니다.')}</p></section>
 <a class="back-link" href="${base}#${p.id}">수업 목록으로</a></div>`
   }));
 }
