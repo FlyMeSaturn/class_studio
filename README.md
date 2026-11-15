@@ -67,7 +67,7 @@ http://127.0.0.1:4173/class_studio/ 에서 확인합니다. `dist/`는 빌드할
 
 PR에서는 검증과 빌드만 수행합니다. 저장소 **Settings → Pages → Source: GitHub Actions**를 사용합니다. 공개 범위를 임의로 변경하지 않습니다. 실패하면 Actions의 해당 실행에서 원인을 확인하고 수정한 뒤 다시 실행합니다. 이전 버전 복원은 문제 커밋을 `git revert`한 뒤 `main`에 반영합니다. 기록을 강제로 덮어쓰지 않습니다.
 
-상세 페이지는 `lessons/<id>/index.html`로 생성되어 주소 직접 접근과 새로고침을 지원합니다. 없는 주소는 Pages의 `404.html`로 안내합니다. 모든 내부 경로는 `/class_studio/`를 기준으로 만듭니다. 저장소 이름 또는 호스트 변경 시 `scripts/catalog.mjs`의 `base`, `origin`도 변경해야 합니다.
+상세 페이지는 `lessons/<id>/index.html`로 생성되어 주소 직접 접근과 새로고침을 지원합니다. 내부 페이지 이동 링크에는 배포 내용에 따른 `v` 값을 붙여 이전 HTML 캐시와 새 자산이 섞이는 문제를 줄이며, canonical 주소와 실제 파일 URL은 유지합니다. 없는 주소는 Pages의 `404.html`로 안내합니다. 모든 내부 경로는 `/class_studio/`를 기준으로 만듭니다. 저장소 이름 또는 호스트 변경 시 `scripts/catalog.mjs`의 `base`, `origin`도 변경해야 합니다.
 
 ## 용량
 

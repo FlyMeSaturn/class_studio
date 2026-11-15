@@ -7,6 +7,7 @@ const data = await loadCatalog();
 const lessons = visibleLessons(data);
 const assetVersions = Object.fromEntries(await Promise.all(['style.css', 'common.js', 'favicon.svg'].map(async name => [name, createHash('sha256').update(await readFile(path.join(publicRoot, 'assets', name))).digest('hex').slice(0, 10)])));
 const versionedAsset = name => `${href(`assets/${name}`)}?v=${assetVersions[name]}`;
+const navigationVersion = createHash('sha256').update(await readFile(new URL(import.meta.url))).update(JSON.stringify(data)).update(JSON.stringify(assetVersions)).digest('hex').slice(0, 12);
 const hasPending = lessons.some(l => l.status === 'preparing') || data.collection.status === 'preparing';
 const dist = path.join(root, 'dist');
 // Replace generated output only. The local source-material folder is never copied.
@@ -20,7 +21,7 @@ const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${k
 
 function page({ title, description, route = '', current = '', body, home = false }) {
   const libraryUrl = home ? '#lessons' : base + '#lessons';
-  return `<!doctype html>
+  const html = `<!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} · 수업공방</title><meta name="description" content="${esc(description)}">
@@ -42,6 +43,13 @@ ${home ? `<link rel="preload" as="image" href="${href('assets/workshop-hero.webp
 <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
 <a class="floating-home" href="${base}" aria-label="HOME: 메인 페이지로 이동" data-home><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 11 9-8 9 8M5 9v12h5v-7h4v7h5V9"/></svg><span>HOME</span></a>
 </body></html>`;
+  // Version document links as well as assets to avoid mixing cached HTML with a new release.
+  // Canonical URLs and downloadable files retain their stable paths.
+  return html.replace(/href="([^"]+)"/g, (attribute, url) => {
+    const [route, fragment] = url.split('#');
+    if (!route.startsWith(base) || !route.endsWith('/')) return attribute;
+    return `href="${route}?v=${navigationVersion}${fragment ? `#${fragment}` : ''}"`;
+  });
 }
 
 function card(l) {

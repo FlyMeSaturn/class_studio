@@ -88,6 +88,10 @@ svg { flex: none; vertical-align: middle; }
 .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .library { padding-top: 76px; scroll-margin-top: 0; }
 .library-heading { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.library-heading:focus { outline: none; }
+.library-heading:focus-visible h1 { text-decoration: underline; text-decoration-color: var(--focus); text-decoration-thickness: 2px; text-underline-offset: .2em; }
+/* Hide retired controls when an earlier HTML page loads the current stylesheet. */
+[data-share], .share-status, .share-fallback { display: none !important; }
 .part-index { display: flex; flex-wrap: wrap; gap: 20px 32px; }
 .part-index a { font-size: .95rem; text-decoration: none; }
 .part-index a:hover { text-decoration: underline; }

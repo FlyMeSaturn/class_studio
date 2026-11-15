@@ -8,6 +8,7 @@ async function walk(dir){let result=[];for(const entry of await readdir(dir,{wit
 const all=await walk(dist);let bytes=0;
 for(const file of all){bytes+=(await stat(file)).size;if(!file.endsWith('.html'))continue;const html=await readFile(file,'utf8');
   if(!html.includes('lang="ko"')||!html.includes('<h1')||!html.includes('name="description"'))failures.push(`${file}: 언어·제목·설명 누락`);
+  if(/data-share|class="hero-browse"/.test(html))failures.push(`${file}: 삭제한 주소 복사 또는 메인 바로가기 버튼이 남아 있습니다.`);
   if(/notion\.com|OneDrive|C:\\Users|010-\d/.test(html))failures.push(`${file}: 비공개 출처 또는 로컬 정보 노출`);
   for(const [,value] of html.matchAll(/(?:href|src)="([^"]+)"/g)){
     if(value.startsWith('#')||/^(https:|mailto:)/.test(value))continue;
