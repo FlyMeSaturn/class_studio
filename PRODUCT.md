@@ -65,6 +65,6 @@ Keep subject, grade and lesson title on one line when they fit. The desktop less
 
 Resource icons follow destination type: right arrow for an internal viewer, download icon for a file download, chain-link icon for an external URL.
 
-Homepage order is hero image → workshop introduction → lesson library → collection. The 소개 navigation item targets the homepage introduction anchor, and scroll position highlights the matching intro/library item.
+The homepage is a single non-scrolling hero screen. Introduction (/about/), lesson library (/library/) and collection (/collection/) are independent pages reached through the top navigation. The home has no footer, lesson sections or floating HOME link. This decision supersedes the earlier scroll-through homepage.
 
 The desktop Part 1 library shows five compact cards in one row (above 1050px). Remove the repeated 자료 공개/자료 보기 card footer. Whole cards are links with a pointer cursor, directional icon, tinted background, stronger border and subtle lift on hover/focus; respect reduced motion. Smaller screens reflow to three or one column.

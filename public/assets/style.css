@@ -91,15 +91,14 @@ svg { flex: none; vertical-align: middle; }
   background: rgba(107, 75, 54, .10); color: var(--accent-dark);
 }
 .home-header { position: fixed; top: 0; inset-inline: 0; background: transparent; border-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-.home-header.is-scrolled { background: rgba(252, 250, 247, .88); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.home { height: 100dvh; overflow: hidden; }
+.home #main { height: 100%; }
+.home .hero { height: 100%; min-height: 0; }
 .hero { position: relative; width: 100%; height: 100svh; min-height: 620px; }
 .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-slogan { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: calc(100% - 64px); max-width: 900px; color: #432c1e; font-family: 'Noto Serif KR', serif; font-size: clamp(26px, 2.65vw, 38px); font-weight: 600; line-height: 1.45; letter-spacing: -.025em; text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .hero-slogan span { display: block; }
-.home-about { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding-top: 64px; padding-bottom: 52px; scroll-margin-top: 0; }
-.home-about p { max-width: 740px; line-height: 1.9; word-break: keep-all; }
-.library { padding-top: 76px; scroll-margin-top: 0; }
-.home-about + .library { padding-top: 28px; }
+.library { padding-top: 32px; scroll-margin-top: 0; }
 .library-heading { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .library-heading:focus { outline: none; }
 .library-heading:focus-visible h1 { text-decoration: underline; text-decoration-color: var(--focus); text-decoration-thickness: 2px; text-underline-offset: .2em; }
@@ -224,10 +223,7 @@ svg { flex: none; vertical-align: middle; }
   .hero { min-height: 600px; }
   .hero-image { object-position: 58% center; }
   .hero-slogan { width: calc(100% - 44px); top: 46%; font-size: clamp(20px, 5.8vw, 24px); line-height: 1.5; }
-  .home-about { grid-template-columns: 1fr; gap: 16px; padding-top: 36px; padding-bottom: 32px; }
-  .home-about h2 { font-size: 1.4rem; }
-  .home-about + .library { padding-top: 16px; }
-  .library { padding-top: 44px; }
+  .library { padding-top: 24px; }
   .library-heading { display: block; }
   h1 { font-size: 2rem; }
   .part-index { margin-top: 20px; gap: 13px 24px; font-size: .8rem; }
@@ -290,7 +286,7 @@ svg { flex: none; vertical-align: middle; }
   .floating-home { right: 18px; bottom: calc(20px + env(safe-area-inset-bottom)); min-width: 96px; min-height: 48px; padding: 11px 14px; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header, .home-header.is-scrolled { background: var(--paper); }
+  .site-header { background: var(--paper); }
   .home-header { background: transparent; }
   .site-header nav { background: rgba(252, 250, 247, .94); border-color: var(--line); }
 }
