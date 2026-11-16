@@ -52,42 +52,47 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/force-and-change/lesson-plan.pdf"
+          "path": "files/force-and-change/lesson-plan-revised.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/force-and-change/lesson-plan.hwpx"
+          "path": "files/force-and-change/lesson-plan-revised.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/force-and-change/page-01.webp",
+          "path": "files/force-and-change/page-01-revised.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-02.webp",
+          "path": "files/force-and-change/page-02-revised.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-03.webp",
+          "path": "files/force-and-change/page-03-revised.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-04.webp",
+          "path": "files/force-and-change/page-04-revised.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-05.webp",
+          "path": "files/force-and-change/page-05-revised.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-06.webp",
+          "path": "files/force-and-change/page-06-revised.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-07-revised.webp",
           "width": 1012,
           "height": 1430
         }
@@ -112,7 +117,54 @@
           "height": 719
         }
       ],
-      "links": []
+      "links": [
+        {
+          "label": "[웹앱] 힘 탐정단 · 1차시",
+          "url": "https://force-detective1.vercel.app/"
+        },
+        {
+          "label": "[웹앱] 힘 카드 분류 · 2차시",
+          "url": "https://force-detective2.vercel.app/"
+        },
+        {
+          "label": "[웹앱] 힘 표현 · 3차시",
+          "url": "https://force-detective3.vercel.app/"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "card-classification",
+          "label": "2차시 · 힘 카드 분류 산출물",
+          "path": "files/force-and-change/artifacts/card-classification-private.webp",
+          "alt": "힘 카드 분류 웹앱에서 기준을 세워 모양 변화와 운동 상태 변화를 분류한 결과",
+          "width": 707,
+          "height": 485
+        },
+        {
+          "id": "force-expression",
+          "label": "3차시 · 힘 표현 산출물",
+          "path": "files/force-and-change/artifacts/force-expression-private.webp",
+          "alt": "힘의 크기와 방향을 화살표로 나타낸 힘 표현 웹앱 산출물",
+          "width": 707,
+          "height": 485
+        },
+        {
+          "id": "frayer-model",
+          "label": "4차시 · 프레이어 모델 산출물",
+          "path": "files/force-and-change/artifacts/frayer-model-private.webp",
+          "alt": "힘의 정의와 속성, 예와 비예를 정리하고 처음 생각과 최종 정의를 비교한 프레이어 모델",
+          "width": 707,
+          "height": 407
+        },
+        {
+          "id": "final-assessment",
+          "label": "총괄평가 · 학생 산출물",
+          "path": "files/force-and-change/artifacts/final-assessment-private.webp",
+          "alt": "양현중 축구부 우승의 비밀 전략 보고서에서 학생의 첫 보고서와 최종 보고서를 비교한 결과",
+          "width": 1181,
+          "height": 504
+        }
+      ]
     },
     {
       "id": "linear-functions",

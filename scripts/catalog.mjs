@@ -23,7 +23,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
   async function files(item, label) {
     if (!allowedStates.includes(item.status)) errors.push(`${label}: 잘못된 공개 상태`);
     if (!Array.isArray(item.files)) { errors.push(`${label}.files: 배열이 필요합니다.`); return; }
-    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
+    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length && !item.artifacts?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
     if (item.status !== 'published' && item.files.length) errors.push(`${label}: 파일은 공개 상태에서만 등록할 수 있습니다.`);
     for (const file of item.files) {
       for (const key of ['label','format','path']) requireText(file[key], `${label}.files.${key}`);
@@ -40,12 +40,19 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     }
   }
   async function media(item, label) {
-    for (const key of ['photos', 'planPages']) {
+    for (const key of ['photos', 'planPages', 'artifacts']) {
       if (item[key] === undefined) continue;
       if (!Array.isArray(item[key])) { errors.push(`${label}.${key}: 배열이 필요합니다.`); continue; }
       if (item.status !== 'published' && item[key].length) errors.push(`${label}: 이미지는 공개 상태에서만 등록할 수 있습니다.`);
+      const pictureIds = new Set();
       for (const picture of item[key]) {
-        if (key === 'photos') requireText(picture.alt, `${label}.photos.alt`);
+        if (key !== 'planPages') requireText(picture.alt, `${label}.${key}.alt`);
+        if (key === 'artifacts') {
+          requireText(picture.label, `${label}.artifacts.label`);
+          if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(picture.id || '')) errors.push(`${label}: 산출물 ID는 영문 소문자·숫자·하이픈만 사용합니다.`);
+          if (pictureIds.has(picture.id)) errors.push(`${label}: 중복 산출물 ID`);
+          pictureIds.add(picture.id);
+        }
         if (![picture.width, picture.height].every(n => Number.isInteger(n) && n > 0)) errors.push(`${label}: 이미지 크기가 필요합니다.`);
         await files({status:'published', files:[{label:'이미지',format:path.extname(picture.path || '').slice(1).toUpperCase(),path:picture.path}]}, label);
         if (!/\.(webp|png|jpg|jpeg)$/i.test(picture.path || '')) errors.push(`${label}: 지원하지 않는 이미지 형식`);

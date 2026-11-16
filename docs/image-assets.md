@@ -66,3 +66,13 @@
 개별 지정: image21/22는 우상단 식별 정보 칸, image25는 상단 우측·하단 좌측·맨 아래에 겹친 종이의 서명 세 곳, image26은 아래 우측 여백, image27은 위아래 두 산출물의 이름·번호, image28은 붙여 놓은 열 장의 표기와 겹친 여백 두 곳, image31/33/35는 상단 학번·이름 칸입니다.
 
 사용자가 원본 수정을 명시적으로 요청하여 개념기반 지도안 폴더의 원본 취합본 HWPX를 갱신했습니다. 이름·학번 이미지 9개와 이전 얼굴 모자이크 6개를 원본에도 반영했습니다. 수정 전 원본은 같은 폴더의 `원본 백업`에 사본으로 보존했습니다. 웹사이트에는 이 백업이나 원본 취합본을 추가로 게시하지 않았습니다.
+
+## 이솔 선생님 추가 산출물 · 2026-11-16
+
+사용자가 제공한 `개념기반탐구학습 산출물 및 QR코드(1).hwpx`의 결과물 이미지 네 개를 추출했습니다. 첫 세 WMF는 내장 DIB 비트맵을 디코딩했고, 총괄평가 BMP와 함께 원래 픽셀 크기를 유지했습니다. QR 그림 대신 같은 표에 적힌 웹앱 주소 세 개를 링크로 등록했습니다.
+
+기본 제공 image_gen 편집 도구로 첫 세 화면의 식별 정보 가림을 만들었습니다. 생성 도구가 화면의 학습 내용을 다시 쓰지 않도록 결과 전체를 사용하지 않고, 불투명 회색 가림 패치만 원본의 학생 선택 목록과 이름·번호 표기 여섯 영역에 합성했습니다. 가림 영역 밖 RGB 픽셀은 원본과 일치하며 WebP는 무손실입니다. 총괄평가 화면은 원본에 이름 흐림과 학번 숨김이 이미 적용되어 있어 그대로 인코딩했습니다.
+
+최종 파일은 `public/files/force-and-change/artifacts/`의 `card-classification-private.webp`(707×485), `force-expression-private.webp`(707×485), `frayer-model-private.webp`(707×407), `final-assessment-private.webp`(1181×504)입니다. 각각 별도의 확대·뒤로 가기 화면으로 엽니다.
+
+공통 프롬프트: “Use case: precise-object-edit. Edit target: this exact classroom student-work screenshot. Privacy redaction only: cover all student class, student name and student number/identifier text with SOLID fully opaque light gray rectangular blocks. Include the selected-student dropdown near the top right and the student heading above the work. Do not replace with invented text. Preserve all Korean educational text, answers, forces diagrams, UI, colors, image framing and dimensions outside the student identification fields. No blur or transparency, no crop, no rewrite of learning content.” 첫 두 화면에는 기록 선택 목록에 식별 정보가 있다면 함께 가리도록 추가 지시했습니다. 실제 합성은 확인된 식별 정보 영역에만 적용했습니다.

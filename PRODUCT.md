@@ -76,3 +76,9 @@ The user requires mosaics over visible student faces in classroom photos. Preser
 ## Student identifier redaction and compilation · 2026-11-16
 
 The user also requires names and student IDs in classroom photos and student work to be obscured, including copies inside lesson-plan images and the original compiled HWPX. Nine identified mathematics images now use opaque redaction over 23 identifier regions; preserve equations, student reasoning, teacher authors and blank template fields. The original compilation was updated with these nine identifier images plus the six previously face-redacted images, with a verified pre-edit backup in its sibling 원본 백업 directory. Never reimport unredacted student identifiers.
+
+## Revised force lesson and supplemental work · 2026-11-16
+
+The teacher's revised HWPX supersedes the force lesson's twelve stage labels across lessons 1–4. Update the original compilation and website HWPX/PDF/reading images while retaining the existing compilation typography and all privacy-processed binary images. Keep the fourth lesson's title, goal and activity table together on its own page. The source compilation is now 45 pages and the standalone lesson is 7 pages. Back up the compilation before replacement.
+
+Publish the four supplied student-work images as individual internal viewers with enlargement and back links: card classification (lesson 2), force expression (lesson 3), Frayer model (lesson 4), and final assessment. Use the same vertical action list and arrow icon as other internal viewers. Add the exact three force-detective Vercel webapps as external chain-link buttons, matched to lessons 1–3. Hide student identification in the new screenshots; preserve answers and diagrams.

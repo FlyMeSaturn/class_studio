@@ -116,6 +116,7 @@ function lessonResources(l) {
 ${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
 ${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
 ${l.photos?.length ? action('수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
+${(l.artifacts || []).map(a => action(a.label, href(`lessons/${l.id}/artifacts/${a.id}/`))).join('')}
 ${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${action(`${f.label} 다운받기`, href(f.path), ' download', download)}`).join('')}
 ${(l.links || []).map(link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon)).join('')}
 </ul>`;
@@ -137,6 +138,14 @@ for (const l of lessons) {
       title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`, current: 'library',
       body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span><label>쪽 이동 <select data-page-select aria-label="지도안 쪽 이동">${l.planPages.map((_,i) => `<option value="plan-page-${i+1}">${i+1}쪽</option>`).join('')}</select></label><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
 <div class="plan-document">${l.planPages.map((p,i) => `<figure id="plan-page-${i+1}" class="plan-page"><figcaption>${i+1} / ${l.planPages.length}쪽</figcaption><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(l.title)} 지도안 ${i+1}쪽" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+    }));
+  }
+  for (const a of l.status === 'published' ? (l.artifacts || []) : []) {
+    const route = `lessons/${l.id}/artifacts/${a.id}/`;
+    await write(`${route}index.html`, page({
+      title: `${l.title} · ${a.label}`, description: a.alt, route, current: 'library',
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.title)}</p><h1>${esc(a.label)}</h1><div class="viewer-tools"><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button></div></div>
+<div class="plan-document"><figure class="plan-page"><img src="${href(a.path)}" width="${a.width}" height="${a.height}" alt="${esc(a.alt)}" fetchpriority="high" decoding="async"></figure></div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
     }));
   }
   if (l.status === 'published' && l.photos?.length) {
@@ -180,7 +189,7 @@ const selected = new Set([
   'assets/fonts/NotoSerifKR-Slogan.woff2' // Keep the previous face available for cached stylesheets.
 ]);
 for (const item of [...lessons, data.collection]) {
-  if (item.status === 'published') for (const f of [...item.files,...(item.planPages || []),...(item.photos || [])]) selected.add(f.path);
+  if (item.status === 'published') for (const f of [...item.files,...(item.planPages || []),...(item.photos || []),...(item.artifacts || [])]) selected.add(f.path);
 }
 for (const asset of selected) {
   const target = path.join(dist, asset);
@@ -188,6 +197,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' ? (l.artifacts || []).map(a => `lessons/${l.id}/artifacts/${a.id}/`) : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);
