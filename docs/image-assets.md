@@ -73,6 +73,6 @@
 
 기본 제공 image_gen 편집 도구로 첫 세 화면의 식별 정보 가림을 만들었습니다. 생성 도구가 화면의 학습 내용을 다시 쓰지 않도록 결과 전체를 사용하지 않고, 불투명 회색 가림 패치만 원본의 학생 선택 목록과 이름·번호 표기 여섯 영역에 합성했습니다. 가림 영역 밖 RGB 픽셀은 원본과 일치하며 WebP는 무손실입니다. 총괄평가 화면은 원본에 이름 흐림과 학번 숨김이 이미 적용되어 있어 그대로 인코딩했습니다.
 
-최종 파일은 `public/files/force-and-change/artifacts/`의 `card-classification-private.webp`(707×485), `force-expression-private.webp`(707×485), `frayer-model-private.webp`(707×407), `final-assessment-private.webp`(1181×504)입니다. 각각 별도의 확대·뒤로 가기 화면으로 엽니다.
+최종 파일은 `public/files/force-and-change/artifacts/`의 `card-classification-private.webp`(707×485), `force-expression-private.webp`(707×485), `frayer-model-private.webp`(707×407), `final-assessment-private.webp`(1181×504)입니다. ‘학생 산출물 보기’ 갤러리에서 클릭 확대·이전/다음·뒤로 가기를 제공합니다.
 
 공통 프롬프트: “Use case: precise-object-edit. Edit target: this exact classroom student-work screenshot. Privacy redaction only: cover all student class, student name and student number/identifier text with SOLID fully opaque light gray rectangular blocks. Include the selected-student dropdown near the top right and the student heading above the work. Do not replace with invented text. Preserve all Korean educational text, answers, forces diagrams, UI, colors, image framing and dimensions outside the student identification fields. No blur or transparency, no crop, no rewrite of learning content.” 첫 두 화면에는 기록 선택 목록에 식별 정보가 있다면 함께 가리도록 추가 지시했습니다. 실제 합성은 확인된 식별 정보 영역에만 적용했습니다.

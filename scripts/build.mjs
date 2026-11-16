@@ -116,7 +116,7 @@ function lessonResources(l) {
 ${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
 ${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
 ${l.photos?.length ? action('수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
-${(l.artifacts || []).map(a => action(a.label, href(`lessons/${l.id}/artifacts/${a.id}/`))).join('')}
+${l.artifacts?.length ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
 ${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${action(`${f.label} 다운받기`, href(f.path), ' download', download)}`).join('')}
 ${(l.links || []).map(link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon)).join('')}
 </ul>`;
@@ -148,12 +148,15 @@ for (const l of lessons) {
 <div class="plan-document"><figure class="plan-page"><img src="${href(a.path)}" width="${a.width}" height="${a.height}" alt="${esc(a.alt)}" fetchpriority="high" decoding="async"></figure></div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
     }));
   }
-  if (l.status === 'published' && l.photos?.length) {
-    await write(`lessons/${l.id}/photos/index.html`, page({
-      title: `${l.title} · 수업 사진`, description: `${l.title} 수업 장면 갤러리`, route: `lessons/${l.id}/photos/`, current: 'library',
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">수업 사진 · ${l.photos.length}장<span>사진을 누르면 크게 볼 수 있습니다.</span></p></div>
-<ul class="photo-gallery">${l.photos.map((p,i) => `<li><a class="photo-link" href="${href(p.path)}" data-photo-index="${i}" aria-label="${esc(p.alt)} 크게 보기"><figure><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${i>2 ? 'loading="lazy"' : ''} decoding="async"><figcaption>${esc(p.alt)}</figcaption></figure></a></li>`).join('')}</ul>
-<dialog class="photo-dialog" aria-label="수업 사진 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 사진">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 사진">→</button></div></dialog>
+  for (const gallery of [{key:'photos', label:'수업 사진', noun:'사진'}, {key:'artifacts', label:'학생 산출물', noun:'산출물'}]) {
+    const pictures = l[gallery.key];
+    if (l.status !== 'published' || !pictures?.length) continue;
+    const route = `lessons/${l.id}/${gallery.key}/`;
+    await write(`${route}index.html`, page({
+      title: `${l.title} · ${gallery.label}`, description: `${l.title} ${gallery.label} 갤러리`, route, current: 'library',
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">${gallery.label} · ${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
+<ul class="photo-gallery">${pictures.map((p,i) => `<li><a class="photo-link" href="${href(p.path)}" data-photo-index="${i}" aria-label="${esc(p.label || p.alt)} 크게 보기"><figure><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${i>2 ? 'loading="lazy"' : ''} decoding="async"><figcaption>${esc(p.label || p.alt)}</figcaption></figure></a></li>`).join('')}</ul>
+<dialog class="photo-dialog" aria-label="${gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
 <a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
     }));
   }
@@ -197,6 +200,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' ? (l.artifacts || []).map(a => `lessons/${l.id}/artifacts/${a.id}/`) : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);
