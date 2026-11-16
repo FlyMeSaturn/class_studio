@@ -16,7 +16,7 @@ Teachers finding teaching resources by subject and grade, and visitors reading a
 
 ## Product Purpose
 
-Make the workshop's teaching records findable through 1부 개념 기반 탐구학습 and 2부 교과융합. A lesson card leads to a unique resource page with downloads at the top.
+Make the workshop's teaching records findable through 1부 개념 기반 탐구학습 and 2부 교과융합. A lesson card leads to a unique resource page with author, overview and activities on the left and one unified vertical resource-button list on the right.
 
 ## Capabilities and Constraints
 
@@ -58,3 +58,11 @@ The user removed the lesson-level 출처·이용 안내 block and its unconfirme
 ## Resource publication · 2026-11-16
 
 Publish the five Part 1 lessons from the explicitly selected compilation. Each lesson has 지도안 바로 보기, 지도안 hwpx 다운받기 and 수업 사진. Reading and gallery pages return directly to the owning lesson. The reading view uses paginated images rendered from the HWPX via Hancom PDF so it works without a browser PDF plugin; the original PDF remains available. Galleries support enlargement, previous/next, arrow keys and Escape. The two exact user-supplied Padlet links belong to pressure-and-weather. Keep future PPT, student-work files and external resources in the catalog, without adding an upload/admin service.
+
+## Compact lesson layout · 2026-11-16
+
+Keep subject, grade and lesson title on one line when they fit. The desktop lesson view has two columns: author/overview/activities on the left, all reading/download/gallery/external links on the right. Use identical button styling with no visible 수업 자료 or 함께 쓰는 자료 headings. Label the primary actions 지도안 바로 보기, 지도안 다운받기, 수업 사진 보기. Keep spacing compact. Narrow screens stack the resource actions above the overview.
+
+Resource icons follow destination type: right arrow for an internal viewer, download icon for a file download, chain-link icon for an external URL.
+
+Homepage order is hero image → workshop introduction → lesson library → collection. The 소개 navigation item targets the homepage introduction anchor, and scroll position highlights the matching intro/library item.

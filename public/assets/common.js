@@ -1,13 +1,19 @@
 const header = document.querySelector('.home-header');
 if (header) {
-  const hero = document.querySelector('.hero');
+  const library = document.querySelector('#lessons');
+  const about = document.querySelector('#about');
   const libraryLink = header.querySelector('[data-nav="library"]');
+  const aboutLink = header.querySelector('[data-nav="about"]');
   let queued = false;
   const updateHeader = () => {
-    const inLibrary = hero.getBoundingClientRect().bottom <= header.offsetHeight;
+    const threshold = header.offsetHeight + 24;
+    const inLibrary = library.getBoundingClientRect().top <= threshold;
+    const inAbout = !inLibrary && about.getBoundingClientRect().top <= threshold;
     header.classList.toggle('is-scrolled', window.scrollY > 20);
     if (inLibrary) libraryLink.setAttribute('aria-current', 'location');
     else libraryLink.removeAttribute('aria-current');
+    if (inAbout) aboutLink.setAttribute('aria-current', 'location');
+    else aboutLink.removeAttribute('aria-current');
     queued = false;
   };
   window.addEventListener('scroll', () => {

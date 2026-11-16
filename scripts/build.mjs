@@ -17,10 +17,12 @@ await mkdir(dist, { recursive: true });
 
 const arrow = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
 const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>';
+const linkIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
 
 function page({ title, description, route = '', current = '', body, home = false }) {
   const libraryUrl = home ? '#lessons' : base + '#lessons';
+  const aboutUrl = home ? '#about' : base + '#about';
   const html = `<!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -38,7 +40,7 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 <a class="skip-link" href="${home ? '#lessons' : '#main'}">본문으로 바로가기</a>
 <header class="site-header${home ? ' home-header' : ''}"><div class="shell header-inner">
 <a class="wordmark" href="${base}" aria-label="교단지원 자료개발 교육연구회 수업공방 홈"><span class="brand-caption">교단지원 자료개발 교육연구회</span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
-<nav aria-label="주 메뉴">${nav('about', href('about/'), '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
+<nav aria-label="주 메뉴">${nav('about', aboutUrl, '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
 <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
@@ -77,6 +79,7 @@ const home = page({
 <img class="hero-image" src="${href('assets/workshop-hero.webp')}" width="1672" height="941" alt="수업공방을 표현한 이미지. 햇빛이 드는 나무 작업대에 종이와 수업 카드, 필기도구가 놓여 있습니다." fetchpriority="high" decoding="async">
 <p class="hero-slogan"><span>장인이 정성껏 물건을 만들 듯,</span> <span>선생님들이 모여 정성스럽게</span> <span>수업 자료를 빚어내는 공간</span></p>
 </section>
+<section class="shell home-about" id="about" aria-labelledby="about-title"><h2 id="about-title">수업공방 소개</h2><p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p></section>
 <div class="shell library">
 <div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
 ${hasPending ? '<p class="preparation-note">일부 수업과 전체 자료집은 자료를 준비하고 있습니다.</p>' : ''}
@@ -105,13 +108,14 @@ function lessonResources(l) {
   const plan = l.files.find(f => f.format === 'HWPX');
   const pdf = l.planPages?.length ? l.files.find(f => f.format === 'PDF') : null;
   const additionalFiles = l.files.filter(f => f !== plan && f !== pdf);
-  return `<div class="resource-shortcuts">
-${l.planPages?.length ? `<a class="button" href="${href(`lessons/${l.id}/plan/`)}">지도안 바로 보기 ${arrow}</a>` : ''}
-${plan ? `<a class="button button-outline" href="${href(plan.path)}" download="${esc(`수업공방_${l.title}.hwpx`)}">${download} 지도안 hwpx 다운받기</a>` : ''}
-${l.photos?.length ? `<a class="button button-outline" href="${href(`lessons/${l.id}/photos/`)}">수업 사진 <span class="shortcut-count">${l.photos.length}</span> ${arrow}</a>` : ''}
-</div>
-${additionalFiles.length ? resources({...l,files:additionalFiles}) : ''}
-${l.links?.length ? `<h3 class="additional-title">함께 쓰는 자료</h3><ul class="additional-links">${l.links.map(link => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer"><span>${esc(link.label)}</span>${arrow}<span class="sr-only"> (새 탭)</span></a></li>`).join('')}</ul>` : ''}`;
+  const action = (label, url, attributes = '', icon = arrow) => `<li><a class="resource-action" href="${url}"${attributes}><span>${esc(label)}</span>${icon}</a></li>`;
+  return `<ul class="resource-actions">
+${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
+${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
+${l.photos?.length ? action('수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
+${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${action(`${f.label} 다운받기`, href(f.path), ' download', download)}`).join('')}
+${(l.links || []).map(link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon)).join('')}
+</ul>`;
 }
 
 for (const l of lessons) {
@@ -120,11 +124,9 @@ for (const l of lessons) {
     title: l.title, description: l.summary, route: `lessons/${l.id}/`,
     body: `<div class="shell detail-shell">
 <nav class="breadcrumb" aria-label="현재 위치"><a href="${base}#lessons">수업 자료</a><span aria-hidden="true">/</span><a href="${base}#${p.id}">${p.number} ${esc(p.title)}</a></nav>
-<header class="lesson-heading"><p class="detail-meta">${esc(l.subjects.join(' · '))}<span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
-<section class="resources" aria-labelledby="resource-title"><div class="resource-heading"><h2 id="resource-title">수업 자료</h2></div>${lessonResources(l)}</section>
-<div class="lesson-body"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
-<aside class="lesson-info" aria-label="수업 정보"><dl><dt>교과</dt><dd>${esc(l.subjects.join(' · '))}</dd><dt>대상</dt><dd>${esc(l.grades.join(' · '))}</dd><dt>작성</dt><dd>${esc(l.author)}</dd><dt>정보 확인일</dt><dd><time datetime="${l.updated}">${l.updated.replaceAll('-', '. ')}</time></dd></dl>
-</aside></div>
+<header class="lesson-heading"><p class="detail-meta"><span>${esc(l.subjects.join(' · '))}</span><span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
+<div class="lesson-layout"><article class="lesson-overview"><p class="lesson-author"><span>작성</span> ${esc(l.author)}</p><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
+<aside class="lesson-resources" aria-label="수업 자료 바로가기">${lessonResources(l)}</aside></div>
 <a class="back-link" href="${base}#${p.id}">수업 목록으로</a></div>`
   }));
   if (l.status === 'published' && l.planPages?.length) {
