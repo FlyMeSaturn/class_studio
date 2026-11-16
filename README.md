@@ -83,3 +83,9 @@ http://127.0.0.1:4173/class_studio/ 에서 확인합니다. `dist/`는 생성 �
 - 글꼴: [Pretendard v1.3.9](https://github.com/orioncactus/pretendard/tree/v1.3.9), SIL Open Font License 1.1. `public/assets/fonts/OFL.txt`에 원문을 포함합니다. **글꼴의 라이선스는 수업 자료의 이용허락과 별개입니다.**
 
 검증 기록은 `docs/verification.md`를 참고합니다. 최신 날짜의 항목이 이전 준비 상태 기록을 대체합니다.
+
+## 학생 이름·학번 가림 · 2026-11-16
+
+원본 취합본의 72개 이미지를 확인하여 이름·학번이 보이는 수학 사진·산출물 9개의 23개 영역을 불투명하게 가렸습니다. 갤러리에는 `photo-XX-private.webp`, 수학 지도안에는 `lesson-plan-private.hwpx`·`lesson-plan-private.pdf`·`page-XX-private.webp`를 제공합니다. 얼굴 모자이크와 답안·수식·그래프는 유지합니다.
+
+사용자 요청으로 로컬의 원본 취합본 HWPX도 직접 갱신했습니다. 기존 얼굴 가림 6개와 이름·학번 가림 9개 이미지를 반영했고, 본문·서식 XML과 44쪽의 텍스트·쪽수가 유지됨을 검증했습니다. 수정 전 사본은 원본 폴더의 `원본 백업`에 보관하며 공개하지 않습니다. 가림 처리 전 사진이나 산출물을 다시 게시하지 않습니다.

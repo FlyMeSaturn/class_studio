@@ -51,3 +51,18 @@
 개별 보충: 수학은 왼쪽·오른쪽 학생의 얼굴과 큰 앞쪽 학생의 옆얼굴, 음악 첫 사진은 고개를 숙인 학생과 우측 상단 일부 얼굴, 음악 셋째 사진은 배경의 작은 얼굴까지 전부, 중3 과학 첫 사진은 모든 전면·배경 얼굴, 셋째 사진은 전경 오른쪽과 뒤쪽의 옆얼굴을 포함하도록 지정했습니다.
 
 최종 검수에서 영어 두 번째 사진의 가장자리·고개를 숙인 학생의 옆얼굴 네 영역도 추가로 처리했습니다. 같은 공통 프롬프트에 왼쪽 가장자리와 앞쪽 좌우 학생의 옆얼굴을 빠뜨리지 않도록 지정했습니다. 얼굴 영역 밖 RGB 픽셀 동일성과 영어 지도안 7쪽의 반영을 확인했습니다.
+
+
+## 학생 이름·학번 가림 · 2026-11-16
+
+취합본 내 이미지 72개와 갤러리 이미지를 시각적으로 검토했습니다. 수학 이미지 image21, image22, image25, image26, image27, image28, image31, image33, image35에서 식별 정보를 확인하고, 작은 서명·겹친 종이와 게시판 사진의 표기까지 23개 영역을 불투명하게 가렸습니다. 빈 이름/학번 칸, 교사 작성자명, 수학적 숫자와 학습 답안은 처리 대상에서 제외했습니다.
+
+기본 제공 image_gen 편집 도구로 불투명 회색 가림 패치를 만들고, 해당 패치만 지정한 식별 정보 영역에 원본 크기로 합성했습니다. 영역 밖 RGB 픽셀의 동일성을 확인했습니다. 실제 학생 이름과 번호는 작업 기록에 옮겨 적지 않습니다.
+
+저장 파일은 `public/files/linear-functions/`의 `photo-01-private.webp`, `photo-02-private.webp`, `photo-05-private.webp`, `photo-06-private.webp`, `photo-07-private.webp`, `photo-08-private.webp`, `photo-11-private.webp`, `photo-13-private.webp`, `photo-15-private.webp`입니다. 대응 지도안은 `lesson-plan-private.hwpx`, `lesson-plan-private.pdf`, `page-01-private.webp`부터 `page-09-private.webp`입니다.
+
+공통 편집 프롬프트: “Privacy redaction on this exact student work photograph. Completely conceal handwritten student names and student IDs/class numbers with solid, fully opaque light-gray rectangles. No blur, transparency or replacement text. Preserve the original composition, aspect ratio, paper edges, printed text, handwritten mathematical solutions, graphs and colors outside the identity fields. Do not crop, restyle, repair or rewrite any learning content.”
+
+개별 지정: image21/22는 우상단 식별 정보 칸, image25는 상단 우측·하단 좌측·맨 아래에 겹친 종이의 서명 세 곳, image26은 아래 우측 여백, image27은 위아래 두 산출물의 이름·번호, image28은 붙여 놓은 열 장의 표기와 겹친 여백 두 곳, image31/33/35는 상단 학번·이름 칸입니다.
+
+사용자가 원본 수정을 명시적으로 요청하여 개념기반 지도안 폴더의 원본 취합본 HWPX를 갱신했습니다. 이름·학번 이미지 9개와 이전 얼굴 모자이크 6개를 원본에도 반영했습니다. 수정 전 원본은 같은 폴더의 `원본 백업`에 사본으로 보존했습니다. 웹사이트에는 이 백업이나 원본 취합본을 추가로 게시하지 않았습니다.

@@ -147,70 +147,70 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/linear-functions/lesson-plan-mosaic.pdf"
+          "path": "files/linear-functions/lesson-plan-private.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/linear-functions/lesson-plan-mosaic.hwpx"
+          "path": "files/linear-functions/lesson-plan-private.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/linear-functions/page-01-mosaic.webp",
+          "path": "files/linear-functions/page-01-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-02-mosaic.webp",
+          "path": "files/linear-functions/page-02-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-03-mosaic.webp",
+          "path": "files/linear-functions/page-03-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-04-mosaic.webp",
+          "path": "files/linear-functions/page-04-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-05-mosaic.webp",
+          "path": "files/linear-functions/page-05-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-06-mosaic.webp",
+          "path": "files/linear-functions/page-06-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-07-mosaic.webp",
+          "path": "files/linear-functions/page-07-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-08-mosaic.webp",
+          "path": "files/linear-functions/page-08-private.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-09-mosaic.webp",
+          "path": "files/linear-functions/page-09-private.webp",
           "width": 1012,
           "height": 1430
         }
       ],
       "photos": [
         {
-          "path": "files/linear-functions/photo-01.webp",
+          "path": "files/linear-functions/photo-01-private.webp",
           "alt": "일차방정식의 해를 좌표평면에 표시한 활동지 1",
           "width": 787,
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-02.webp",
+          "path": "files/linear-functions/photo-02-private.webp",
           "alt": "일차방정식의 해를 좌표평면에 표시한 활동지 2",
           "width": 787,
           "height": 630
@@ -228,25 +228,25 @@
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-05.webp",
+          "path": "files/linear-functions/photo-05-private.webp",
           "alt": "공통점을 찾는 See Think Wonder 활동 1",
           "width": 630,
           "height": 472
         },
         {
-          "path": "files/linear-functions/photo-06.webp",
+          "path": "files/linear-functions/photo-06-private.webp",
           "alt": "공통점을 찾는 See Think Wonder 활동 2",
           "width": 630,
           "height": 472
         },
         {
-          "path": "files/linear-functions/photo-07.webp",
+          "path": "files/linear-functions/photo-07-private.webp",
           "alt": "공통점을 찾는 See Think Wonder 활동 3",
           "width": 630,
           "height": 472
         },
         {
-          "path": "files/linear-functions/photo-08.webp",
+          "path": "files/linear-functions/photo-08-private.webp",
           "alt": "학급에서 공유한 공통점 탐구 활동지",
           "width": 472,
           "height": 630
@@ -264,7 +264,7 @@
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-11.webp",
+          "path": "files/linear-functions/photo-11-private.webp",
           "alt": "두 직선의 교점과 연립방정식의 해 탐구 1",
           "width": 866,
           "height": 630
@@ -276,7 +276,7 @@
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-13.webp",
+          "path": "files/linear-functions/photo-13-private.webp",
           "alt": "그래프의 모양과 해의 관계 탐구 1",
           "width": 866,
           "height": 630
@@ -288,7 +288,7 @@
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-15.webp",
+          "path": "files/linear-functions/photo-15-private.webp",
           "alt": "그래프의 모양과 해의 관계 탐구 3",
           "width": 866,
           "height": 630

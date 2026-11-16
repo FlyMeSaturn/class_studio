@@ -72,3 +72,7 @@ The desktop Part 1 library shows five compact cards in one row (above 1050px). R
 ## Student face redaction · 2026-11-16
 
 The user requires mosaics over visible student faces in classroom photos. Preserve existing adequate mosaics, add redaction to unmasked/weakly blurred frontal or profile faces, and keep gallery, HWPX, PDF and reading-page versions consistent. Publish the processed assets under fresh URLs. Do not republish unredacted originals from the local manuscript.
+
+## Student identifier redaction and compilation · 2026-11-16
+
+The user also requires names and student IDs in classroom photos and student work to be obscured, including copies inside lesson-plan images and the original compiled HWPX. Nine identified mathematics images now use opaque redaction over 23 identifier regions; preserve equations, student reasoning, teacher authors and blank template fields. The original compilation was updated with these nine identifier images plus the six previously face-redacted images, with a verified pre-edit backup in its sibling 원본 백업 directory. Never reimport unredacted student identifiers.
