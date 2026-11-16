@@ -147,57 +147,57 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/linear-functions/lesson-plan.pdf"
+          "path": "files/linear-functions/lesson-plan-mosaic.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/linear-functions/lesson-plan.hwpx"
+          "path": "files/linear-functions/lesson-plan-mosaic.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/linear-functions/page-01.webp",
+          "path": "files/linear-functions/page-01-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-02.webp",
+          "path": "files/linear-functions/page-02-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-03.webp",
+          "path": "files/linear-functions/page-03-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-04.webp",
+          "path": "files/linear-functions/page-04-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-05.webp",
+          "path": "files/linear-functions/page-05-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-06.webp",
+          "path": "files/linear-functions/page-06-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-07.webp",
+          "path": "files/linear-functions/page-07-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-08.webp",
+          "path": "files/linear-functions/page-08-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-09.webp",
+          "path": "files/linear-functions/page-09-mosaic.webp",
           "width": 1012,
           "height": 1430
         }
@@ -252,7 +252,7 @@
           "height": 630
         },
         {
-          "path": "files/linear-functions/photo-09.webp",
+          "path": "files/linear-functions/photo-09-mosaic.webp",
           "alt": "두 직선의 관계를 탐구하는 모습",
           "width": 630,
           "height": 630
@@ -335,59 +335,59 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/folk-song/lesson-plan.pdf"
+          "path": "files/folk-song/lesson-plan-mosaic.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/folk-song/lesson-plan.hwpx"
+          "path": "files/folk-song/lesson-plan-mosaic.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/folk-song/page-01.webp",
+          "path": "files/folk-song/page-01-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-02.webp",
+          "path": "files/folk-song/page-02-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-03.webp",
+          "path": "files/folk-song/page-03-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-04.webp",
+          "path": "files/folk-song/page-04-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-05.webp",
+          "path": "files/folk-song/page-05-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-06.webp",
+          "path": "files/folk-song/page-06-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-07.webp",
+          "path": "files/folk-song/page-07-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-08.webp",
+          "path": "files/folk-song/page-08-mosaic.webp",
           "width": 1012,
           "height": 1430
         }
       ],
       "photos": [
         {
-          "path": "files/folk-song/photo-01.webp",
+          "path": "files/folk-song/photo-01-mosaic.webp",
           "alt": "학교생활을 주제로 민요 가사를 쓰는 모습",
           "width": 406,
           "height": 305
@@ -399,7 +399,7 @@
           "height": 295
         },
         {
-          "path": "files/folk-song/photo-03.webp",
+          "path": "files/folk-song/photo-03-mosaic.webp",
           "alt": "모둠에서 내 노래의 기준을 토의하는 모습",
           "width": 406,
           "height": 304
@@ -566,69 +566,69 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/pressure-and-weather/lesson-plan.pdf"
+          "path": "files/pressure-and-weather/lesson-plan-mosaic.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/pressure-and-weather/lesson-plan.hwpx"
+          "path": "files/pressure-and-weather/lesson-plan-mosaic.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/pressure-and-weather/page-01.webp",
+          "path": "files/pressure-and-weather/page-01-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-02.webp",
+          "path": "files/pressure-and-weather/page-02-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-03.webp",
+          "path": "files/pressure-and-weather/page-03-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-04.webp",
+          "path": "files/pressure-and-weather/page-04-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-05.webp",
+          "path": "files/pressure-and-weather/page-05-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-06.webp",
+          "path": "files/pressure-and-weather/page-06-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-07.webp",
+          "path": "files/pressure-and-weather/page-07-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-08.webp",
+          "path": "files/pressure-and-weather/page-08-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-09.webp",
+          "path": "files/pressure-and-weather/page-09-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-10.webp",
+          "path": "files/pressure-and-weather/page-10-mosaic.webp",
           "width": 1012,
           "height": 1430
         }
       ],
       "photos": [
         {
-          "path": "files/pressure-and-weather/photo-01.webp",
+          "path": "files/pressure-and-weather/photo-01-mosaic.webp",
           "alt": "기압 차이에 따른 공기의 이동을 탐구하는 모습",
           "width": 633,
           "height": 358
@@ -640,7 +640,7 @@
           "height": 377
         },
         {
-          "path": "files/pressure-and-weather/photo-03.webp",
+          "path": "files/pressure-and-weather/photo-03-mosaic.webp",
           "alt": "모둠에서 날씨 자료의 패턴을 찾는 모습",
           "width": 633,
           "height": 401

@@ -68,3 +68,7 @@ Resource icons follow destination type: right arrow for an internal viewer, down
 The homepage is a single non-scrolling hero screen. Introduction (/about/), lesson library (/library/) and collection (/collection/) are independent pages reached through the top navigation. The home has no footer, lesson sections or floating HOME link. This decision supersedes the earlier scroll-through homepage.
 
 The desktop Part 1 library shows five compact cards in one row (above 1050px). Remove the repeated 자료 공개/자료 보기 card footer. Whole cards are links with a pointer cursor, directional icon, tinted background, stronger border and subtle lift on hover/focus; respect reduced motion. Smaller screens reflow to three or one column.
+
+## Student face redaction · 2026-11-16
+
+The user requires mosaics over visible student faces in classroom photos. Preserve existing adequate mosaics, add redaction to unmasked/weakly blurred frontal or profile faces, and keep gallery, HWPX, PDF and reading-page versions consistent. Publish the processed assets under fresh URLs. Do not republish unredacted originals from the local manuscript.

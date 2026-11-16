@@ -27,3 +27,24 @@
 - 원본: 로고 폴더의 `수업공방_심벌_289B6E_투명.png`(1254×1254).
 - 원본 SHA-256: `e2b2ad316fd44d448724fa16049c2cdbc45b64f91794ba72a128929620669e2c`.
 - `public/assets/favicon.svg` 안에 원본 PNG 바이트를 포함합니다. SVG 필터로 브라운을 입히고 실제 심벌에 맞춰 표시 여백을 줄였습니다. 작은 탭에서 읽히도록 가로형 글자 대신 공식 심벌을 사용합니다.
+
+
+## 학생 얼굴 모자이크 · 2026-11-16
+
+사용자의 명시적 요청으로 수학 1장, 음악 2장, 중3 과학 2장의 노출·약한 흐림 얼굴을 처리했습니다. 중1 과학과 영어 사진의 기존 충분한 모자이크, 얼굴이 나오지 않는 사진·활동지는 유지했습니다.
+
+기본 제공 image_gen 편집 도구로 얼굴 모자이크를 만들었습니다. 생성형 편집이 주변 글씨나 사물을 바꾸지 않도록, 결과 전체를 게시하지 않고 얼굴 패치만 원본에 합성했습니다. 얼굴 영역 밖의 원본 RGB 픽셀이 달라지지 않았음을 비교했습니다. 공개 WebP는 무손실 인코딩입니다. HWPX의 내장 사진에도 같은 패치를 반영한 뒤 한글 2024에서 PDF를 재생성했습니다.
+
+최종 사진 파일:
+
+- `public/files/linear-functions/photo-09-mosaic.webp`
+- `public/files/folk-song/photo-01-mosaic.webp`
+- `public/files/folk-song/photo-03-mosaic.webp`
+- `public/files/pressure-and-weather/photo-01-mosaic.webp`
+- `public/files/pressure-and-weather/photo-03-mosaic.webp`
+
+위 세 수업의 `lesson-plan-mosaic.hwpx`, `lesson-plan-mosaic.pdf`, `page-XX-mosaic.webp`가 대응 지도안입니다. 수정 전 공개 파일 38개는 현재 배포 목록과 public에서 제외했습니다. OneDrive 원고는 변경하지 않았습니다.
+
+공통 편집 프롬프트: “Privacy redaction only. Apply STRONG coarse square-pixel mosaic censorship covering each visible student's WHOLE face from forehead to chin and ear to ear with a safety margin, including profiles and partial faces. Features must be completely unrecognizable at full resolution. Preserve the original composition, aspect ratio, people, poses, clothing, background, laptops, worksheets, colors and original text outside the face regions. No face reconstruction, crop, beautification or other visual changes.”
+
+개별 보충: 수학은 왼쪽·오른쪽 학생의 얼굴과 큰 앞쪽 학생의 옆얼굴, 음악 첫 사진은 고개를 숙인 학생과 우측 상단 일부 얼굴, 음악 셋째 사진은 배경의 작은 얼굴까지 전부, 중3 과학 첫 사진은 모든 전면·배경 얼굴, 셋째 사진은 전경 오른쪽과 뒤쪽의 옆얼굴을 포함하도록 지정했습니다.
