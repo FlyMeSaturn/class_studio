@@ -54,25 +54,36 @@ svg { flex: none; vertical-align: middle; }
 .skip-link:focus { transform: none; }
 .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(252, 250, 247, .92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .header-inner {
+  /* Anchor both edges to the viewport, regardless of the page's scrollbar. */
+  --header-edge: max(48px, calc((100vw - 1280px) / 2));
+  max-width: none; padding-left: var(--header-edge);
+  padding-right: calc(var(--header-edge) - (100vw - 100%));
   min-height: 96px; display: flex; justify-content: space-between;
   align-items: center; gap: 32px;
 }
 .wordmark { display: block; position: relative; flex: none; text-decoration: none; }
-.brand-caption { position: absolute; z-index: 1; left: 39%; top: 0; color: var(--accent-dark); font-size: 10.5px; font-weight: 500; line-height: 1.2; white-space: nowrap; }
-/* Preserve the original alpha silhouette; display it in the current brand color. */
+.brand-caption { position: absolute; z-index: 1; left: 35.486063902%; top: 0; width: 64.513936098%; color: var(--accent); }
+.brand-caption svg { display: block; width: 100%; height: auto; fill: currentColor; }
+/* Clip the pen and lettering from the original alpha; preserve each part's proportions. */
 .brand-logo {
   display: block; position: relative; overflow: hidden;
-  width: 240px; aspect-ratio: 1471 / 435;
+  width: 240px; aspect-ratio: 1471 / 376;
 }
 .brand-logo img {
-  position: absolute; max-width: none; width: 134.806254%; height: auto;
-  left: -20.802175%; top: -44.597701%; opacity: 0;
+  position: absolute; width: 100%; height: 100%; opacity: 0;
 }
-.brand-logo::before {
-  content: ""; position: absolute; width: 134.806254%; height: 182.298851%;
-  left: -20.802175%; top: -44.597701%; background: var(--accent);
+.brand-logo::before, .brand-logo::after {
+  content: ""; position: absolute; background: var(--accent);
   -webkit-mask: url("./class-studio-logo.png") center / 100% 100% no-repeat;
   mask: url("./class-studio-logo.png") center / 100% 100% no-repeat;
+}
+.brand-logo::before {
+  width: 116.522187581%; height: 182.298851%; left: -17.980730913%; top: -44.597701%;
+  clip-path: polygon(0 0,45.386% 0,45.386% 36.948%,40.343% 45.397%,40.343% 100%,0 100%);
+}
+.brand-logo::after {
+  width: 134.806254%; height: 210.904255319%; left: -20.802175%; top: -42.021276596%;
+  clip-path: polygon(45.386% 0,100% 0,100% 100%,40.343% 100%,40.343% 45.397%,45.386% 36.948%);
 }
 .site-header nav {
   display: flex; gap: 2px; align-items: center; padding: 6px;
@@ -108,7 +119,6 @@ svg { flex: none; vertical-align: middle; }
 .part-index a { font-size: .95rem; text-decoration: none; }
 .part-index a:hover { text-decoration: underline; }
 .part-index span { color: var(--muted); margin-right: 10px; font-size: .85rem; }
-.preparation-note { margin-top: 22px; color: var(--muted); font-size: .85rem; }
 .part-section { margin-top: 64px; scroll-margin-top: 30px; }
 .part-section > h2 { display: flex; align-items: baseline; gap: 18px; }
 .part-label { font-size: .95rem; font-weight: 450; color: var(--muted); flex: none; }
@@ -156,9 +166,8 @@ svg { flex: none; vertical-align: middle; }
 .lesson-overview h2 { font-size: 1.1rem; }
 .lesson-overview > p { margin-top: 10px; line-height: 1.8; word-break: keep-all; }
 .lesson-overview h2:not(:first-child) { margin-top: 24px; }
-.lesson-overview > .lesson-author { margin: 0 0 20px; font-size: .9rem; }
+.lesson-overview > .lesson-author { margin: 18px 0 0; font-size: .9rem; }
 .lesson-author span { margin-right: 12px; color: var(--muted); }
-.lesson-overview .lesson-author + h2 { margin-top: 0; }
 .activity-list { margin: 10px 0 0; padding-left: 25px; }
 .activity-list li { padding: 7px 0 7px 6px; border-bottom: 1px solid var(--line); font-size: .95rem; }
 .activity-list li::marker { color: var(--accent); font-variant-numeric: tabular-nums; }
@@ -169,7 +178,6 @@ svg { flex: none; vertical-align: middle; }
 .resource-action svg { flex: none; }
 .resource-action:hover { border-color: var(--accent); background: var(--tint); }
 .lesson-resources .resource-pending { margin: 0; }
-.back-link { display: inline-block; margin-top: 36px; color: var(--accent); font-size: .95rem; }
 .reading-page { padding-top: 54px; }
 .prose { max-width: 740px; margin-top: 32px; }
 .prose p { margin-top: 18px; line-height: 1.95; word-break: keep-all; }
@@ -205,6 +213,7 @@ svg { flex: none; vertical-align: middle; }
 }
 @media (max-width: 1050px) {
   .shell { padding-inline: 32px; }
+  .header-inner { --header-edge: 32px; padding-left: var(--header-edge); padding-right: calc(var(--header-edge) - (100vw - 100%)); }
 
   .lesson-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
   .lesson-layout { gap: 32px; }
@@ -214,9 +223,9 @@ svg { flex: none; vertical-align: middle; }
 @media (max-width: 640px) {
   body { font-size: 15px; }
   .shell { padding-inline: 22px; }
+  .header-inner { --header-edge: 22px; padding-left: var(--header-edge); padding-right: calc(var(--header-edge) - (100vw - 100%)); }
   html { scroll-padding-top: 148px; }
   .header-inner { min-height: 128px; flex-wrap: wrap; gap: 4px; padding-block: 8px; }
-  .brand-caption { font-size: 9.1px; }
   .brand-logo { width: 208px; }
   .site-header nav { width: fit-content; gap: 2px; padding: 0; }
   .site-header nav a { min-height: 44px; font-size: .85rem; padding: 9px 17px; }
@@ -229,7 +238,6 @@ svg { flex: none; vertical-align: middle; }
   .part-index { margin-top: 20px; gap: 13px 24px; font-size: .8rem; }
   .part-index a { font-size: .85rem; }
   .part-index span { font-size: .75rem; margin-right: 7px; }
-  .preparation-note { margin-top: 18px; font-size: .8rem; }
   .part-section { margin-top: 38px; }
   .part-section > h2 { font-size: 1.3rem; gap: 12px; }
   .part-label { font-size: .85rem; }

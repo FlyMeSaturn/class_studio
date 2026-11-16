@@ -7,6 +7,9 @@ const failures=[];
 async function walk(dir){let result=[];for(const entry of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,entry.name);result.push(...entry.isDirectory()?await walk(p):[p]);}return result;}
 const all=await walk(dist);let bytes=0;
 for(const file of all){bytes+=(await stat(file)).size;if(!file.endsWith('.html'))continue;const html=await readFile(file,'utf8');
+  const home=file===path.join(dist,'index.html');
+  if((html.match(/class="floating-back"/g)||[]).length!==(home?0:1))failures.push(`${file}: 메인 외 페이지에는 고정 뒤로 가기가 하나 필요합니다.`);
+  if(/class="back-link"|일부 수업과 전체 자료집은 자료를 준비하고 있습니다/.test(html))failures.push(`${file}: 제거한 목록 복귀 또는 준비 안내 문구가 남아 있습니다.`);
   if(!html.includes('lang="ko"')||!html.includes('<h1')||!html.includes('name="description"'))failures.push(`${file}: 언어·제목·설명 누락`);
   if(/data-share|class="hero-browse"/.test(html))failures.push(`${file}: 삭제한 주소 복사 또는 메인 바로가기 버튼이 남아 있습니다.`);
   if(/notion\.com|OneDrive|C:\\Users|010-\d/.test(html))failures.push(`${file}: 비공개 출처 또는 로컬 정보 노출`);

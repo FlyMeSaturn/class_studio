@@ -8,7 +8,6 @@ const lessons = visibleLessons(data);
 const assetVersions = Object.fromEntries(await Promise.all(['style.css', 'common.js', 'favicon.svg'].map(async name => [name, createHash('sha256').update(await readFile(path.join(publicRoot, 'assets', name))).digest('hex').slice(0, 10)])));
 const versionedAsset = name => `${href(`assets/${name}`)}?v=${assetVersions[name]}`;
 const navigationVersion = createHash('sha256').update(await readFile(new URL(import.meta.url))).update(JSON.stringify(data)).update(JSON.stringify(assetVersions)).digest('hex').slice(0, 12);
-const hasPending = lessons.some(l => l.status === 'preparing') || data.collection.status === 'preparing';
 const dist = path.join(root, 'dist');
 // Replace generated output only. The local source-material folder is never copied.
 if (dist !== path.join(root, 'dist')) throw new Error('Invalid output directory');
@@ -40,12 +39,12 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 </head><body${home ? ' class="home"' : ''}>
 <a class="skip-link" href="#main">본문으로 바로가기</a>
 <header class="site-header${home ? ' home-header' : ''}"><div class="shell header-inner">
-<a class="wordmark" href="${base}" aria-label="교단지원 자료개발 교육연구회 수업공방 홈"><span class="brand-caption">교단지원 자료개발 교육연구회</span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
+<a class="wordmark" href="${base}" aria-label="교단지원 자료개발 교육연구회 수업공방 홈"><span class="brand-caption" aria-hidden="true"><svg viewBox="0 0 949 102" width="949" height="102" focusable="false"><text x="0" y="82" font-size="82" font-weight="500" textLength="949" lengthAdjust="spacing">교단지원 자료개발 교육연구회</text></svg></span><span class="brand-logo"><img src="${href('assets/class-studio-logo.png')}" width="1983" height="793" alt="수업공방" fetchpriority="high"></span></a>
 <nav aria-label="주 메뉴">${nav('about', aboutUrl, '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
 ${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
-${backHref ? `<a class="floating-back" href="${href(backHref)}" aria-label="뒤로 가기: 수업 페이지로 이동">${backArrow}<span>뒤로 가기</span></a>` : ''}
+<a class="floating-back" href="${href(backHref)}" aria-label="뒤로 가기: ${backHref.startsWith('lessons/') ? '수업 페이지로 이동' : backHref.startsWith('library/') ? '수업 목록으로 이동' : '메인 페이지로 이동'}">${backArrow}<span>뒤로 가기</span></a>
 <a class="floating-home" href="${base}" aria-label="HOME: 메인 페이지로 이동" data-home><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 11 9-8 9 8M5 9v12h5v-7h4v7h5V9"/></svg><span>HOME</span></a>`}
 </body></html>`;
   // Version document links as well as assets to avoid mixing cached HTML with a new release.
@@ -87,7 +86,6 @@ const library = page({
   title: '수업 자료', description: '수업공방의 개념 기반 탐구학습과 교과융합 수업 자료.', route: 'library/', current: 'library',
   body: `<div class="shell library">
 <div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
-${hasPending ? '<p class="preparation-note">일부 수업과 전체 자료집은 자료를 준비하고 있습니다.</p>' : ''}
 ${data.parts.map(section).join('')}
 </div>`
 });
@@ -127,13 +125,13 @@ ${(l.links || []).map(link => action(link.label, esc(link.url), ' target="_blank
 for (const l of lessons) {
   const p = data.parts.find(p => p.id === l.part);
   await write(`lessons/${l.id}/index.html`, page({
-    title: l.title, description: l.summary, route: `lessons/${l.id}/`, current: 'library',
+    title: l.title, description: l.summary, route: `lessons/${l.id}/`, current: 'library', backHref: `library/#${p.id}`,
     body: `<div class="shell detail-shell">
 <nav class="breadcrumb" aria-label="현재 위치"><a href="${href('library/')}">수업 자료</a><span aria-hidden="true">/</span><a href="${href('library/')}#${p.id}">${p.number} ${esc(p.title)}</a></nav>
 <header class="lesson-heading"><p class="detail-meta"><span>${esc(l.subjects.join(' · '))}</span><span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
-<div class="lesson-layout"><article class="lesson-overview"><p class="lesson-author"><span>작성</span> ${esc(l.author)}</p><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
+<div class="lesson-layout"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol><p class="lesson-author"><span>작성자</span> ${esc(l.author)}</p></article>
 <aside class="lesson-resources" aria-label="수업 자료 바로가기">${lessonResources(l)}</aside></div>
-<a class="back-link" href="${href('library/')}#${p.id}">수업 목록으로</a></div>`
+</div>`
   }));
   if (l.status === 'published' && l.planPages?.length) {
     await write(`lessons/${l.id}/plan/index.html`, page({
@@ -170,19 +168,19 @@ await write('collection/index.html', page({
 <div class="book-layout"><div class="book-title"><span>${data.collection.year}</span><h2>${esc(data.collection.title)}</h2><p>개념 기반 탐구학습<br>교과융합</p><strong>수업공방</strong></div>
 <div class="book-description"><section class="resources" aria-labelledby="collection-files"><div class="resource-heading"><h2 id="collection-files">자료집 다운로드</h2></div>${resources(data.collection)}</section></div></div>
 <section class="contents-list"><h2>목차</h2>${data.parts.map(p => `<div><h3>${p.number} ${esc(p.title)}</h3><ol>${lessons.filter(l => l.part === p.id).map(l => `<li><a href="${href(`lessons/${l.id}/`)}">${esc(l.title)}${arrow}</a></li>`).join('')}</ol></div>`).join('')}</section>
-<a class="back-link" href="${href('library/')}">수업 목록으로</a></div>`
+</div>`
 }));
 
 await write('about/index.html', page({
   title: '수업공방 소개', description: '개념 기반 탐구학습과 교과융합 수업 자료를 개발하는 교육연구회 수업공방.', route: 'about/', current: 'about',
   body: `<div class="shell reading-page"><h1>수업공방 소개</h1><div class="prose">
 <p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p>
-</div><a class="back-link" href="${href('library/')}">수업 목록으로</a></div>`
+</div></div>`
 }));
 
 await write('404.html', page({
-  title: '페이지를 찾을 수 없습니다', description: '주소를 확인하거나 수업 목록으로 이동해 주세요.', route: '404.html',
-  body: `<div class="shell error-page"><p class="error-code">404</p><h1>페이지를 찾을 수 없습니다.</h1><p>주소를 확인하거나 수업 목록으로 이동해 주세요.</p><a class="button" href="${href('library/')}">수업 목록으로 ${arrow}</a></div>`
+  title: '페이지를 찾을 수 없습니다', description: '주소를 확인하거나 수업 목록으로 이동해 주세요.', route: '404.html', backHref: 'library/',
+  body: `<div class="shell error-page"><p class="error-code">404</p><h1>페이지를 찾을 수 없습니다.</h1><p>주소를 확인하거나 수업 목록으로 이동해 주세요.</p></div>`
 }));
 
 // Copy selected public assets and published teaching files only.

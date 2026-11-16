@@ -85,6 +85,8 @@ Publish the four supplied student-work images in one gallery reached through a s
 
 ## Floating back link and compact header · 2026-11-16
 
-Every lesson-plan, photo-gallery and student-work viewer uses one fixed lower-left 뒤로 가기 link returning to its owning lesson, styled like the lower-right HOME capsule. Remove duplicate back links from the viewer's document flow. Respect safe-area bottom spacing, focus indicators and reduced-motion settings.
+Every page except home uses one fixed lower-left 뒤로 가기 link, styled like the lower-right HOME capsule. Viewers return to their owning lesson, lesson details return to the appropriate library part, and introduction/library/collection return home. The 404 back link returns to the library. Remove duplicate back/list links from document flow. Respect safe-area bottom spacing, focus indicators and reduced-motion settings.
 
-Place the exact brand caption 교단지원 자료개발 교육연구회 above the logo letters, to the right of the pen, following the user's reference. Preserve the actual PNG silhouette and aspect ratio. Use a 240px logo and 96px minimum header height on desktop; a 208px logo and 128px minimum header height on mobile. Keep the single-screen homepage and all menu destinations.
+Place the exact brand caption 교단지원 자료개발 교육연구회 above the logo letters, to the right of the pen. Match its horizontal extent to the logo lettering, and align the pen's bottom with the lettering's bottom. Keep the original PNG and the proportions of each separately masked component. Use a 240px logo and 96px minimum header height on desktop; a 208px logo and 128px minimum header height on mobile. Anchor the header to viewport coordinates so appearing/disappearing page scrollbars do not shift the logo or navigation. Keep the single-screen homepage and all menu destinations.
+
+Place author credits after the overview and activities, labeled 작성자. Lee Sol's displayed credit is 전주양현중학교 이솔. Remove the library-wide 일부 수업과 전체 자료집은 자료를 준비하고 있습니다 notice; keep genuine unavailable-resource states on their own pages.
