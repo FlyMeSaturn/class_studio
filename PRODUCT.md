@@ -90,3 +90,7 @@ Every page except home uses one fixed lower-left 뒤로 가기 link, styled like
 Place the exact brand caption 교단지원 자료개발 교육연구회 above the logo letters, to the right of the pen. Match its horizontal extent to the logo lettering, and align the pen's bottom with the lettering's bottom. Keep the original PNG and the proportions of each separately masked component. Use a 240px logo and 96px minimum header height on desktop; a 208px logo and 128px minimum header height on mobile. Anchor the header to viewport coordinates so appearing/disappearing page scrollbars do not shift the logo or navigation. Keep the single-screen homepage and all menu destinations.
 
 Place author credits after the overview and activities, labeled 작성자. Lee Sol's displayed credit is 전주양현중학교 이솔. Remove the library-wide 일부 수업과 전체 자료집은 자료를 준비하고 있습니다 notice; keep genuine unavailable-resource states on their own pages.
+
+## Organization name in teaching documents · 2026-11-16
+
+The correct unspaced document name is 교단지원자료개발교육연구회. It supersedes 교단지원교육자료개발연구회 in the source compilation, the five published HWPX/PDF lesson plans, their internal preview text/creator metadata, and all website reading-page images. Preserve every other text, layout and privacy-processed embedded image. Keep verified pre-edit source backups private and use fresh public file URLs for the corrected resources.

@@ -52,47 +52,47 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/force-and-change/lesson-plan-revised.pdf"
+          "path": "files/force-and-change/lesson-plan-name-fixed.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/force-and-change/lesson-plan-revised.hwpx"
+          "path": "files/force-and-change/lesson-plan-name-fixed.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/force-and-change/page-01-revised.webp",
+          "path": "files/force-and-change/page-01-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-02-revised.webp",
+          "path": "files/force-and-change/page-02-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-03-revised.webp",
+          "path": "files/force-and-change/page-03-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-04-revised.webp",
+          "path": "files/force-and-change/page-04-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-05-revised.webp",
+          "path": "files/force-and-change/page-05-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-06-revised.webp",
+          "path": "files/force-and-change/page-06-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/force-and-change/page-07-revised.webp",
+          "path": "files/force-and-change/page-07-name-fixed.webp",
           "width": 1012,
           "height": 1430
         }
@@ -199,57 +199,57 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/linear-functions/lesson-plan-private.pdf"
+          "path": "files/linear-functions/lesson-plan-name-fixed.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/linear-functions/lesson-plan-private.hwpx"
+          "path": "files/linear-functions/lesson-plan-name-fixed.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/linear-functions/page-01-private.webp",
+          "path": "files/linear-functions/page-01-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-02-private.webp",
+          "path": "files/linear-functions/page-02-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-03-private.webp",
+          "path": "files/linear-functions/page-03-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-04-private.webp",
+          "path": "files/linear-functions/page-04-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-05-private.webp",
+          "path": "files/linear-functions/page-05-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-06-private.webp",
+          "path": "files/linear-functions/page-06-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-07-private.webp",
+          "path": "files/linear-functions/page-07-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-08-private.webp",
+          "path": "files/linear-functions/page-08-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/linear-functions/page-09-private.webp",
+          "path": "files/linear-functions/page-09-name-fixed.webp",
           "width": 1012,
           "height": 1430
         }
@@ -387,52 +387,52 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/folk-song/lesson-plan-mosaic.pdf"
+          "path": "files/folk-song/lesson-plan-name-fixed.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/folk-song/lesson-plan-mosaic.hwpx"
+          "path": "files/folk-song/lesson-plan-name-fixed.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/folk-song/page-01-mosaic.webp",
+          "path": "files/folk-song/page-01-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-02-mosaic.webp",
+          "path": "files/folk-song/page-02-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-03-mosaic.webp",
+          "path": "files/folk-song/page-03-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-04-mosaic.webp",
+          "path": "files/folk-song/page-04-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-05-mosaic.webp",
+          "path": "files/folk-song/page-05-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-06-mosaic.webp",
+          "path": "files/folk-song/page-06-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-07-mosaic.webp",
+          "path": "files/folk-song/page-07-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/folk-song/page-08-mosaic.webp",
+          "path": "files/folk-song/page-08-name-fixed.webp",
           "width": 1012,
           "height": 1430
         }
@@ -522,47 +522,47 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/language-and-culture/lesson-plan-mosaic.pdf"
+          "path": "files/language-and-culture/lesson-plan-name-fixed.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/language-and-culture/lesson-plan-mosaic.hwpx"
+          "path": "files/language-and-culture/lesson-plan-name-fixed.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/language-and-culture/page-01-mosaic.webp",
+          "path": "files/language-and-culture/page-01-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-02-mosaic.webp",
+          "path": "files/language-and-culture/page-02-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-03-mosaic.webp",
+          "path": "files/language-and-culture/page-03-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-04-mosaic.webp",
+          "path": "files/language-and-culture/page-04-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-05-mosaic.webp",
+          "path": "files/language-and-culture/page-05-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-06-mosaic.webp",
+          "path": "files/language-and-culture/page-06-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-07-mosaic.webp",
+          "path": "files/language-and-culture/page-07-name-fixed.webp",
           "width": 1012,
           "height": 1430
         }
@@ -618,62 +618,62 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/pressure-and-weather/lesson-plan-mosaic.pdf"
+          "path": "files/pressure-and-weather/lesson-plan-name-fixed.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/pressure-and-weather/lesson-plan-mosaic.hwpx"
+          "path": "files/pressure-and-weather/lesson-plan-name-fixed.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/pressure-and-weather/page-01-mosaic.webp",
+          "path": "files/pressure-and-weather/page-01-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-02-mosaic.webp",
+          "path": "files/pressure-and-weather/page-02-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-03-mosaic.webp",
+          "path": "files/pressure-and-weather/page-03-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-04-mosaic.webp",
+          "path": "files/pressure-and-weather/page-04-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-05-mosaic.webp",
+          "path": "files/pressure-and-weather/page-05-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-06-mosaic.webp",
+          "path": "files/pressure-and-weather/page-06-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-07-mosaic.webp",
+          "path": "files/pressure-and-weather/page-07-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-08-mosaic.webp",
+          "path": "files/pressure-and-weather/page-08-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-09-mosaic.webp",
+          "path": "files/pressure-and-weather/page-09-name-fixed.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/pressure-and-weather/page-10-mosaic.webp",
+          "path": "files/pressure-and-weather/page-10-name-fixed.webp",
           "width": 1012,
           "height": 1430
         }
