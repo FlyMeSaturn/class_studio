@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "parts": [
     {
       "id": "inquiry",
@@ -34,8 +34,8 @@
       "summary": "생활 속 힘의 사례를 분류하고 힘의 크기와 방향을 화살표로 나타냅니다.",
       "author": "이솔",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-16",
       "tags": [
         "힘",
         "변화",
@@ -48,7 +48,71 @@
         "힘의 크기·방향·작용점을 화살표로 표현하기",
         "힘과 변화의 관계를 설명하고 새로운 상황에 적용하기"
       ],
-      "files": []
+      "files": [
+        {
+          "label": "지도안 PDF",
+          "format": "PDF",
+          "path": "files/force-and-change/lesson-plan.pdf"
+        },
+        {
+          "label": "지도안 HWPX",
+          "format": "HWPX",
+          "path": "files/force-and-change/lesson-plan.hwpx"
+        }
+      ],
+      "planPages": [
+        {
+          "path": "files/force-and-change/page-01.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-02.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-03.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-04.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-05.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/force-and-change/page-06.webp",
+          "width": 1012,
+          "height": 1430
+        }
+      ],
+      "photos": [
+        {
+          "path": "files/force-and-change/photo-01.webp",
+          "alt": "학급 전체가 힘 카드를 다시 분류하는 모습",
+          "width": 632,
+          "height": 474
+        },
+        {
+          "path": "files/force-and-change/photo-02.webp",
+          "alt": "포스트잇으로 힘 카드를 재분류한 결과",
+          "width": 632,
+          "height": 474
+        },
+        {
+          "path": "files/force-and-change/photo-03.webp",
+          "alt": "웹앱으로 힘을 그림으로 표현하는 모습",
+          "width": 1278,
+          "height": 719
+        }
+      ],
+      "links": []
     },
     {
       "id": "linear-functions",
@@ -64,8 +128,8 @@
       "summary": "방정식의 해를 좌표평면에 나타내고 두 요금제의 그래프와 교점을 해석합니다.",
       "author": "홍유빈",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-16",
       "tags": [
         "일차함수",
         "일차방정식",
@@ -79,7 +143,164 @@
         "두 요금제의 그래프를 비교하고 교점 해석하기",
         "알지오매스로 두 직선의 위치 관계 살펴보기"
       ],
-      "files": []
+      "files": [
+        {
+          "label": "지도안 PDF",
+          "format": "PDF",
+          "path": "files/linear-functions/lesson-plan.pdf"
+        },
+        {
+          "label": "지도안 HWPX",
+          "format": "HWPX",
+          "path": "files/linear-functions/lesson-plan.hwpx"
+        }
+      ],
+      "planPages": [
+        {
+          "path": "files/linear-functions/page-01.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-02.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-03.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-04.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-05.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-06.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-07.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-08.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/linear-functions/page-09.webp",
+          "width": 1012,
+          "height": 1430
+        }
+      ],
+      "photos": [
+        {
+          "path": "files/linear-functions/photo-01.webp",
+          "alt": "일차방정식의 해를 좌표평면에 표시한 활동지 1",
+          "width": 787,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-02.webp",
+          "alt": "일차방정식의 해를 좌표평면에 표시한 활동지 2",
+          "width": 787,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-03.webp",
+          "alt": "좌표축과 평행한 직선 그리기 1",
+          "width": 787,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-04.webp",
+          "alt": "좌표축과 평행한 직선 그리기 2",
+          "width": 787,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-05.webp",
+          "alt": "공통점을 찾는 See Think Wonder 활동 1",
+          "width": 630,
+          "height": 472
+        },
+        {
+          "path": "files/linear-functions/photo-06.webp",
+          "alt": "공통점을 찾는 See Think Wonder 활동 2",
+          "width": 630,
+          "height": 472
+        },
+        {
+          "path": "files/linear-functions/photo-07.webp",
+          "alt": "공통점을 찾는 See Think Wonder 활동 3",
+          "width": 630,
+          "height": 472
+        },
+        {
+          "path": "files/linear-functions/photo-08.webp",
+          "alt": "학급에서 공유한 공통점 탐구 활동지",
+          "width": 472,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-09.webp",
+          "alt": "두 직선의 관계를 탐구하는 모습",
+          "width": 630,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-10.webp",
+          "alt": "알지오매스로 두 직선의 교점을 살펴보는 화면",
+          "width": 630,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-11.webp",
+          "alt": "두 직선의 교점과 연립방정식의 해 탐구 1",
+          "width": 866,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-12.webp",
+          "alt": "두 직선의 교점과 연립방정식의 해 탐구 2",
+          "width": 866,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-13.webp",
+          "alt": "그래프의 모양과 해의 관계 탐구 1",
+          "width": 866,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-14.webp",
+          "alt": "그래프의 모양과 해의 관계 탐구 2",
+          "width": 866,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-15.webp",
+          "alt": "그래프의 모양과 해의 관계 탐구 3",
+          "width": 866,
+          "height": 630
+        },
+        {
+          "path": "files/linear-functions/photo-16.webp",
+          "alt": "그래프의 모양과 해의 관계 탐구 4",
+          "width": 866,
+          "height": 630
+        }
+      ],
+      "links": []
     },
     {
       "id": "folk-song",
@@ -95,8 +316,8 @@
       "summary": "옹헤야와 통영개타령을 배우고 학교생활을 담은 노랫말로 바꿔 부릅니다.",
       "author": "왕가람",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-16",
       "tags": [
         "민요",
         "변화와 지속",
@@ -110,7 +331,111 @@
         "학교생활을 담아 개사하고 불러 보며 고치기",
         "AI 초안과 자신의 선택을 비교하며 성찰하기"
       ],
-      "files": []
+      "files": [
+        {
+          "label": "지도안 PDF",
+          "format": "PDF",
+          "path": "files/folk-song/lesson-plan.pdf"
+        },
+        {
+          "label": "지도안 HWPX",
+          "format": "HWPX",
+          "path": "files/folk-song/lesson-plan.hwpx"
+        }
+      ],
+      "planPages": [
+        {
+          "path": "files/folk-song/page-01.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-02.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-03.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-04.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-05.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-06.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-07.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/folk-song/page-08.webp",
+          "width": 1012,
+          "height": 1430
+        }
+      ],
+      "photos": [
+        {
+          "path": "files/folk-song/photo-01.webp",
+          "alt": "학교생활을 주제로 민요 가사를 쓰는 모습",
+          "width": 406,
+          "height": 305
+        },
+        {
+          "path": "files/folk-song/photo-02.webp",
+          "alt": "웹앱으로 음정을 조절하며 연습하는 모습",
+          "width": 405,
+          "height": 295
+        },
+        {
+          "path": "files/folk-song/photo-03.webp",
+          "alt": "모둠에서 내 노래의 기준을 토의하는 모습",
+          "width": 406,
+          "height": 304
+        },
+        {
+          "path": "files/folk-song/photo-04.webp",
+          "alt": "옹헤야 학생 개사곡 듣기 QR",
+          "width": 117,
+          "height": 117
+        },
+        {
+          "path": "files/folk-song/photo-05.webp",
+          "alt": "통영개타령 학생 개사곡 듣기 QR",
+          "width": 117,
+          "height": 117
+        },
+        {
+          "path": "files/folk-song/photo-06.webp",
+          "alt": "학생이 다듬은 통영개타령 가사",
+          "width": 569,
+          "height": 306
+        },
+        {
+          "path": "files/folk-song/photo-07.webp",
+          "alt": "AI 가사를 고친 이유에 대한 학생 성찰",
+          "width": 250,
+          "height": 305
+        },
+        {
+          "path": "files/folk-song/photo-08.webp",
+          "alt": "음정 조절 웹앱 화면",
+          "width": 153,
+          "height": 305
+        }
+      ],
+      "links": []
     },
     {
       "id": "language-and-culture",
@@ -126,8 +451,8 @@
       "summary": "세계 시장의 문화를 비교하고 외국인을 위한 한국 여행 안내서를 만듭니다.",
       "author": "김연성",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-16",
       "tags": [
         "의사소통",
         "문화",
@@ -141,7 +466,70 @@
         "의미를 명확히 전하는 언어 구조 익히기",
         "외국인 독자를 위한 한국 여행 안내서 만들기"
       ],
-      "files": []
+      "files": [
+        {
+          "label": "지도안 PDF",
+          "format": "PDF",
+          "path": "files/language-and-culture/lesson-plan.pdf"
+        },
+        {
+          "label": "지도안 HWPX",
+          "format": "HWPX",
+          "path": "files/language-and-culture/lesson-plan.hwpx"
+        }
+      ],
+      "planPages": [
+        {
+          "path": "files/language-and-culture/page-01.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-02.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-03.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-04.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-05.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-06.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/language-and-culture/page-07.webp",
+          "width": 1012,
+          "height": 1430
+        }
+      ],
+      "photos": [
+        {
+          "path": "files/language-and-culture/photo-01.webp",
+          "alt": "모둠에서 문화와 언어 자료를 탐구하는 모습",
+          "width": 646,
+          "height": 354
+        },
+        {
+          "path": "files/language-and-culture/photo-02.webp",
+          "alt": "친구들과 의견을 나누며 안내서를 만드는 모습",
+          "width": 646,
+          "height": 354
+        }
+      ],
+      "links": []
     },
     {
       "id": "pressure-and-weather",
@@ -157,8 +545,8 @@
       "summary": "일기도와 위성영상에서 날씨의 규칙을 찾고 새로운 일기도로 날씨를 예보합니다.",
       "author": "박유진",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-16",
       "tags": [
         "기압",
         "바람",
@@ -174,7 +562,118 @@
         "여러 기상 자료에서 날씨 패턴 찾기",
         "저기압의 이동에 따른 날씨 변화를 추리하고 예보하기"
       ],
-      "files": []
+      "files": [
+        {
+          "label": "지도안 PDF",
+          "format": "PDF",
+          "path": "files/pressure-and-weather/lesson-plan.pdf"
+        },
+        {
+          "label": "지도안 HWPX",
+          "format": "HWPX",
+          "path": "files/pressure-and-weather/lesson-plan.hwpx"
+        }
+      ],
+      "planPages": [
+        {
+          "path": "files/pressure-and-weather/page-01.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-02.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-03.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-04.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-05.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-06.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-07.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-08.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-09.webp",
+          "width": 1012,
+          "height": 1430
+        },
+        {
+          "path": "files/pressure-and-weather/page-10.webp",
+          "width": 1012,
+          "height": 1430
+        }
+      ],
+      "photos": [
+        {
+          "path": "files/pressure-and-weather/photo-01.webp",
+          "alt": "기압 차이에 따른 공기의 이동을 탐구하는 모습",
+          "width": 633,
+          "height": 358
+        },
+        {
+          "path": "files/pressure-and-weather/photo-02.webp",
+          "alt": "일기도와 위성영상을 비교하는 수업 화면",
+          "width": 633,
+          "height": 377
+        },
+        {
+          "path": "files/pressure-and-weather/photo-03.webp",
+          "alt": "모둠에서 날씨 자료의 패턴을 찾는 모습",
+          "width": 633,
+          "height": 401
+        },
+        {
+          "path": "files/pressure-and-weather/photo-04.webp",
+          "alt": "전선 주변의 날씨를 예상하는 모둠 활동",
+          "width": 633,
+          "height": 401
+        },
+        {
+          "path": "files/pressure-and-weather/photo-05.webp",
+          "alt": "온대 저기압에 대한 KWL 차트",
+          "width": 633,
+          "height": 346
+        },
+        {
+          "path": "files/pressure-and-weather/photo-06.webp",
+          "alt": "온대 저기압 주변의 날씨를 설명한 학생 활동지",
+          "width": 633,
+          "height": 346
+        }
+      ],
+      "links": [
+        {
+          "label": "[패들렛] 기상 자료에서 날씨 패턴 발견하기",
+          "url": "https://padlet.com/dduyuu/03-3-1-b1317bv4kin6sg12"
+        },
+        {
+          "label": "[패들렛] 온대 저기압 KWL 차트, 활동지",
+          "url": "https://padlet.com/dduyuu/3-1-mb6ue4yaloxxwxnj?frame_id=page%3AWUVFIocpgpGtyvzWJpDbY"
+        }
+      ]
     },
     {
       "id": "jagyeongnu",

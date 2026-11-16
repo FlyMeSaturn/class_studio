@@ -79,7 +79,7 @@ const home = page({
 </section>
 <div class="shell library">
 <div class="library-heading" id="lessons" tabindex="-1"><h1>수업 자료</h1><nav class="part-index" aria-label="수업 분류">${data.parts.map(p => `<a href="#${p.id}"><span>${p.number}</span>${esc(p.title)}</a>`).join('')}</nav></div>
-${hasPending ? '<p class="preparation-note">자료 파일은 준비 중입니다.</p>' : ''}
+${hasPending ? '<p class="preparation-note">일부 수업과 전체 자료집은 자료를 준비하고 있습니다.</p>' : ''}
 ${data.parts.map(section).join('')}
 <section class="collection-strip"><h2>전체 자료집</h2><a class="text-link" href="${href('collection/')}">자료집 보기 ${arrow}</a></section>
 </div>`
@@ -100,6 +100,20 @@ function resources(item) {
 </li>`).join('')}</ul>`;
 }
 
+function lessonResources(l) {
+  if (l.status !== 'published') return resources(l);
+  const plan = l.files.find(f => f.format === 'HWPX');
+  const pdf = l.planPages?.length ? l.files.find(f => f.format === 'PDF') : null;
+  const additionalFiles = l.files.filter(f => f !== plan && f !== pdf);
+  return `<div class="resource-shortcuts">
+${l.planPages?.length ? `<a class="button" href="${href(`lessons/${l.id}/plan/`)}">지도안 바로 보기 ${arrow}</a>` : ''}
+${plan ? `<a class="button button-outline" href="${href(plan.path)}" download="${esc(`수업공방_${l.title}.hwpx`)}">${download} 지도안 hwpx 다운받기</a>` : ''}
+${l.photos?.length ? `<a class="button button-outline" href="${href(`lessons/${l.id}/photos/`)}">수업 사진 <span class="shortcut-count">${l.photos.length}</span> ${arrow}</a>` : ''}
+</div>
+${additionalFiles.length ? resources({...l,files:additionalFiles}) : ''}
+${l.links?.length ? `<h3 class="additional-title">함께 쓰는 자료</h3><ul class="additional-links">${l.links.map(link => `<li><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer"><span>${esc(link.label)}</span>${arrow}<span class="sr-only"> (새 탭)</span></a></li>`).join('')}</ul>` : ''}`;
+}
+
 for (const l of lessons) {
   const p = data.parts.find(p => p.id === l.part);
   await write(`lessons/${l.id}/index.html`, page({
@@ -107,12 +121,28 @@ for (const l of lessons) {
     body: `<div class="shell detail-shell">
 <nav class="breadcrumb" aria-label="현재 위치"><a href="${base}#lessons">수업 자료</a><span aria-hidden="true">/</span><a href="${base}#${p.id}">${p.number} ${esc(p.title)}</a></nav>
 <header class="lesson-heading"><p class="detail-meta">${esc(l.subjects.join(' · '))}<span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
-<section class="resources" aria-labelledby="resource-title"><div class="resource-heading"><h2 id="resource-title">수업 자료</h2>${l.status === 'published' ? `<span>${l.files.length}개 파일</span>` : ''}</div>${resources(l)}</section>
+<section class="resources" aria-labelledby="resource-title"><div class="resource-heading"><h2 id="resource-title">수업 자료</h2></div>${lessonResources(l)}</section>
 <div class="lesson-body"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol></article>
 <aside class="lesson-info" aria-label="수업 정보"><dl><dt>교과</dt><dd>${esc(l.subjects.join(' · '))}</dd><dt>대상</dt><dd>${esc(l.grades.join(' · '))}</dd><dt>작성</dt><dd>${esc(l.author)}</dd><dt>정보 확인일</dt><dd><time datetime="${l.updated}">${l.updated.replaceAll('-', '. ')}</time></dd></dl>
 </aside></div>
 <a class="back-link" href="${base}#${p.id}">수업 목록으로</a></div>`
   }));
+  if (l.status === 'published' && l.planPages?.length) {
+    await write(`lessons/${l.id}/plan/index.html`, page({
+      title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span><label>쪽 이동 <select data-page-select aria-label="지도안 쪽 이동">${l.planPages.map((_,i) => `<option value="plan-page-${i+1}">${i+1}쪽</option>`).join('')}</select></label><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
+<div class="plan-document">${l.planPages.map((p,i) => `<figure id="plan-page-${i+1}" class="plan-page"><figcaption>${i+1} / ${l.planPages.length}쪽</figcaption><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(l.title)} 지도안 ${i+1}쪽" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+    }));
+  }
+  if (l.status === 'published' && l.photos?.length) {
+    await write(`lessons/${l.id}/photos/index.html`, page({
+      title: `${l.title} · 수업 사진`, description: `${l.title} 수업 장면 갤러리`, route: `lessons/${l.id}/photos/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">수업 사진 · ${l.photos.length}장<span>사진을 누르면 크게 볼 수 있습니다.</span></p></div>
+<ul class="photo-gallery">${l.photos.map((p,i) => `<li><a class="photo-link" href="${href(p.path)}" data-photo-index="${i}" aria-label="${esc(p.alt)} 크게 보기"><figure><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${i>2 ? 'loading="lazy"' : ''} decoding="async"><figcaption>${esc(p.alt)}</figcaption></figure></a></li>`).join('')}</ul>
+<dialog class="photo-dialog" aria-label="수업 사진 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 사진">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 사진">→</button></div></dialog>
+<a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+    }));
+  }
 }
 
 await write('collection/index.html', page({
@@ -145,7 +175,7 @@ const selected = new Set([
   'assets/fonts/NotoSerifKR-Slogan.woff2' // Keep the previous face available for cached stylesheets.
 ]);
 for (const item of [...lessons, data.collection]) {
-  if (item.status === 'published') for (const f of item.files) selected.add(f.path);
+  if (item.status === 'published') for (const f of [...item.files,...(item.planPages || []),...(item.photos || [])]) selected.add(f.path);
 }
 for (const asset of selected) {
   const target = path.join(dist, asset);
@@ -153,6 +183,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'collection/', 'about/', ...lessons.map(l => `lessons/${l.id}/`)];
+const routes = ['', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);

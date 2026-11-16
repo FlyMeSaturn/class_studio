@@ -23,9 +23,8 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
   async function files(item, label) {
     if (!allowedStates.includes(item.status)) errors.push(`${label}: 잘못된 공개 상태`);
     if (!Array.isArray(item.files)) { errors.push(`${label}.files: 배열이 필요합니다.`); return; }
-    if (item.status === 'published' && !item.files.length) errors.push(`${label}: 공개 상태에는 실제 파일이 필요합니다.`);
+    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
     if (item.status !== 'published' && item.files.length) errors.push(`${label}: 파일은 공개 상태에서만 등록할 수 있습니다.`);
-    if (item.status === 'published') requireText(item.usage, `${label}.usage`);
     for (const file of item.files) {
       for (const key of ['label','format','path']) requireText(file[key], `${label}.files.${key}`);
       const rel = file.path || '';
@@ -40,6 +39,27 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       } catch { errors.push(`${label}: 파일이 없습니다: ${rel}`); }
     }
   }
+  async function media(item, label) {
+    for (const key of ['photos', 'planPages']) {
+      if (item[key] === undefined) continue;
+      if (!Array.isArray(item[key])) { errors.push(`${label}.${key}: 배열이 필요합니다.`); continue; }
+      if (item.status !== 'published' && item[key].length) errors.push(`${label}: 이미지는 공개 상태에서만 등록할 수 있습니다.`);
+      for (const picture of item[key]) {
+        if (key === 'photos') requireText(picture.alt, `${label}.photos.alt`);
+        if (![picture.width, picture.height].every(n => Number.isInteger(n) && n > 0)) errors.push(`${label}: 이미지 크기가 필요합니다.`);
+        await files({status:'published', files:[{label:'이미지',format:path.extname(picture.path || '').slice(1).toUpperCase(),path:picture.path}]}, label);
+        if (!/\.(webp|png|jpg|jpeg)$/i.test(picture.path || '')) errors.push(`${label}: 지원하지 않는 이미지 형식`);
+      }
+    }
+    if (item.planPages?.length && !item.files.some(f => f.format === 'PDF')) errors.push(`${label}: 지도안 보기에는 PDF 원본이 필요합니다.`);
+    if (item.links !== undefined && !Array.isArray(item.links)) errors.push(`${label}.links: 배열이 필요합니다.`);
+    for (const link of Array.isArray(item.links) ? item.links : []) {
+      requireText(link.label, `${label}.links.label`);
+      try { const url = new URL(link.url); if (url.protocol !== 'https:' || url.username || url.password) throw new Error(); }
+      catch { errors.push(`${label}: 올바른 HTTPS 자료 링크가 필요합니다.`); }
+      if (item.status !== 'published') errors.push(`${label}: 링크는 공개 상태에서만 등록할 수 있습니다.`);
+    }
+  }
   for (const lesson of data.lessons || []) {
     for (const k of ['id','title','summary','author','source','overview']) requireText(lesson[k], `lesson.${k}`);
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lesson.id || '')) errors.push('lesson.id: 영문 소문자·숫자·하이픈만 사용합니다.');
@@ -51,6 +71,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     }
     if (!isDate(lesson.updated)) errors.push(`${lesson.id}: 올바른 updated 날짜가 필요합니다.`);
     await files(lesson, lesson.id);
+    await media(lesson, lesson.id);
   }
   if (!data.collection) errors.push('collection이 필요합니다.');
   else {

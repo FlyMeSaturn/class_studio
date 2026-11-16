@@ -22,7 +22,7 @@ Make the workshop's teaching records findable through 1부 개념 기반 탐구�
 
 Public, no login. Part jump links, static lesson URLs, collection and introduction pages, keyboard and mobile access, useful empty and 404 states. No comments, analytics, visitor uploads, admin interface or AI features.
 
-The user's current instruction forbids uploading actual teaching files. Show an honest preparation state, with no invented file formats, sizes, downloads or license. Verified lesson metadata may be published. The user confirmed two Part 2 projects and directed us to the Jeonbuk Education issue 71 manuscript: the Jagyeongnu science/history project and the constellation-myth history/science/art project. Grade 3 is cross-checked against the workshop's development-material leaflet.
+On 2026-11-16 the user authorized publishing the five Part 1 lessons from the compiled HWPX: per-lesson reading pages, HWPX downloads and galleries of the images in 수업 장면. Part 2 and the whole collection remain in preparation. Do not invent missing resources or licenses. Verified lesson metadata may be published. The user confirmed two Part 2 projects and directed us to the Jeonbuk Education issue 71 manuscript: the Jagyeongnu science/history project and the constellation-myth history/science/art project. Grade 3 is cross-checked against the workshop's development-material leaflet.
 
 ## Brand Commitments
 
@@ -54,3 +54,7 @@ Remove the lesson URL-copy controls and the duplicate hero browse button. Use th
 Latest explicit user copy: the logo caption reads 교단지원 자료개발 교육연구회. Center the exact slogan on the homepage: 장인이 정성껏 물건을 만들 듯, 선생님들이 모여 정성스럽게 수업 자료를 빚어내는 공간. This requested slogan supersedes the earlier no-slogan direction; do not add other promotional copy.
 
 The user removed the lesson-level 출처·이용 안내 block and its unconfirmed usage placeholder. Manuscripts used for editorial verification are internal evidence, not the provenance of the eventual downloadable teaching resources. Preserve verification records without displaying them as public attribution.
+
+## Resource publication · 2026-11-16
+
+Publish the five Part 1 lessons from the explicitly selected compilation. Each lesson has 지도안 바로 보기, 지도안 hwpx 다운받기 and 수업 사진. Reading and gallery pages return directly to the owning lesson. The reading view uses paginated images rendered from the HWPX via Hancom PDF so it works without a browser PDF plugin; the original PDF remains available. Galleries support enlargement, previous/next, arrow keys and Escape. The two exact user-supplied Padlet links belong to pressure-and-weather. Keep future PPT, student-work files and external resources in the catalog, without adding an upload/admin service.
