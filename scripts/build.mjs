@@ -57,9 +57,8 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 
 function card(l) {
   return `<li class="lesson-item"><a class="lesson-card" href="${href(`lessons/${l.id}/`)}">
-<div class="card-meta">${esc(l.subjects.join(' · '))}<span>${esc(l.grades.join(' · '))}</span></div>
+<div class="card-meta">${esc(l.subjects.join(' · '))}<span>${esc(l.grades.join(' · '))}</span><span class="card-open">${arrow}</span></div>
 <h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
-<div class="card-bottom"><span>${l.status === 'published' ? '자료 공개' : '자료 준비 중'}</span><span class="card-action">자료 보기 ${arrow}</span></div>
 </a></li>`;
 }
 
