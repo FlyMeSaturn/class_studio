@@ -31,7 +31,7 @@
 
 ## 학생 얼굴 모자이크 · 2026-11-16
 
-사용자의 명시적 요청으로 수학 1장, 음악 2장, 중3 과학 2장의 노출·약한 흐림 얼굴을 처리했습니다. 중1 과학과 영어 사진의 기존 충분한 모자이크, 얼굴이 나오지 않는 사진·활동지는 유지했습니다.
+사용자의 명시적 요청으로 수학 1장, 음악 2장, 영어 1장, 중3 과학 2장의 노출·약한 흐림 얼굴을 처리했습니다. 나머지 사진의 기존 충분한 모자이크, 얼굴이 나오지 않는 사진·활동지는 유지했습니다.
 
 기본 제공 image_gen 편집 도구로 얼굴 모자이크를 만들었습니다. 생성형 편집이 주변 글씨나 사물을 바꾸지 않도록, 결과 전체를 게시하지 않고 얼굴 패치만 원본에 합성했습니다. 얼굴 영역 밖의 원본 RGB 픽셀이 달라지지 않았음을 비교했습니다. 공개 WebP는 무손실 인코딩입니다. HWPX의 내장 사진에도 같은 패치를 반영한 뒤 한글 2024에서 PDF를 재생성했습니다.
 
@@ -40,11 +40,14 @@
 - `public/files/linear-functions/photo-09-mosaic.webp`
 - `public/files/folk-song/photo-01-mosaic.webp`
 - `public/files/folk-song/photo-03-mosaic.webp`
+- `public/files/language-and-culture/photo-02-mosaic.webp`
 - `public/files/pressure-and-weather/photo-01-mosaic.webp`
 - `public/files/pressure-and-weather/photo-03-mosaic.webp`
 
-위 세 수업의 `lesson-plan-mosaic.hwpx`, `lesson-plan-mosaic.pdf`, `page-XX-mosaic.webp`가 대응 지도안입니다. 수정 전 공개 파일 38개는 현재 배포 목록과 public에서 제외했습니다. OneDrive 원고는 변경하지 않았습니다.
+위 네 수업의 `lesson-plan-mosaic.hwpx`, `lesson-plan-mosaic.pdf`, `page-XX-mosaic.webp`가 대응 지도안입니다. 수정 전 공개 파일 48개는 현재 배포 목록과 public에서 제외했습니다. OneDrive 원고는 변경하지 않았습니다.
 
 공통 편집 프롬프트: “Privacy redaction only. Apply STRONG coarse square-pixel mosaic censorship covering each visible student's WHOLE face from forehead to chin and ear to ear with a safety margin, including profiles and partial faces. Features must be completely unrecognizable at full resolution. Preserve the original composition, aspect ratio, people, poses, clothing, background, laptops, worksheets, colors and original text outside the face regions. No face reconstruction, crop, beautification or other visual changes.”
 
 개별 보충: 수학은 왼쪽·오른쪽 학생의 얼굴과 큰 앞쪽 학생의 옆얼굴, 음악 첫 사진은 고개를 숙인 학생과 우측 상단 일부 얼굴, 음악 셋째 사진은 배경의 작은 얼굴까지 전부, 중3 과학 첫 사진은 모든 전면·배경 얼굴, 셋째 사진은 전경 오른쪽과 뒤쪽의 옆얼굴을 포함하도록 지정했습니다.
+
+최종 검수에서 영어 두 번째 사진의 가장자리·고개를 숙인 학생의 옆얼굴 네 영역도 추가로 처리했습니다. 같은 공통 프롬프트에 왼쪽 가장자리와 앞쪽 좌우 학생의 옆얼굴을 빠뜨리지 않도록 지정했습니다. 얼굴 영역 밖 RGB 픽셀 동일성과 영어 지도안 7쪽의 반영을 확인했습니다.

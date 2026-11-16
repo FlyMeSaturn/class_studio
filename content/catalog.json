@@ -470,47 +470,47 @@
         {
           "label": "지도안 PDF",
           "format": "PDF",
-          "path": "files/language-and-culture/lesson-plan.pdf"
+          "path": "files/language-and-culture/lesson-plan-mosaic.pdf"
         },
         {
           "label": "지도안 HWPX",
           "format": "HWPX",
-          "path": "files/language-and-culture/lesson-plan.hwpx"
+          "path": "files/language-and-culture/lesson-plan-mosaic.hwpx"
         }
       ],
       "planPages": [
         {
-          "path": "files/language-and-culture/page-01.webp",
+          "path": "files/language-and-culture/page-01-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-02.webp",
+          "path": "files/language-and-culture/page-02-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-03.webp",
+          "path": "files/language-and-culture/page-03-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-04.webp",
+          "path": "files/language-and-culture/page-04-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-05.webp",
+          "path": "files/language-and-culture/page-05-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-06.webp",
+          "path": "files/language-and-culture/page-06-mosaic.webp",
           "width": 1012,
           "height": 1430
         },
         {
-          "path": "files/language-and-culture/page-07.webp",
+          "path": "files/language-and-culture/page-07-mosaic.webp",
           "width": 1012,
           "height": 1430
         }
@@ -523,7 +523,7 @@
           "height": 354
         },
         {
-          "path": "files/language-and-culture/photo-02.webp",
+          "path": "files/language-and-culture/photo-02-mosaic.webp",
           "alt": "친구들과 의견을 나누며 안내서를 만드는 모습",
           "width": 646,
           "height": 354
