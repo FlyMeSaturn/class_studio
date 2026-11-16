@@ -82,3 +82,9 @@ The user also requires names and student IDs in classroom photos and student wor
 The teacher's revised HWPX supersedes the force lesson's twelve stage labels across lessons 1–4. Update the original compilation and website HWPX/PDF/reading images while retaining the existing compilation typography and all privacy-processed binary images. Keep the fourth lesson's title, goal and activity table together on its own page. The source compilation is now 45 pages and the standalone lesson is 7 pages. Back up the compilation before replacement.
 
 Publish the four supplied student-work images in one gallery reached through a single 학생 산출물 보기 button: card classification (lesson 2), force expression (lesson 3), Frayer model (lesson 4), and final assessment. Reuse the classroom photo gallery layout, enlargement, previous/next navigation, keyboard controls and back links. The four separate resource buttons are superseded by this gallery; retain existing individual viewer URLs. Use the same vertical action list and arrow icon as other internal viewers. Add the exact three force-detective Vercel webapps as external chain-link buttons, matched to lessons 1–3. Hide student identification in the new screenshots; preserve answers and diagrams.
+
+## Floating back link and compact header · 2026-11-16
+
+Every lesson-plan, photo-gallery and student-work viewer uses one fixed lower-left 뒤로 가기 link returning to its owning lesson, styled like the lower-right HOME capsule. Remove duplicate back links from the viewer's document flow. Respect safe-area bottom spacing, focus indicators and reduced-motion settings.
+
+Place the exact brand caption 교단지원 자료개발 교육연구회 above the logo letters, to the right of the pen, following the user's reference. Preserve the actual PNG silhouette and aspect ratio. Use a 240px logo and 96px minimum header height on desktop; a 208px logo and 128px minimum header height on mobile. Keep the single-screen homepage and all menu destinations.

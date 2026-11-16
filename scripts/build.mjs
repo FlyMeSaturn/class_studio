@@ -16,11 +16,12 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
 const arrow = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+const backArrow = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6"/></svg>';
 const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>';
 const linkIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
 
-function page({ title, description, route = '', current = '', body, home = false }) {
+function page({ title, description, route = '', current = '', body, home = false, backHref = '' }) {
   const libraryUrl = href('library/');
   const aboutUrl = href('about/');
   const html = `<!doctype html>
@@ -44,6 +45,7 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
 ${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
+${backHref ? `<a class="floating-back" href="${href(backHref)}" aria-label="뒤로 가기: 수업 페이지로 이동">${backArrow}<span>뒤로 가기</span></a>` : ''}
 <a class="floating-home" href="${base}" aria-label="HOME: 메인 페이지로 이동" data-home><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 11 9-8 9 8M5 9v12h5v-7h4v7h5V9"/></svg><span>HOME</span></a>`}
 </body></html>`;
   // Version document links as well as assets to avoid mixing cached HTML with a new release.
@@ -135,17 +137,17 @@ for (const l of lessons) {
   }));
   if (l.status === 'published' && l.planPages?.length) {
     await write(`lessons/${l.id}/plan/index.html`, page({
-      title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`, current: 'library',
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span><label>쪽 이동 <select data-page-select aria-label="지도안 쪽 이동">${l.planPages.map((_,i) => `<option value="plan-page-${i+1}">${i+1}쪽</option>`).join('')}</select></label><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
-<div class="plan-document">${l.planPages.map((p,i) => `<figure id="plan-page-${i+1}" class="plan-page"><figcaption>${i+1} / ${l.planPages.length}쪽</figcaption><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(l.title)} 지도안 ${i+1}쪽" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+      title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span><label>쪽 이동 <select data-page-select aria-label="지도안 쪽 이동">${l.planPages.map((_,i) => `<option value="plan-page-${i+1}">${i+1}쪽</option>`).join('')}</select></label><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
+<div class="plan-document">${l.planPages.map((p,i) => `<figure id="plan-page-${i+1}" class="plan-page"><figcaption>${i+1} / ${l.planPages.length}쪽</figcaption><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(l.title)} 지도안 ${i+1}쪽" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div></div>`
     }));
   }
   for (const a of l.status === 'published' ? (l.artifacts || []) : []) {
     const route = `lessons/${l.id}/artifacts/${a.id}/`;
     await write(`${route}index.html`, page({
-      title: `${l.title} · ${a.label}`, description: a.alt, route, current: 'library',
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.title)}</p><h1>${esc(a.label)}</h1><div class="viewer-tools"><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button></div></div>
-<div class="plan-document"><figure class="plan-page"><img src="${href(a.path)}" width="${a.width}" height="${a.height}" alt="${esc(a.alt)}" fetchpriority="high" decoding="async"></figure></div><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+      title: `${l.title} · ${a.label}`, description: a.alt, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(a.label)}</h1><div class="viewer-tools"><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button></div></div>
+<div class="plan-document"><figure class="plan-page"><img src="${href(a.path)}" width="${a.width}" height="${a.height}" alt="${esc(a.alt)}" fetchpriority="high" decoding="async"></figure></div></div>`
     }));
   }
   for (const gallery of [{key:'photos', label:'수업 사진', noun:'사진'}, {key:'artifacts', label:'학생 산출물', noun:'산출물'}]) {
@@ -153,11 +155,11 @@ for (const l of lessons) {
     if (l.status !== 'published' || !pictures?.length) continue;
     const route = `lessons/${l.id}/${gallery.key}/`;
     await write(`${route}index.html`, page({
-      title: `${l.title} · ${gallery.label}`, description: `${l.title} ${gallery.label} 갤러리`, route, current: 'library',
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">${gallery.label} · ${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
+      title: `${l.title} · ${gallery.label}`, description: `${l.title} ${gallery.label} 갤러리`, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">${gallery.label} · ${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
 <ul class="photo-gallery">${pictures.map((p,i) => `<li><a class="photo-link" href="${href(p.path)}" data-photo-index="${i}" aria-label="${esc(p.label || p.alt)} 크게 보기"><figure><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${i>2 ? 'loading="lazy"' : ''} decoding="async"><figcaption>${esc(p.label || p.alt)}</figcaption></figure></a></li>`).join('')}</ul>
 <dialog class="photo-dialog" aria-label="${gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
-<a class="back-link" href="${href(`lessons/${l.id}/`)}">← 뒤로 가기</a></div>`
+</div>`
     }));
   }
 }
