@@ -369,7 +369,7 @@
       "author": "왕가람",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
       "status": "published",
-      "updated": "2026-11-16",
+      "updated": "2026-11-19",
       "tags": [
         "민요",
         "변화와 지속",
@@ -393,6 +393,11 @@
           "label": "지도안 HWPX",
           "format": "HWPX",
           "path": "files/folk-song/lesson-plan-name-fixed.hwpx"
+        },
+        {
+          "label": "학생 산출물 PDF",
+          "format": "PDF",
+          "path": "files/folk-song/student-work-private.pdf"
         }
       ],
       "planPages": [
@@ -485,9 +490,169 @@
           "alt": "음정 조절 웹앱 화면",
           "width": 153,
           "height": 305
+        },
+        {
+          "path": "files/folk-song/activity-01-private.webp",
+          "alt": "1차시 · 집중하기 — 옹헤야와 통영개타령을 따라 부르며 메기는 소리와 받는 소리를 구분합니다. 받는 소리는 되풀이되고 메기는 소리는 바뀐다는 점을 찾습니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-02-private.webp",
+          "alt": "2~3차시 · 조사하기·전이하기 — 모둠별로 크롬북을 활용해 민요 사례에서 지킨 것과 바뀐 것을 탐구합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-03-private.webp",
+          "alt": "2~3차시 · 조사하기·전이하기 — 청소시간·점심시간 등 학교생활 장면을 떠올리고 노랫말에 담을 소재를 정합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-04-private.webp",
+          "alt": "3차시 · 전이하기 — 원곡 가사, 받는 소리, 음절 수, 소재와 말투를 조건으로 넣어 생성형 AI에 개사 초안을 요청합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-05-private.webp",
+          "alt": "3차시 · 전이하기 — 통영개타령의 장단에 맞춘 AI 개사 초안을 확인하고, 고치기 전 가사를 학습지에 옮겨 적습니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-06-private.webp",
+          "alt": "4차시 · 전이하기 — AI 초안을 원곡 가락에 얹어 불러 보고 박자나 말투가 어색한 곳을 고쳐 최종 가사를 씁니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-07-private.webp",
+          "alt": "4차시 · 전이하기 — AI 초안과 수정한 가사를 비교하며 고친 부분과 그 이유를 기록합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-08-private.webp",
+          "alt": "4차시 · 웹앱 제작 — 목적·기능·디자인 조건을 담은 프롬프트로 Gemini 캔버스에서 음정·속도 조절 웹앱을 만듭니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-09-private.webp",
+          "alt": "4차시 · 웹앱 제작 — 직접 만든 고양이 음정 조절기의 화면과 기능을 확인합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-10-private.webp",
+          "alt": "4차시 · 웹앱 제작 — 만든 웹앱을 실행해 음정 조절 기능이 작동하는지 확인합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-11-private.webp",
+          "alt": "4차시 · 웹앱 제작 — 음정·빠르기 조절기 화면을 살펴보며 필요한 기능을 점검합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-12-private.webp",
+          "alt": "4차시 · 전이하기 — 음정 조절 웹앱과 통영개타령 음원을 함께 띄워 개사곡을 연습합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-13-private.webp",
+          "alt": "4차시 · 전이하기 — PITCH&TEMPO FACTORY 웹앱으로 반주의 높낮이를 자기 음역에 맞게 조절합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-14-private.webp",
+          "alt": "4차시 · 전이하기 — 반주 파형을 보며 음높이와 빠르기를 맞추고 이어폰으로 개별 연습합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-15-private.webp",
+          "alt": "4차시 · 전이하기 — 직접 만든 웹앱으로 조절한 반주에 맞춰 노래하고, 녹음해 들으며 스스로 점검합니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-16-private.webp",
+          "alt": "5차시 · 전이하기 — “AI가 만든 가사를 그대로 부른 노래도 내 노래인가?”를 두고 모둠별로 의견을 나눕니다.",
+          "width": 1280,
+          "height": 960
+        },
+        {
+          "path": "files/folk-song/activity-17-private.webp",
+          "alt": "5차시 · 전이하기 — 개사 과정에서 겪은 일을 근거로 입장을 주고받으며 무엇을 지키고 바꿀지 결정한 주체를 돌아봅니다.",
+          "width": 1280,
+          "height": 960
         }
       ],
-      "links": []
+      "links": [],
+      "artifacts": [
+        {
+          "id": "student-work-01-page-01",
+          "label": "학생 산출물 1 · 통영개타령 · 1/3쪽",
+          "path": "files/folk-song/artifacts/student-work-01-page-01-private.webp",
+          "alt": "학생 산출물 1 · 통영개타령 · 1/3쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-01-page-02",
+          "label": "학생 산출물 1 · 통영개타령 · 2/3쪽",
+          "path": "files/folk-song/artifacts/student-work-01-page-02-private.webp",
+          "alt": "학생 산출물 1 · 통영개타령 · 2/3쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-01-page-03",
+          "label": "학생 산출물 1 · 통영개타령 · 3/3쪽",
+          "path": "files/folk-song/artifacts/student-work-01-page-03-private.webp",
+          "alt": "학생 산출물 1 · 통영개타령 · 3/3쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-02-page-01",
+          "label": "학생 산출물 2 · 옹헤야 · 1/4쪽",
+          "path": "files/folk-song/artifacts/student-work-02-page-01-private.webp",
+          "alt": "학생 산출물 2 · 옹헤야 · 1/4쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-02-page-02",
+          "label": "학생 산출물 2 · 옹헤야 · 2/4쪽",
+          "path": "files/folk-song/artifacts/student-work-02-page-02-private.webp",
+          "alt": "학생 산출물 2 · 옹헤야 · 2/4쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-02-page-03",
+          "label": "학생 산출물 2 · 옹헤야 · 3/4쪽",
+          "path": "files/folk-song/artifacts/student-work-02-page-03-private.webp",
+          "alt": "학생 산출물 2 · 옹헤야 · 3/4쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        },
+        {
+          "id": "student-work-02-page-04",
+          "label": "학생 산출물 2 · 옹헤야 · 4/4쪽",
+          "path": "files/folk-song/artifacts/student-work-02-page-04-private.webp",
+          "alt": "학생 산출물 2 · 옹헤야 · 4/4쪽, 학번과 이름을 가린 AI 민요 개사 학습지",
+          "width": 1192,
+          "height": 1684
+        }
+      ]
     },
     {
       "id": "language-and-culture",
