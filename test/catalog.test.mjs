@@ -16,7 +16,7 @@ test('publication requires real resources; external-only resources are supported
 test('file metadata uses actual bytes and prevents absent files, traversal and format mismatch',async()=>{
   const temp=await mkdtemp(path.join(os.tmpdir(),'class-studio-test-'));
   try{await mkdir(path.join(temp,'files'));await writeFile(path.join(temp,'files','fixture.pdf'),'%PDF-1.4\nTEST FIXTURE ONLY\n');
-    const d=structuredClone(source);for(const l of d.lessons)Object.assign(l,{status:'preparing',files:[],photos:[],planPages:[],artifacts:[],links:[],videos:[]});Object.assign(d.lessons[0],{status:'published',files:[{label:'검증용',format:'PDF',path:'files/fixture.pdf',bytes:999}]});
+    const d=structuredClone(source);for(const l of d.lessons)Object.assign(l,{status:'preparing',files:[],photos:[],planPages:[],artifacts:[],links:[],videos:[],webApps:[]});Object.assign(d.lessons[0],{status:'published',files:[{label:'검증용',format:'PDF',path:'files/fixture.pdf',bytes:999}]});
     await validateCatalog(d,temp);assert.equal(d.lessons[0].files[0].bytes,27);
     d.lessons[0].files[0].path='files/missing.pdf';await assert.rejects(validateCatalog(d,temp),/파일이 없습니다/);
     d.lessons[0].files[0].path='files/../../secret.pdf';await assert.rejects(validateCatalog(d,temp),/안전한/);

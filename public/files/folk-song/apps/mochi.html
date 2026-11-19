@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="음원·마이크·UFO 패드로 소리를 만들고 음색과 메아리를 바꿔 봅니다.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모찌의 은하 주파수 변조기 (Mochi Space Tune)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Cute and Space theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+            background-color: #0d0b21;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(244, 63, 94, 0.15) 0px, transparent 40%),
+                radial-gradient(at 90% 10%, rgba(168, 85, 247, 0.15) 0px, transparent 40%),
+                radial-gradient(at 50% 90%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        .font-fredoka {
+            font-family: 'Fredoka One', cursive;
+        }
+        /* Soft cute pastel shadows */
+        .pink-glow {
+            box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.3), 0 0 15px rgba(244, 63, 94, 0.15);
+        }
+        .purple-glow {
+            box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.3), 0 0 15px rgba(168, 85, 247, 0.15);
+        }
+        .blue-glow {
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.3), 0 0 15px rgba(56, 189, 248, 0.15);
+        }
+        .card-glowing {
+            background: rgba(25, 22, 51, 0.6);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 12px 24px rgba(0,0,0,0.3);
+        }
+        /* Star background decorations */
+        .star-decor {
+            animation: pulseStar 3s ease-in-out infinite alternate;
+        }
+        @keyframes pulseStar {
+            0% { transform: scale(0.8); opacity: 0.4; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+        /* Cute slider custom tracks */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            height: 10px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #f43f5e;
+            box-shadow: 0 0 8px #f43f5e;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        /* Purple slider specific style */
+        .purple-slider::-webkit-slider-thumb {
+            background: #a855f7 !important;
+            box-shadow: 0 0 8px #a855f7 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col items-center p-4 relative select-none">
+
+    <!-- Background Sparkles -->
+    <div class="absolute top-20 left-10 w-4 h-4 text-pink-300 star-decor pointer-events-none opacity-60">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+    <div class="absolute top-1/3 right-8 w-6 h-6 text-purple-300 star-decor pointer-events-none opacity-50" style="animation-delay: 1s;">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+    <div class="absolute bottom-40 left-8 w-5 h-5 text-sky-300 star-decor pointer-events-none opacity-40" style="animation-delay: 1.5s;">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+
+    <!-- Main Sleek Vertical Console (Maximum Width 600px for best aspect ratio) -->
+    <main class="w-full max-w-lg flex flex-col gap-5 z-10 my-4">
+        
+        <!-- Header Brand Info -->
+        <header class="flex items-center justify-between card-glowing rounded-3xl p-4 border-pink-500/10">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 to-purple-400 flex items-center justify-center shadow-lg shadow-pink-500/20">
+                    <!-- Little Star Logo -->
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-fredoka text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-sky-300 tracking-wide">
+                        MOCHI SPACE TUNE
+                    </h1>
+                    <p class="text-[10px] text-pink-300/70 tracking-widest uppercase font-bold">Cute Interstellar Modulator</p>
+                </div>
+            </div>
+
+            <!-- Global Connection Activator -->
+            <button id="btn-engine" class="px-3.5 py-2 rounded-2xl text-xs font-bold font-fredoka bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-300 hover:to-purple-300 text-white shadow-lg shadow-pink-500/20 active:translate-y-0.5 transition-all duration-150">
+                우주 연결하기
+            </button>
+        </header>
+
+        <!-- Center Stage: Mochi and the Wave Radar -->
+        <section class="card-glowing rounded-3xl p-5 flex flex-col items-center justify-center relative min-h-[260px] border-purple-500/10 overflow-hidden">
+            
+            <!-- Rotating Dreamy Radar Lines -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                <div class="w-56 h-56 rounded-full border-2 border-dashed border-purple-400 animate-[spin_30s_linear_infinite]"></div>
+                <div class="absolute w-40 h-40 rounded-full border border-pink-400"></div>
+                <div class="absolute w-24 h-24 rounded-full border border-sky-400"></div>
+            </div>
+
+            <!-- Main Canvas: Beautiful Spectrum/Radar Waveforms -->
+            <canvas id="visualizer" class="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
+
+            <!-- Mascot Slime "Mochi" Container -->
+            <div class="relative z-20 flex flex-col items-center gap-3">
+                <div class="relative w-28 h-28 flex items-center justify-center">
+                    
+                    <!-- Glow bubble behind Mochi -->
+                    <div id="mochi-glow" class="absolute inset-0 bg-pink-500/15 rounded-full blur-xl scale-90 transition-all duration-200"></div>
+
+                    <!-- Mochi Interactive Vector SVG -->
+                    <svg id="mochi-svg" class="w-24 h-24 transform transition-all duration-300" viewBox="0 0 100 100" fill="none">
+                        <!-- Slime Main Body with soft cute gradient -->
+                        <defs>
+                            <linearGradient id="mochi-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff9a9e" />
+                                <stop offset="100%" stop-color="#fecfef" />
+                            </linearGradient>
+                            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#f43f5e" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <!-- Slime body -->
+                        <path d="M15,65 C15,45 25,32 50,32 C75,32 85,45 85,65 C85,78 72,82 50,82 C28,82 15,78 15,65 Z" fill="url(#mochi-grad)" filter="url(#shadow)" />
+                        
+                        <!-- Star Antenna -->
+                        <path d="M50,14 L52,22 L60,22 L54,26 L56,33 L50,29 L44,33 L46,26 L40,22 L48,22 Z" fill="#fef08a" />
+                        <line x1="50" y1="28" x2="50" y2="33" stroke="#f472b6" stroke-width="3" stroke-linecap="round" />
+
+                        <!-- Blushing cheeks -->
+                        <ellipse cx="28" cy="65" rx="6" ry="4" fill="#f43f5e" fill-opacity="0.5" />
+                        <ellipse cx="72" cy="65" rx="6" ry="4" fill="#f43f5e" fill-opacity="0.5" />
+
+                        <!-- Cute Anime Eyes -->
+                        <g id="mochi-eyes">
+                            <ellipse id="eye-left" cx="36" cy="56" rx="4" ry="5" fill="#1e1b4b" />
+                            <circle cx="34" cy="54" r="1.5" fill="#fff" />
+                            
+                            <ellipse id="eye-right" cx="64" cy="56" rx="4" ry="5" fill="#1e1b4b" />
+                            <circle cx="62" cy="54" r="1.5" fill="#fff" />
+                        </g>
+
+                        <!-- Tiny Happy Wavy Mouth -->
+                        <path id="mochi-mouth" d="M46,65 Q50,68 54,65" stroke="#1e1b4b" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+
+                <!-- Bubble speech box -->
+                <div class="px-4 py-1.5 rounded-full bg-slate-900/60 border border-pink-500/20 text-center">
+                    <p id="mochi-speech" class="text-xs font-semibold text-pink-200">"안녕? 나랑 은하수 노래 부를래? ✨"</p>
+                </div>
+            </div>
+
+            <!-- Mini Live Stat Overlay -->
+            <div class="absolute bottom-3 left-4 right-4 flex justify-between text-[10px] font-bold tracking-wider font-fredoka text-slate-400">
+                <span id="hz-indicator">FREQ: -- Hz</span>
+                <span id="status-badge" class="text-pink-400 animate-pulse">우주 무선 통신 오프라인</span>
+                <span id="vol-indicator">VOL: -inf dB</span>
+            </div>
+        </section>
+
+        <!-- Navigation Module Mode Switcher (Sleek horizontal row in vertical grid) -->
+        <section class="grid grid-cols-3 gap-2 bg-slate-900/50 p-1.5 rounded-2xl border border-white/5">
+            <!-- Mode 1: UFO Synth (Active by default) -->
+            <button id="tab-synth" class="py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 bg-purple-500/20 border border-purple-500/30 text-purple-200">
+                <!-- Mini UFO SVG -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
+                </svg>
+                <span>UFO 패드</span>
+            </button>
+
+            <!-- Mode 2: Mic Modulator -->
+            <button id="tab-mic" class="py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 hover:bg-white/5 text-slate-400">
+                <!-- Mic SVG -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                </svg>
+                <span>지구 마이크</span>
+            </button>
+
+            <!-- Mode 3: Space Audio File Player -->
+            <button id="tab-file" class="py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 hover:bg-white/5 text-slate-400">
+                <!-- Disc SVG -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                </svg>
+                <span>우주 음반기</span>
+            </button>
+        </section>
+
+        <!-- Interactive Panel Center Unit -->
+        <section class="card-glowing rounded-3xl p-5 border-white/5 relative min-h-[190px]">
+            
+            <!-- Unit A: UFO Theremin Pad Panel -->
+            <div id="panel-synth" class="flex flex-col gap-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-fredoka text-sm text-purple-300">UFO 주파수 항해 패드</h3>
+                    <span id="pad-coord" class="text-[10px] font-mono text-purple-400/80">X: 0, Y: 0</span>
+                </div>
+                
+                <!-- Cozy touch-enabled Theremin Synth Pad -->
+                <div id="synth-pad" class="relative w-full h-36 bg-purple-950/20 border-2 border-purple-500/20 rounded-2xl overflow-hidden flex items-center justify-center cursor-crosshair">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.15),transparent_70%)] pointer-events-none"></div>
+                    
+                    <!-- Cute mini UFO inside Pad -->
+                    <div id="synth-ufo" class="absolute w-12 h-12 flex items-center justify-center transition-all duration-75 ease-out select-none pointer-events-none transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+                        <!-- Custom Cute UFO Vector SVG -->
+                        <svg class="w-10 h-10 drop-shadow-[0_4px_8px_rgba(168,85,247,0.6)]" viewBox="0 0 100 100" fill="none">
+                            <ellipse cx="50" cy="55" rx="35" ry="12" fill="#581c87" stroke="#c084fc" stroke-width="2"/>
+                            <ellipse cx="50" cy="50" rx="40" ry="10" fill="#a21caf" stroke="#f472b6" stroke-width="2"/>
+                            <path d="M30 46C30 35 40 25 50 25C60 25 70 35 70 46Z" fill="#ff007f" fill-opacity="0.3" stroke="#f472b6" stroke-width="2"/>
+                            <!-- Glowing mini lights -->
+                            <circle cx="28" cy="50" r="2.5" fill="#facc15" class="animate-pulse"/>
+                            <circle cx="50" cy="52" r="3.5" fill="#22d3ee" class="animate-ping"/>
+                            <circle cx="72" cy="50" r="2.5" fill="#facc15" class="animate-pulse"/>
+                        </svg>
+                    </div>
+
+                    <span id="synth-prompt" class="absolute text-xs text-purple-300/60 font-fredoka uppercase tracking-widest animate-pulse pointer-events-none text-center px-4">
+                        🛸 여기를 드래그해 우주 소리를 내봐요! 🛸
+                    </span>
+                </div>
+            </div>
+
+            <!-- Unit B: Earth Microphone Panel (Hidden by default) -->
+            <div id="panel-mic" class="hidden flex flex-col gap-4 text-center py-4">
+                <div class="w-16 h-16 rounded-full bg-pink-500/10 border border-pink-500/20 flex items-center justify-center mx-auto animate-pulse">
+                    <!-- Mic SVG -->
+                    <svg class="w-8 h-8 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-fredoka text-sm text-pink-300 mb-1">실시간 마이크 수집소</h3>
+                    <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+                        지구인의 스마트폰이나 웹캠 마이크 목소리를 링 변조기에 직접 관통시킵니다. 아래 슬라이더들로 괴기함을 설정해 보세요.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Unit C: Space Audio File Player Panel (Hidden by default) -->
+            <div id="panel-file" class="hidden flex flex-col gap-4">
+                <h3 class="font-fredoka text-sm text-sky-300">우주 음원 피치 탐사선</h3>
+                
+                <!-- Audio Drag & Drop Dropzone -->
+                <div id="audio-dropzone" class="border-2 border-dashed border-sky-400/20 hover:border-sky-400/50 bg-sky-950/5 rounded-2xl p-4 text-center cursor-pointer transition-all">
+                    <input type="file" id="audio-file-input" class="hidden" accept="audio/*">
+                    <svg class="w-7 h-7 text-sky-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                    </svg>
+                    <span id="dropzone-text" class="text-xs text-slate-400 block font-medium">여기에 음원 파일을 끌어다 놓거나 클릭해 올리세요 🎵</span>
+                </div>
+
+                <!-- Custom Player HUD Controls (Visible after file loaded) -->
+                <div id="player-hud" class="hidden flex flex-col gap-3 p-3 bg-slate-900/40 rounded-xl border border-white/5">
+                    <div class="flex items-center justify-between">
+                        <span id="song-title" class="text-xs font-bold text-sky-300 truncate max-w-[180px]">노래 제목 없음</span>
+                        <div class="flex items-center gap-1">
+                            <span id="curr-time" class="text-[10px] font-mono text-slate-400">00:00</span>
+                            <span class="text-[10px] text-slate-600">/</span>
+                            <span id="tot-duration" class="text-[10px] font-mono text-slate-400">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Seek bar slider -->
+                    <input type="range" id="seek-bar" min="0" max="100" value="0" class="w-full h-1.5 accent-sky-400 bg-slate-800">
+
+                    <!-- Control Button strip -->
+                    <div class="flex items-center justify-center gap-4">
+                        <button id="btn-play-pause" class="w-8 h-8 rounded-full bg-sky-400 hover:bg-sky-300 text-slate-950 flex items-center justify-center shadow-md">
+                            <!-- Play icon SVG -->
+                            <svg id="svg-play" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <!-- Pause icon SVG (hidden initially) -->
+                            <svg id="svg-pause" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                            </svg>
+                        </button>
+
+                        <button id="btn-stop" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-sky-400 flex items-center justify-center">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M6 6h12v12H6z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Analog DSP Parameters Fine Tuning Sliders -->
+        <section class="card-glowing rounded-3xl p-5 flex flex-col gap-4 border-white/5">
+            <h3 class="font-fredoka text-sm text-pink-300 flex justify-between items-center">
+                <span>은하계 변조 주파수 세부 튜닝</span>
+                <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                </svg>
+            </h3>
+
+            <!-- Dynamic Speed & Pitch Warp (Highly Interactive and useful in File Mode) -->
+            <div class="flex flex-col gap-1.5">
+                <div class="flex justify-between text-xs">
+                    <span class="text-sky-300 font-bold">시간/음높이 워프 (Space Speed & Pitch)</span>
+                    <span id="val-pitch-speed" class="font-mono text-sky-400 text-xs font-bold">1.0 x (보통)</span>
+                </div>
+                <input type="range" id="param-pitch-speed" min="0.5" max="2.0" step="0.05" value="1.0" class="w-full purple-slider">
+            </div>
+
+            <!-- Slider 1: Ring Modulator frequency -->
+            <div class="flex flex-col gap-1.5">
+                <div class="flex justify-between text-xs">
+                    <span class="text-pink-300 font-bold">말랑이 필터 주파수 (Carrier Frequency)</span>
+                    <span id="val-ring" class="font-mono text-pink-400 text-xs font-bold">150 Hz</span>
+                </div>
+                <input type="range" id="param-ring-freq" min="10" max="1800" step="1" value="150" class="w-full">
+            </div>
+
+            <!-- Slider 2: Delay / Echo Feedback -->
+            <div class="flex flex-col gap-1.5">
+                <div class="flex justify-between text-xs">
+                    <span class="text-pink-300 font-bold">블랙홀 에코 잔향 (Echo Feedback)</span>
+                    <span id="val-delay" class="font-mono text-pink-400 text-xs font-bold">30 %</span>
+                </div>
+                <input type="range" id="param-delay-feedback" min="0" max="90" step="1" value="30" class="w-full">
+            </div>
+
+            <!-- Slider 3: Vibrato Rate -->
+            <div class="flex flex-col gap-1.5">
+                <div class="flex justify-between text-xs">
+                    <span class="text-pink-300 font-bold">오로라 소리 떨림 (Vibrato Rate)</span>
+                    <span id="val-vibrato" class="font-mono text-pink-400 text-xs font-bold">6 Hz</span>
+                </div>
+                <input type="range" id="param-vibrato-rate" min="1" max="25" step="0.5" value="6" class="w-full">
+            </div>
+        </section>
+
+        <!-- Interstellar Cute Presets Section -->
+        <section class="card-glowing rounded-3xl p-5 flex flex-col gap-3 border-white/5">
+            <h3 class="font-fredoka text-sm text-purple-300">우주 종족 전용 주파수</h3>
+            
+            <div class="grid grid-cols-2 gap-2.5">
+                
+                <!-- Preset Button 1: Jelly Slime -->
+                <button data-preset="jelly" class="preset-btn p-3 rounded-2xl border border-white/5 bg-slate-900/40 hover:bg-pink-500/10 hover:border-pink-500/30 flex items-center gap-3 text-left transition-all group">
+                    <!-- Pink jelly Custom Vector SVG -->
+                    <div class="w-10 h-10 shrink-0">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <path d="M15,65 C15,45 25,35 50,35 C75,35 85,45 85,65 C85,75 70,80 50,80 C30,80 15,75 15,65 Z" fill="#ff758f"/>
+                            <circle cx="36" cy="55" r="3" fill="#fff" />
+                            <circle cx="64" cy="55" r="3" fill="#fff" />
+                            <ellipse cx="50" cy="65" rx="5" ry="3" fill="#fff" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-200 group-hover:text-pink-300">젤리 몰랑이</h4>
+                        <p class="text-[9px] text-slate-500 font-bold">고음 비브라토</p>
+                    </div>
+                </button>
+
+                <!-- Preset Button 2: Space Bunny -->
+                <button data-preset="bunny" class="preset-btn p-3 rounded-2xl border border-white/5 bg-slate-900/40 hover:bg-purple-500/10 hover:border-purple-500/30 flex items-center gap-3 text-left transition-all group">
+                    <!-- Mint bunny Custom Vector SVG -->
+                    <div class="w-10 h-10 shrink-0">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <ellipse cx="32" cy="30" rx="6" ry="18" fill="#d8b4fe" />
+                            <ellipse cx="68" cy="30" rx="6" ry="18" fill="#d8b4fe" />
+                            <circle cx="50" cy="60" r="22" fill="#e9d5ff" />
+                            <circle cx="42" cy="55" r="2" fill="#111827" />
+                            <circle cx="58" cy="55" r="2" fill="#111827" />
+                            <path d="M48,64 Q50,66 52,64" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-200 group-hover:text-purple-300">솜사탕 우주토끼</h4>
+                        <p class="text-[9px] text-slate-500 font-bold">은하수 메아리</p>
+                    </div>
+                </button>
+
+                <!-- Preset Button 3: Sweet Pudding -->
+                <button data-preset="pudding" class="preset-btn p-3 rounded-2xl border border-white/5 bg-slate-900/40 hover:bg-amber-500/10 hover:border-amber-500/30 flex items-center gap-3 text-left transition-all group">
+                    <!-- Caramel Pudding Vector SVG -->
+                    <div class="w-10 h-10 shrink-0">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <path d="M25,65 L30,45 L70,45 L75,65 C78,72 70,75 50,75 C30,75 22,72 25,65 Z" fill="#fed7aa" />
+                            <path d="M30,45 C35,45 35,40 50,40 C65,40 65,45 70,45 C70,45 68,52 50,52 C32,52 30,45 30,45 Z" fill="#d97706" />
+                            <ellipse cx="40" cy="60" rx="2" ry="2.5" fill="#111827" />
+                            <ellipse cx="60" cy="60" rx="2" ry="2.5" fill="#111827" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-200 group-hover:text-amber-300">달콤 우주 푸딩</h4>
+                        <p class="text-[9px] text-slate-500 font-bold">통통 튀는 저음</p>
+                    </div>
+                </button>
+
+                <!-- Preset Button 4: Tiny Star -->
+                <button data-preset="star" class="preset-btn p-3 rounded-2xl border border-white/5 bg-slate-900/40 hover:bg-sky-500/10 hover:border-sky-500/30 flex items-center gap-3 text-left transition-all group">
+                    <!-- Mini Star Vector SVG -->
+                    <div class="w-10 h-10 shrink-0">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <path d="M50,15 L60,38 L85,38 L65,54 L72,78 L50,63 L28,78 L35,54 L15,38 L40,38 Z" fill="#bae6fd" />
+                            <circle cx="42" cy="46" r="2" fill="#111827" />
+                            <circle cx="58" cy="46" r="2" fill="#111827" />
+                            <path d="M47,52 Q50,55 53,52" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-200 group-hover:text-sky-300">차원 꼬마별</h4>
+                        <p class="text-[9px] text-slate-500 font-bold">공명과 넓은 잔향</p>
+                    </div>
+                </button>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Custom Beautiful Toast (Never Alert!) -->
+    <div id="custom-toast" class="hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm bg-slate-900/90 border-2 border-pink-500/30 rounded-2xl p-4 shadow-xl transition-all duration-300 translate-y-4 opacity-0 backdrop-blur-md">
+        <div class="flex items-center gap-3">
+            <span class="text-pink-400 text-lg">✨</span>
+            <div class="flex-1">
+                <h4 id="toast-title" class="text-xs font-bold text-pink-300">시스템 메시지</h4>
+                <p id="toast-msg" class="text-[11px] text-slate-400 mt-0.5">내용 없음</p>
+            </div>
+            <button id="toast-close" class="text-[10px] font-bold text-slate-500 hover:text-white uppercase px-1">닫기</button>
+        </div>
+    </div>
+
+    <!-- Custom Real-time Web Audio API & Logic Elements -->
+    <script>
+        // DOM Handles
+        const btnEngine = document.getElementById('btn-engine');
+        const statusBadge = document.getElementById('status-badge');
+        const mochiSpeech = document.getElementById('mochi-speech');
+        const mochiSvg = document.getElementById('mochi-svg');
+        const mochiGlow = document.getElementById('mochi-glow');
+        const mochiMouth = document.getElementById('mochi-mouth');
+        const mochiEyes = document.getElementById('mochi-eyes');
+
+        // Navigation Tabs & Panels
+        const tabSynth = document.getElementById('tab-synth');
+        const tabMic = document.getElementById('tab-mic');
+        const tabFile = document.getElementById('tab-file');
+
+        const panelSynth = document.getElementById('panel-synth');
+        const panelMic = document.getElementById('panel-mic');
+        const panelFile = document.getElementById('panel-file');
+
+        // Synth pad handles
+        const synthPad = document.getElementById('synth-pad');
+        const synthUfo = document.getElementById('synth-ufo');
+        const synthPrompt = document.getElementById('synth-prompt');
+        const padCoord = document.getElementById('pad-coord');
+
+        // Custom File Audio Elements
+        const audioFileInput = document.getElementById('audio-file-input');
+        const audioDropzone = document.getElementById('audio-dropzone');
+        const dropzoneText = document.getElementById('dropzone-text');
+        const playerHud = document.getElementById('player-hud');
+        const songTitle = document.getElementById('song-title');
+        const currTime = document.getElementById('curr-time');
+        const totDuration = document.getElementById('tot-duration');
+        const seekBar = document.getElementById('seek-bar');
+        const btnPlayPause = document.getElementById('btn-play-pause');
+        const btnStop = document.getElementById('btn-stop');
+        const svgPlay = document.getElementById('svg-play');
+        const svgPause = document.getElementById('svg-pause');
+
+        // Param sliders & values
+        const paramPitchSpeed = document.getElementById('param-pitch-speed');
+        const valPitchSpeed = document.getElementById('val-pitch-speed');
+
+        const paramRingFreq = document.getElementById('param-ring-freq');
+        const valRing = document.getElementById('val-ring');
+
+        const paramDelayFeedback = document.getElementById('param-delay-feedback');
+        const valDelay = document.getElementById('val-delay');
+
+        const paramVibratoRate = document.getElementById('param-vibrato-rate');
+        const valVibrato = document.getElementById('val-vibrato');
+
+        // Preset collection & Visualizer Canvas
+        const presetBtns = document.querySelectorAll('.preset-btn');
+        const canvas = document.getElementById('visualizer');
+        const ctx = canvas.getContext('2d');
+        const hzIndicator = document.getElementById('hz-indicator');
+        const volIndicator = document.getElementById('vol-indicator');
+
+        // Toast Handles
+        const toast = document.getElementById('custom-toast');
+        const toastTitle = document.getElementById('toast-title');
+        const toastMsg = document.getElementById('toast-msg');
+        const toastClose = document.getElementById('toast-close');
+
+        function triggerToast(title, message) {
+            toastTitle.textContent = title;
+            toastMsg.textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-4');
+            }, 30);
+        }
+
+        toastClose.addEventListener('click', () => {
+            toast.classList.add('opacity-0', 'translate-y-4');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 300);
+        });
+
+        // Web Audio Core States
+        let audioCtx = null;
+        let isEngineRunning = false;
+        let currentMode = 'synth'; // 'synth', 'mic', 'file'
+
+        // Audio Input Node Points
+        let micStream = null;
+        let micSourceNode = null;
+        let fileSourceNode = null;
+        let analyserNode = null;
+
+        // Core Effects Blocks
+        let inputGain = null;
+        let ringModGain = null;
+        let ringCarrierOsc = null;
+        let filterNode = null;
+        let delayNode = null;
+        let feedbackGain = null;
+        let vibratoLfo = null;
+        let vibratoGain = null;
+        let outputGain = null;
+
+        // Theremin Play Nodes
+        let synthOsc = null;
+        let synthGain = null;
+        let isPlayingSynth = false;
+
+        // Decoded Sound Buffers (For File Modulator Mode)
+        let loadedAudioBuffer = null;
+        let isPlayingFile = false;
+        let playbackStartTime = 0;
+        let currentPlaybackRate = 1;
+        let pausedAtOffset = 0;
+        let updateProgressInterval = null;
+
+        // Presets Matrix Definition
+        const presets = {
+            jelly: { ring: 900, feedback: 25, vibrato: 16, pitchSpeed: 1.6, speech: `"포뇨포뇨 몰랑이랑 물방울 소리 뿜뿜! 🍬"` },
+            bunny: { ring: 220, feedback: 75, vibrato: 8, pitchSpeed: 1.25, speech: `"토끼 나라 귀 간지러운 메아리를 들어요 🐇"` },
+            pudding: { ring: 38, feedback: 40, vibrato: 2.5, pitchSpeed: 0.65, speech: `"탱글탱글~ 저음 우주 푸딩이 꿈틀대요! 🍮"` },
+            star: { ring: 550, feedback: 55, vibrato: 11, pitchSpeed: 1.0, speech: `"은하수를 유영하는 반짝반짝 별동별! 🪐"` }
+        };
+
+        // Resize Canvas dynamically
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let dataArray = [];
+        let bufferLength = 0;
+
+        function buildAudioGraph() {
+            if (audioCtx) return;
+
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+
+                analyserNode = audioCtx.createAnalyser();
+                analyserNode.fftSize = 512;
+                bufferLength = analyserNode.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                inputGain = audioCtx.createGain();
+                ringModGain = audioCtx.createGain();
+                ringModGain.gain.value = 0; // ring modulation starts zeroed
+
+                filterNode = audioCtx.createBiquadFilter();
+                filterNode.type = 'lowpass';
+                filterNode.frequency.value = 4000;
+
+                delayNode = audioCtx.createDelay(2.0);
+                delayNode.delayTime.value = 0.4; // 400ms delay time
+                feedbackGain = audioCtx.createGain();
+                feedbackGain.gain.value = parseFloat(paramDelayFeedback.value) / 100;
+
+                delayNode.connect(feedbackGain);
+                feedbackGain.connect(delayNode);
+
+                vibratoLfo = audioCtx.createOscillator();
+                vibratoGain = audioCtx.createGain();
+                vibratoLfo.type = 'sine';
+                vibratoLfo.frequency.value = parseFloat(paramVibratoRate.value);
+                vibratoGain.gain.value = 20;
+
+                outputGain = audioCtx.createGain();
+                outputGain.gain.value = 0.9;
+
+                ringCarrierOsc = audioCtx.createOscillator();
+                ringCarrierOsc.type = 'sine';
+                ringCarrierOsc.frequency.value = parseFloat(paramRingFreq.value);
+
+                ringCarrierOsc.connect(ringModGain.gain);
+                ringCarrierOsc.start();
+                vibratoLfo.start();
+
+                // Build Theremin Nodes
+                synthOsc = audioCtx.createOscillator();
+                synthGain = audioCtx.createGain();
+                synthOsc.type = 'triangle'; // fluffy sound
+                synthOsc.frequency.value = 330;
+                synthGain.gain.value = 0;
+
+                vibratoGain.connect(synthOsc.frequency);
+                vibratoLfo.connect(vibratoGain);
+
+                synthOsc.connect(synthGain);
+                synthGain.connect(inputGain);
+
+                // Mix chain: Input -> Direct dry path, and RingMod path
+                const dryMix = audioCtx.createGain();
+                dryMix.gain.value = 0.45;
+                inputGain.connect(dryMix);
+                inputGain.connect(ringModGain);
+
+                ringModGain.connect(filterNode);
+                dryMix.connect(filterNode);
+
+                filterNode.connect(delayNode);
+                filterNode.connect(outputGain);
+                delayNode.connect(outputGain);
+
+                outputGain.connect(analyserNode);
+                analyserNode.connect(audioCtx.destination);
+
+                synthOsc.start();
+
+                isEngineRunning = true;
+                updateConsoleUI();
+                animateRadarVisualizer();
+
+            } catch (err) {
+                triggerToast("우주 네트워크 장애", "웹 오디오 시스템을 연결할 수 없습니다. 모던 브라우저를 확인하세요.");
+                console.error(err);
+            }
+        }
+
+        function updateConsoleUI() {
+            if (isEngineRunning) {
+                statusBadge.textContent = "우주 무선 통신망 연결 완료 📡";
+                statusBadge.className = "text-emerald-400 font-bold animate-pulse";
+                btnEngine.textContent = "연결 끊기";
+                btnEngine.className = "px-3.5 py-2 rounded-2xl text-xs font-bold font-fredoka bg-rose-500 hover:bg-rose-400 text-white shadow-lg active:translate-y-0.5 transition-all duration-150";
+            } else {
+                statusBadge.textContent = "우주 무선 통신 오프라인 ☄️";
+                statusBadge.className = "text-pink-400 animate-pulse";
+                btnEngine.textContent = "우주 연결하기";
+                btnEngine.className = "px-3.5 py-2 rounded-2xl text-xs font-bold font-fredoka bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-300 hover:to-purple-300 text-white shadow-lg active:translate-y-0.5 transition-all duration-150";
+                
+                hzIndicator.textContent = "FREQ: -- Hz";
+                volIndicator.textContent = "VOL: -inf dB";
+            }
+        }
+
+        // Connect Engine onClick
+        btnEngine.addEventListener('click', async () => {
+            if (!audioCtx) {
+                buildAudioGraph();
+                switchMode('synth');
+            } else {
+                if (audioCtx.state === 'suspended') {
+                    await audioCtx.resume();
+                    isEngineRunning = true;
+                    updateConsoleUI();
+                } else if (audioCtx.state === 'running') {
+                    await audioCtx.suspend();
+                    isEngineRunning = false;
+                    updateConsoleUI();
+                    
+                    // Stop play visual cycles
+                    hzIndicator.textContent = "FREQ: -- Hz";
+                    volIndicator.textContent = "VOL: -inf dB";
+                }
+            }
+        });
+
+        // Navigation modes switcher
+        async function switchMode(mode) {
+            if (!audioCtx) {
+                triggerToast("안내", "먼저 상단 우측의 '우주 연결하기'를 누른 후 모드를 바꾸세요!");
+                return;
+            }
+
+            currentMode = mode;
+
+            // Reset tab highlights
+            tabSynth.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 hover:bg-white/5 text-slate-400";
+            tabMic.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 hover:bg-white/5 text-slate-400";
+            tabFile.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 hover:bg-white/5 text-slate-400";
+
+            panelSynth.classList.add('hidden');
+            panelMic.classList.add('hidden');
+            panelFile.classList.add('hidden');
+
+            if (mode === 'synth') {
+                tabSynth.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 bg-purple-500/20 border border-purple-500/30 text-purple-200";
+                panelSynth.classList.remove('hidden');
+                mochiSpeech.textContent = `"나를 드래그해서 예쁜 은하수 선율을 연주해봐! 🛸"`;
+                
+                stopMicrophone();
+                stopFilePlaying();
+            } 
+            else if (mode === 'mic') {
+                tabMic.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 bg-pink-500/20 border border-pink-500/30 text-pink-200";
+                panelMic.classList.remove('hidden');
+                mochiSpeech.textContent = `"마이크 주파수를 켰어! 너의 예쁜 목소리를 들려줘 🎤"`;
+                
+                stopFilePlaying();
+                await startMicrophone();
+            } 
+            else if (mode === 'file') {
+                tabFile.className = "py-2.5 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all duration-300 bg-sky-500/20 border border-sky-500/30 text-sky-200";
+                panelFile.classList.remove('hidden');
+                mochiSpeech.textContent = `"지구의 신기한 노래를 탐사선에 실어볼까? 💿"`;
+
+                stopMicrophone();
+            }
+        }
+
+        tabSynth.addEventListener('click', () => switchMode('synth'));
+        tabMic.addEventListener('click', () => switchMode('mic'));
+        tabFile.addEventListener('click', () => switchMode('file'));
+
+        // Mic Stream Init
+        async function startMicrophone() {
+            try {
+                if (micStream) return;
+
+                micStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    }
+                });
+
+                micSourceNode = audioCtx.createMediaStreamSource(micStream);
+                micSourceNode.connect(inputGain);
+
+            } catch (err) {
+                triggerToast("마이크 연결 실패", "마이크 장치 권한이 차단되었거나 발견되지 않았습니다.");
+                switchMode('synth');
+            }
+        }
+
+        function stopMicrophone() {
+            if (micStream) {
+                micStream.getTracks().forEach(track => track.stop());
+                micStream = null;
+            }
+            if (micSourceNode) {
+                micSourceNode.disconnect();
+                micSourceNode = null;
+            }
+        }
+
+        // Audio Upload & Playback (Speed / Pitch coupled change is smooth in Web Audio)
+        audioDropzone.addEventListener('click', () => audioFileInput.click());
+        audioDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            audioDropzone.classList.add('border-sky-400', 'bg-sky-500/10');
+        });
+        audioDropzone.addEventListener('dragleave', () => {
+            audioDropzone.classList.remove('border-sky-400', 'bg-sky-500/10');
+        });
+        audioDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            audioDropzone.classList.remove('border-sky-400', 'bg-sky-500/10');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('audio/')) {
+                loadAudioFile(file);
+            } else {
+                triggerToast("업로드 오류", "오디오 파일만 끌어와 업로드해 주세요!");
+            }
+        });
+
+        audioFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadAudioFile(file);
+        });
+
+        function loadAudioFile(file) {
+            if (!audioCtx) {
+                triggerToast("알림", "상단 우측 '우주 연결하기'를 먼저 실행해 주세요!");
+                return;
+            }
+
+            dropzoneText.textContent = "은하 가공 디코딩 처리 중...";
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                audioCtx.decodeAudioData(e.target.result, function(buffer) {
+                    loadedAudioBuffer = buffer;
+                    dropzoneText.textContent = "탐사 파일 전송 성공! 🛸";
+                    
+                    // Show player hud UI
+                    songTitle.textContent = file.name;
+                    totDuration.textContent = formatTime(buffer.duration);
+                    currTime.textContent = "00:00";
+                    seekBar.value = 0;
+
+                    playerHud.classList.remove('hidden');
+                    
+                    // Stop any previous track playing
+                    stopFilePlaying();
+                    pausedAtOffset = 0;
+                    
+                    triggerToast("음원 탑승", `"${file.name}" 음원이 우주 탐사선에 탑승했습니다.`);
+                }, function(err) {
+                    dropzoneText.textContent = "디코딩 실패 (지원되지 않는 코덱)";
+                    triggerToast("디코딩 실패", "음원 파일을 읽을 수 없습니다. MP3나 WAV를 권장합니다.");
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function playFileAtOffset(offset) {
+            if (!loadedAudioBuffer || !audioCtx) return;
+
+            // Stop current source node if running
+            if (fileSourceNode) {
+                try {
+                    fileSourceNode.stop();
+                } catch(e){}
+                fileSourceNode.disconnect();
+            }
+
+            fileSourceNode = audioCtx.createBufferSource();
+            fileSourceNode.buffer = loadedAudioBuffer;
+            
+            // Link custom Space Pitch Speed (Coupled pitch and tempo shift)
+            fileSourceNode.playbackRate.value = parseFloat(paramPitchSpeed.value);
+
+            // Connect sound output to Effects input gain
+            fileSourceNode.connect(inputGain);
+
+            fileSourceNode.start(0, offset);
+            playbackStartTime = audioCtx.currentTime;
+            currentPlaybackRate = fileSourceNode.playbackRate.value;
+            pausedAtOffset = offset;
+            isPlayingFile = true;
+
+            svgPlay.classList.add('hidden');
+            svgPause.classList.remove('hidden');
+
+            // Track bar ticking loop
+            if (updateProgressInterval) clearInterval(updateProgressInterval);
+            updateProgressInterval = setInterval(updatePlayerPlaybackProgressBar, 150);
+        }
+
+        function getFilePlaybackOffset() {
+            return pausedAtOffset + (isPlayingFile ? (audioCtx.currentTime - playbackStartTime) * currentPlaybackRate : 0);
+        }
+
+        function updateFilePlaybackRate(rate) {
+            if (!isPlayingFile || !fileSourceNode) return;
+            pausedAtOffset = getFilePlaybackOffset();
+            playbackStartTime = audioCtx.currentTime;
+            currentPlaybackRate = rate;
+            fileSourceNode.playbackRate.setValueAtTime(rate, audioCtx.currentTime);
+        }
+
+        function stopFilePlaying() {
+            isPlayingFile = false;
+            if (fileSourceNode) {
+                try { fileSourceNode.stop(); } catch(e){}
+                fileSourceNode.disconnect();
+                fileSourceNode = null;
+            }
+            if (updateProgressInterval) {
+                clearInterval(updateProgressInterval);
+                updateProgressInterval = null;
+            }
+            svgPlay.classList.remove('hidden');
+            svgPause.classList.add('hidden');
+        }
+
+        btnPlayPause.addEventListener('click', () => {
+            if (!loadedAudioBuffer) return;
+            
+            if (isPlayingFile) {
+                // Pause action
+                pausedAtOffset = getFilePlaybackOffset();
+                stopFilePlaying();
+            } else {
+                // Play action
+                playFileAtOffset(pausedAtOffset);
+            }
+        });
+
+        btnStop.addEventListener('click', () => {
+            stopFilePlaying();
+            pausedAtOffset = 0;
+            seekBar.value = 0;
+            currTime.textContent = "00:00";
+        });
+
+        // Seek Bar logic
+        seekBar.addEventListener('input', (e) => {
+            if (!loadedAudioBuffer) return;
+            const percentage = e.target.value;
+            const offset = (percentage / 100) * loadedAudioBuffer.duration;
+            currTime.textContent = formatTime(offset);
+        });
+
+        seekBar.addEventListener('change', (e) => {
+            if (!loadedAudioBuffer) return;
+            const percentage = e.target.value;
+            const offset = (percentage / 100) * loadedAudioBuffer.duration;
+            pausedAtOffset = offset;
+
+            if (isPlayingFile) {
+                playFileAtOffset(offset);
+            }
+        });
+
+        function updatePlayerPlaybackProgressBar() {
+            if (!isPlayingFile || !loadedAudioBuffer) return;
+            
+            const currentSec = getFilePlaybackOffset();
+            
+            if (currentSec >= loadedAudioBuffer.duration) {
+                // Track finished
+                stopFilePlaying();
+                pausedAtOffset = 0;
+                seekBar.value = 0;
+                currTime.textContent = "00:00";
+                return;
+            }
+
+            currTime.textContent = formatTime(currentSec);
+            const percentage = (currentSec / loadedAudioBuffer.duration) * 100;
+            seekBar.value = percentage;
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+        }
+
+        // Real-time Modulator Slider updates
+        paramPitchSpeed.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            valPitchSpeed.textContent = `${val.toFixed(2)} x`;
+            
+            updateFilePlaybackRate(val);
+        });
+
+        paramRingFreq.addEventListener('input', (e) => {
+            const val = e.target.value;
+            valRing.textContent = `${val} Hz`;
+            if (ringCarrierOsc && audioCtx) {
+                ringCarrierOsc.frequency.setTargetAtTime(val, audioCtx.currentTime, 0.05);
+            }
+        });
+
+        paramDelayFeedback.addEventListener('input', (e) => {
+            const val = e.target.value;
+            valDelay.textContent = `${val} %`;
+            if (feedbackGain && audioCtx) {
+                feedbackGain.gain.setTargetAtTime(val / 100, audioCtx.currentTime, 0.05);
+            }
+        });
+
+        paramVibratoRate.addEventListener('input', (e) => {
+            const val = e.target.value;
+            valVibrato.textContent = `${val} Hz`;
+            if (vibratoLfo && audioCtx) {
+                vibratoLfo.frequency.setTargetAtTime(val, audioCtx.currentTime, 0.05);
+            }
+        });
+
+        // Interactive UFO Theremin pad drag/touch movements
+        function trackUfoCoordinates(clientX, clientY) {
+            if (!audioCtx || currentMode !== 'synth') return;
+
+            const rect = synthPad.getBoundingClientRect();
+            let x = (clientX - rect.left) / rect.width;
+            let y = (clientY - rect.top) / rect.height;
+
+            x = Math.max(0, Math.min(1, x));
+            y = Math.max(0, Math.min(1, y));
+
+            // Move the cute mini UFO
+            synthUfo.style.left = `${x * 100}%`;
+            synthUfo.style.top = `${y * 100}%`;
+            synthPrompt.classList.add('hidden');
+
+            // Logarithmic pitch map: 85Hz - 1100Hz
+            const lowFreq = 85;
+            const highFreq = 1100;
+            const targetPitch = lowFreq * Math.pow(highFreq / lowFreq, x);
+            
+            // Level (invert Y so top is loud)
+            const level = 1.0 - y;
+
+            padCoord.textContent = `PITCH: ${Math.round(targetPitch)}Hz | LVL: ${Math.round(level * 100)}%`;
+
+            if (synthOsc && synthGain) {
+                synthOsc.frequency.setTargetAtTime(targetPitch, audioCtx.currentTime, 0.05);
+                synthGain.gain.setTargetAtTime(level * 0.45, audioCtx.currentTime, 0.05); // clamp volume
+
+                // Sweeping LP filter cut along with pitch sweep
+                if (filterNode) {
+                    filterNode.frequency.setTargetAtTime(targetPitch * 1.6, audioCtx.currentTime, 0.05);
+                }
+            }
+        }
+
+        synthPad.addEventListener('mousedown', (e) => {
+            if (!audioCtx) buildAudioGraph();
+            if (currentMode !== 'synth') switchMode('synth');
+
+            isPlayingSynth = true;
+            trackUfoCoordinates(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isPlayingSynth) trackUfoCoordinates(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isPlayingSynth) {
+                isPlayingSynth = false;
+                if (synthGain) synthGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.15);
+                synthPrompt.classList.remove('hidden');
+            }
+        });
+
+        // Support mobile touchscreen drag coordinates
+        synthPad.addEventListener('touchstart', (e) => {
+            if (!audioCtx) buildAudioGraph();
+            if (currentMode !== 'synth') switchMode('synth');
+
+            isPlayingSynth = true;
+            const touch = e.touches[0];
+            trackUfoCoordinates(touch.clientX, touch.clientY);
+            e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchmove', (e) => {
+            if (isPlayingSynth) {
+                const touch = e.touches[0];
+                trackUfoCoordinates(touch.clientX, touch.clientY);
+            }
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            if (isPlayingSynth) {
+                isPlayingSynth = false;
+                if (synthGain) synthGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.15);
+                synthPrompt.classList.remove('hidden');
+            }
+        });
+
+        // Species presets configurations
+        presetBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!audioCtx) {
+                    buildAudioGraph();
+                    switchMode('synth');
+                }
+
+                const key = btn.getAttribute('data-preset');
+                const cfg = presets[key];
+
+                if (cfg) {
+                    // Update slider handles visually
+                    paramRingFreq.value = cfg.ring;
+                    valRing.textContent = `${cfg.ring} Hz`;
+
+                    paramDelayFeedback.value = cfg.feedback;
+                    valDelay.textContent = `${cfg.feedback} %`;
+
+                    paramVibratoRate.value = cfg.vibrato;
+                    valVibrato.textContent = `${cfg.vibrato} Hz`;
+
+                    paramPitchSpeed.value = cfg.pitchSpeed;
+                    valPitchSpeed.textContent = `${cfg.pitchSpeed.toFixed(2)} x`;
+
+                    // Push states into actual sound engine
+                    if (ringCarrierOsc) ringCarrierOsc.frequency.setTargetAtTime(cfg.ring, audioCtx.currentTime, 0.05);
+                    if (feedbackGain) feedbackGain.gain.setTargetAtTime(cfg.feedback / 100, audioCtx.currentTime, 0.05);
+                    if (vibratoLfo) vibratoLfo.frequency.setTargetAtTime(cfg.vibrato, audioCtx.currentTime, 0.05);
+                    
+                    if (isPlayingFile && fileSourceNode) {
+                        updateFilePlaybackRate(cfg.pitchSpeed);
+                    }
+
+                    // Mascot reactions
+                    mochiSpeech.textContent = cfg.speech;
+                    mochiSvg.classList.add('scale-110', '-translate-y-1');
+                    mochiGlow.classList.remove('bg-pink-500/15');
+                    mochiGlow.classList.add('bg-purple-500/35', 'scale-125');
+
+                    setTimeout(() => {
+                        mochiSvg.classList.remove('scale-110', '-translate-y-1');
+                        mochiGlow.classList.add('bg-pink-500/15');
+                        mochiGlow.classList.remove('bg-purple-500/35', 'scale-125');
+                    }, 350);
+
+                    // Glowing styling toggle
+                    presetBtns.forEach(b => b.classList.remove('border-pink-500/40', 'bg-pink-500/10'));
+                    btn.classList.add('border-pink-500/40', 'bg-pink-500/10');
+                }
+            });
+        });
+
+        // Circular Hologram Oscilloscope Visualizer Loop
+        function animateRadarVisualizer() {
+            if (!isEngineRunning || !analyserNode) {
+                requestAnimationFrame(animateRadarVisualizer);
+                return;
+            }
+
+            requestAnimationFrame(animateRadarVisualizer);
+
+            // Fetch real-time spectrum arrays
+            analyserNode.getByteFrequencyData(dataArray);
+
+            // Redraw clean transparent slate
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const outerCircleRadius = Math.min(canvas.width, canvas.height) * 0.43;
+
+            // Compute total volume & peak values
+            let totalVolumeSum = 0;
+            let peakHzIndex = -1;
+            let maxBinValue = -1;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const val = dataArray[i];
+                totalVolumeSum += val;
+                if (val > maxBinValue) {
+                    maxBinValue = val;
+                    peakHzIndex = i;
+                }
+            }
+
+            const averageLoudness = totalVolumeSum / bufferLength;
+
+            // DRAW LAYER 1: Dreamy pastel neon circular soundwave
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(244, 63, 94, 0.7)';
+            ctx.shadowColor = 'rgba(244, 63, 94, 0.5)';
+            ctx.shadowBlur = 12;
+            ctx.lineWidth = 3.5;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const val = dataArray[i];
+                const angle = (i / bufferLength) * Math.PI * 2;
+                
+                // Shift wave distance according to frequency bin height
+                const expansionOffset = (val / 255) * (outerCircleRadius * 0.45);
+                const r = outerCircleRadius * 0.45 + expansionOffset;
+
+                const x = centerX + Math.cos(angle) * r;
+                const y = centerY + Math.sin(angle) * r;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.stroke();
+            ctx.shadowBlur = 0; // reset shadows
+
+            // DRAW LAYER 2: Sky blue cosmic orbit counterpoint
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+            ctx.shadowColor = 'rgba(56, 189, 248, 0.4)';
+            ctx.shadowBlur = 8;
+            ctx.lineWidth = 1.5;
+
+            for (let i = 0; i < bufferLength; i += 2) {
+                const val = dataArray[i];
+                const angle = (i / bufferLength) * Math.PI * 2 + Math.PI / 3; // slight angle spin offset
+                const expansionOffset = (val / 255) * (outerCircleRadius * 0.25);
+                const r = outerCircleRadius * 0.35 + expansionOffset;
+
+                const x = centerX + Math.cos(angle) * r;
+                const y = centerY + Math.sin(angle) * r;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+
+            // MASCOT MOCHI REACTIVE ANIMATIONS:
+            // Sync Mochi's mouth and eyes with sound volume
+            const normalizedIntensity = averageLoudness / 255;
+            
+            // Mouth shape warping
+            const targetMouthStretchY = Math.max(1, normalizedIntensity * 15);
+            mochiMouth.setAttribute('d', `M44,65 Q50,${65 + targetMouthStretchY} 56,65`);
+
+            // Eyeballs cute scaling
+            if (averageLoudness > 40) {
+                const pupilScale = 1 + (normalizedIntensity * 0.3);
+                mochiEyes.style.transform = `scale(${pupilScale})`;
+                mochiEyes.style.transformOrigin = 'center';
+                
+                // Rapid funny mini shake
+                const shakeIntensity = normalizedIntensity * 4;
+                const dx = (Math.random() - 0.5) * shakeIntensity;
+                const dy = (Math.random() - 0.5) * shakeIntensity;
+                mochiSvg.style.transform = `translate(${dx}px, ${dy}px)`;
+            } else {
+                mochiEyes.style.transform = `scale(1)`;
+                mochiSvg.style.transform = `translate(0px, 0px)`;
+            }
+
+            // Real-time text display refreshers
+            if (averageLoudness > 1.5) {
+                const nyquistSampleLimit = audioCtx.sampleRate / 2;
+                const targetPeakHzVal = (peakHzIndex * nyquistSampleLimit) / bufferLength;
+                hzIndicator.textContent = `FREQ: ${targetPeakHzVal.toFixed(0)} Hz`;
+
+                const dbPowerValue = 20 * Math.log10(averageLoudness / 255);
+                volIndicator.textContent = `VOL: ${dbPowerValue.toFixed(1)} dB`;
+            } else {
+                hzIndicator.textContent = "FREQ: -- Hz";
+                volIndicator.textContent = "VOL: -inf dB";
+            }
+        }
+    </script>
+<a class="floating-back" href="/class_studio/lessons/folk-song/apps/" style="position:fixed;left:16px;bottom:16px;z-index:9999;padding:12px 20px;border-radius:999px;background:#6b4b36;color:white;font:600 14px sans-serif;text-decoration:none;box-shadow:0 4px 16px #0003" aria-label="웹앱 목록으로 돌아가기">웹앱 목록</a>
+</body>
+</html>

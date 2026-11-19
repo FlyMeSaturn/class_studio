@@ -20,6 +20,7 @@ const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" st
 const linkIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>';
 const playIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8 4.8v14.4L20 12z"/></svg>';
 const songGalleryTitle = '학생 개사곡 듣기';
+const webAppsTitle = '음량조절웹앱 예시';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
 
 function page({ title, description, route = '', current = '', body, home = false, backHref = '' }) {
@@ -124,11 +125,19 @@ ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 �
 ${l.videos?.length ? action(songGalleryTitle, href(`lessons/${l.id}/songs/`), '', playIcon) : ''}
 ${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${f.download !== false ? action(`${f.label} 다운받기`, href(f.path), ' download', download) : ''}`).join('')}
 ${(l.links || []).filter(link => link.position !== 'before-artifacts').map(externalAction).join('')}
+${l.webApps?.length ? action(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
 </ul>`;
 }
 
 for (const l of lessons) {
   const p = data.parts.find(p => p.id === l.part);
+  if (l.status === 'published' && l.webApps?.length) {
+    const route = `lessons/${l.id}/apps/`;
+    await write(`${route}index.html`, page({
+      title: webAppsTitle, description: `${l.title} 수업에서 활용하는 소리 조절 웹앱 두 가지`, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell reading-page"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${webAppsTitle}</h1><p>사용할 웹앱을 선택해 열어 보세요.</p><ul class="lesson-grid app-grid">${l.webApps.map(app => `<li class="lesson-item"><a class="lesson-card" href="${href(app.path)}" target="_blank" rel="noopener" aria-label="${esc(app.title)} (새 탭)"><div class="card-meta">웹앱 열기<span class="card-open">${linkIcon}</span></div><h2>${esc(app.title)}</h2><p>${esc(app.description)}</p></a></li>`).join('')}</ul></div>`
+    }));
+  }
   await write(`lessons/${l.id}/index.html`, page({
     title: l.title, description: l.summary, route: `lessons/${l.id}/`, current: 'library', backHref: `library/#${p.id}`,
     body: `<div class="shell detail-shell">
@@ -223,6 +232,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && l.webApps?.length ? [`lessons/${l.id}/apps/`] : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);

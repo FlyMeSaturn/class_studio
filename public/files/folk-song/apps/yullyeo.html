@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="음원 파일을 선택해 음높이와 재생 속도를 조절합니다.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>율려 (律呂) - 한국 전통 감성 소리 조율기</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts (전통 서체 구현) -->
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f2ede0; /* 깊이 있는 한지 바탕색 */
+            background-image: 
+                radial-gradient(#dfd2bc 1.2px, transparent 1.2px),
+                linear-gradient(rgba(223, 210, 188, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px, 12px 12px;
+        }
+
+        .serif-font {
+            font-family: 'Gowun Batang', serif;
+        }
+
+        .dokdo-font {
+            font-family: 'East Sea Dokdo', cursive;
+        }
+
+        /* 단청 및 한국 전통 배색 */
+        :root {
+            --traditional-crimson: #a63131; /* 홍색 */
+            --traditional-indigo: #1b4965;  /* 쪽색 */
+            --traditional-forest: #2a5a43;  /* 청록 */
+            --traditional-ochre: #d4a359;   /* 황토 */
+            --traditional-ink: #1f1d1b;     /* 먹색 */
+        }
+
+        /* 빗살 창살 격자 배경 */
+        .traditional-lattice {
+            background-image: 
+                linear-gradient(90deg, rgba(212, 163, 89, 0.15) 1px, transparent 1px),
+                linear-gradient(rgba(212, 163, 89, 0.15) 1px, transparent 1px);
+            background-size: 16px 32px;
+        }
+
+        /* 족자 스크롤 그림자 */
+        .jokja-shadow {
+            box-shadow: 
+                0 25px 50px -12px rgba(44, 39, 36, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* 전통 노리개 수술 흔들림 애니메이션 */
+        @keyframes norigae-sway {
+            0%, 100% { transform: rotate(-1deg); transform-origin: top center; }
+            50% { transform: rotate(1deg); transform-origin: top center; }
+        }
+        .animate-norigae {
+            animation: norigae-sway 4s ease-in-out infinite;
+        }
+
+        /* 삼태극 회전 애니메이션 */
+        @keyframes taegeuk-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-taegeuk-slow {
+            animation: taegeuk-spin 10s linear infinite;
+        }
+        .animate-taegeuk-fast {
+            animation: taegeuk-spin 2s linear infinite;
+        }
+
+        /* 전통 슬라이더 스타일 */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: #e3dac1;
+            height: 10px;
+            border-radius: 9999px;
+            outline: none;
+            border: 1px solid #c9be9f;
+        }
+
+        /* 엽전 모양의 슬라이더 손잡이 */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #dfa53d 30%, var(--traditional-crimson) 31%);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+            transition: transform 0.1s ease, background 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: radial-gradient(circle, #fff 30%, var(--traditional-crimson) 31%);
+        }
+
+        /* 로딩 스피너 - 단청 꽃 무늬 회전 */
+        .dancheong-loader {
+            animation: taegeuk-spin 4s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-[#1f1d1b] relative overflow-x-hidden pb-12">
+
+    <!-- 전통 구름 무늬 배경 데코 -->
+    <div class="absolute inset-0 opacity-15 pointer-events-none z-0" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='50' viewBox='0 0 100 50'%3E%3Cpath d='M0 50 C 15 40, 35 40, 50 50 C 65 40, 85 40, 100 50 M-20 25 C -5 15, 15 15, 30 25 C 45 15, 65 15, 80 25 C 95 15, 115 15, 130 25' fill='none' stroke='%238c7343' stroke-width='1.2'/%3E%3C/svg%3E&quot;);"></div>
+
+    <!-- 좌우 세로 주련 (수직 전통 현판 장식) -->
+    <div class="hidden xl:flex fixed left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 bg-[#fdfbf7] p-4 py-8 rounded-md border-2 border-[#d4a359] shadow-md w-14 z-10">
+        <span class="dokdo-font text-3xl text-gray-400 font-bold text-center" style="writing-mode: vertical-rl;">律</span>
+        <span class="dokdo-font text-3xl text-gray-400 font-bold text-center" style="writing-mode: vertical-rl;">呂</span>
+        <span class="w-px h-12 bg-[#d4a359]/50 my-2"></span>
+        <span class="serif-font text-xs text-[#a63131] tracking-widest leading-relaxed text-center" style="writing-mode: vertical-rl;">가락을지어</span>
+        <span class="serif-font text-xs text-[#a63131] tracking-widest leading-relaxed text-center" style="writing-mode: vertical-rl;">마음을조율하다</span>
+    </div>
+    
+    <div class="hidden xl:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2 bg-[#fdfbf7] p-4 py-8 rounded-md border-2 border-[#d4a359] shadow-md w-14 z-10">
+        <span class="dokdo-font text-3xl text-gray-400 font-bold text-center" style="writing-mode: vertical-rl;">소</span>
+        <span class="dokdo-font text-3xl text-gray-400 font-bold text-center" style="writing-mode: vertical-rl;">리</span>
+        <span class="w-px h-12 bg-[#d4a359]/50 my-2"></span>
+        <span class="serif-font text-xs text-[#2a5a43] tracking-widest leading-relaxed text-center" style="writing-mode: vertical-rl;">전통의지혜</span>
+        <span class="serif-font text-xs text-[#2a5a43] tracking-widest leading-relaxed text-center" style="writing-mode: vertical-rl;">율려의가락</span>
+    </div>
+
+    <!-- 상단 타이틀 영역 -->
+    <header class="relative z-10 w-full max-w-lg mx-auto px-4 pt-6 pb-2 text-center">
+        <div class="flex items-center justify-center gap-1.5 mb-1.5">
+            <!-- 전통 연꽃 기하문양 SVG -->
+            <svg class="w-6 h-6 text-[#a63131]" viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="10" />
+                <path d="M50 15 C40 30, 40 40, 50 50 C60 40, 60 30, 50 15 Z M50 85 C40 70, 40 60, 50 50 C60 60, 60 70, 50 85 Z" />
+                <path d="M15 50 C30 40, 40 40, 50 50 C40 60, 30 60, 15 50 Z M85 50 C70 40, 60 40, 50 50 C60 60, 70 60, 85 50 Z" />
+            </svg>
+            <span class="serif-font text-xs tracking-[0.3em] text-[#a63131] font-bold">東洋音律 藝術</span>
+            <svg class="w-6 h-6 text-[#a63131]" viewBox="0 0 100 100" fill="currentColor">
+                <circle cx="50" cy="50" r="10" />
+                <path d="M50 15 C40 30, 40 40, 50 50 C60 40, 60 30, 50 15 Z M50 85 C40 70, 40 60, 50 50 C60 60, 60 70, 50 85 Z" />
+                <path d="M15 50 C30 40, 40 40, 50 50 C40 60, 30 60, 15 50 Z M85 50 C70 40, 60 40, 50 50 C60 60, 70 60, 85 50 Z" />
+            </svg>
+        </div>
+        <h1 class="serif-font text-3xl md:text-4xl font-bold text-[#1f1d1b] tracking-[0.2em] relative">
+            율려 <span class="text-[#a63131] font-extrabold">(律呂)</span>
+        </h1>
+        <p class="text-xs text-[#7d6c56] mt-1.5 serif-font">한국의 고풍스런 멋을 입힌 전통 소리 조율방</p>
+    </header>
+
+    <!-- 메인 콘텐츠 영역: 세로형 족자 (Jokja) 레이아웃 -->
+    <main class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 w-full max-w-md mx-auto my-4">
+        
+        <!-- 족자 상단 봉 -->
+        <div class="w-[96%] h-4 bg-gradient-to-r from-[#59422a] via-[#8c6b4f] to-[#59422a] rounded-full shadow-md z-20 flex justify-between items-center px-6">
+            <span class="w-2 h-2 rounded-full bg-[#dfa53d]"></span>
+            <span class="w-2 h-2 rounded-full bg-[#dfa53d]"></span>
+        </div>
+        <!-- 상단 매듭 끈 -->
+        <div class="w-1/3 h-6 border-t-2 border-x-2 border-[#a63131] rounded-t-xl -mt-2 mb-0 opacity-85"></div>
+
+        <!-- 족자 메인 캔버스 -->
+        <div class="w-full bg-[#fbf9f3] rounded-b-md jokja-shadow p-5 md:p-7 border-t-[6px] border-b-[6px] border-[#a63131] relative -mt-1.5">
+            
+            <!-- 전통 빗살무늬 레이어 -->
+            <div class="absolute inset-0 traditional-lattice opacity-5 rounded-b-md pointer-events-none"></div>
+            
+            <!-- 내부 수묵 선 테두리 -->
+            <div class="border border-[#dfa53d]/40 p-4 rounded h-full relative z-10 flex flex-col">
+                
+                <!-- 1. 음원 업로드 구역 -->
+                <div id="uploadContainer" class="border-2 border-dashed border-[#d4a359] bg-[#fcfbf9]/90 rounded-lg py-12 px-6 text-center cursor-pointer hover:bg-[#f6f1e2] transition-all duration-300 relative group flex flex-col items-center justify-center min-h-[400px]">
+                    <input type="file" id="audioFile" accept="audio/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" />
+                    
+                    <!-- 삼태극 문양 -->
+                    <div class="w-28 h-28 mb-6 relative group-hover:scale-105 transition-transform duration-300">
+                        <svg class="w-full h-full drop-shadow-md" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="#d4a359" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="44" fill="#1f1d1b"/>
+                            <path d="M 50,50 A 22,22 0 0,0 50,6 L 50,6 A 44,44 0 0,1 94,50 A 22,22 0 0,0 50,50" fill="#a63131" />
+                            <path d="M 50,50 A 22,22 0 0,0 11.75,28 L 11.75,28 A 44,44 0 0,1 50,6 A 22,22 0 0,0 50,50" fill="#1b4965" transform="rotate(120, 50, 50)" />
+                            <path d="M 50,50 A 22,22 0 0,0 11.75,28 L 11.75,28 A 44,44 0 0,1 50,6 A 22,22 0 0,0 50,50" fill="#dfa53d" transform="rotate(240, 50, 50)" />
+                            <circle cx="50" cy="50" r="6" fill="#fbf9f3" />
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center text-white">
+                            <i data-lucide="music-4" class="w-7 h-7"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="serif-font text-xl font-bold text-[#1f1d1b] mb-2">조율할 가락 올리기</h3>
+                    <p class="text-xs text-[#7d6c56] max-w-[240px] leading-relaxed mb-6">동양의 서정적인 선율로 다듬을 음원 파일(MP3, WAV, M4A 등)을 이 안으로 올려 주십시오.</p>
+                    
+                    <span class="px-6 py-2.5 bg-[#a63131] group-hover:bg-[#802222] text-[#fbf9f3] text-sm font-bold rounded shadow-md transition-colors flex items-center gap-2">
+                        <i data-lucide="folder-open" class="w-4 h-4"></i>
+                        가락 찾기
+                    </span>
+                </div>
+
+                <!-- 파일 분석 중 표시 레이어 -->
+                <div id="loadingStatus" class="hidden flex-col items-center justify-center py-20 space-y-6 min-h-[400px]">
+                    <div class="relative w-20 h-20">
+                        <svg class="dancheong-loader w-full h-full text-[#a63131]" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="8" fill="#dfa53d" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(45, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(90, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(135, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(180, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(225, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(270, 50, 50)" />
+                            <path d="M50 10 C45 25 45 35 50 42 C55 35 55 25 50 10 Z" transform="rotate(315, 50, 50)" />
+                        </svg>
+                    </div>
+                    <p class="serif-font text-md text-[#2a5a43] font-bold text-center">음률의 가락을 <br>세밀하게 고르고 조율 중입니다...</p>
+                </div>
+
+                <!-- 2. 세로형 플레이어 및 조율 패널 -->
+                <div id="playerSection" class="hidden flex-col space-y-6">
+                    
+                    <!-- 삼태극 턴테이블 비주얼 덱 -->
+                    <div class="flex flex-col items-center py-4 bg-[#f4ebd4]/40 rounded-lg border border-[#dfa53d]/35 relative overflow-hidden">
+                        <div class="absolute top-1 left-1 text-[#dfa53d] opacity-50"><i data-lucide="corner-left-up" class="w-3.5 h-3.5"></i></div>
+                        <div class="absolute top-1 right-1 text-[#dfa53d] opacity-50"><i data-lucide="corner-right-up" class="w-3.5 h-3.5"></i></div>
+
+                        <!-- 실시간 회전 삼태극 플레이 디스크 -->
+                        <div class="w-32 h-32 relative mb-3">
+                            <svg id="taegeukDisc" class="w-full h-full drop-shadow-md origin-center" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="48" fill="none" stroke="#d4a359" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="45" fill="#1f1d1b"/>
+                                <circle cx="50" cy="50" r="38" fill="none" stroke="#444" stroke-width="0.5" stroke-dasharray="10 5"/>
+                                <circle cx="50" cy="50" r="30" fill="none" stroke="#444" stroke-width="0.5"/>
+                                <g transform="translate(0, 0)">
+                                    <path d="M 50,50 A 15,15 0 0,0 50,20 L 50,20 A 30,30 0 0,1 80,50 A 15,15 0 0,0 50,50" fill="#a63131" />
+                                    <path d="M 50,50 A 15,15 0 0,0 24.02,35 L 24.02,35 A 30,30 0 0,1 50,20 A 15,15 0 0,0 50,50" fill="#1b4965" transform="rotate(120, 50, 50)" />
+                                    <path d="M 50,50 A 15,15 0 0,0 24.02,35 L 24.02,35 A 30,30 0 0,1 50,20 A 15,15 0 0,0 50,50" fill="#dfa53d" transform="rotate(240, 50, 50)" />
+                                </g>
+                                <circle cx="50" cy="50" r="4" fill="#fbf9f3" />
+                            </svg>
+                        </div>
+
+                        <!-- 곡 상세정보 -->
+                        <div class="text-center w-full px-4 overflow-hidden">
+                            <h4 id="fileName" class="font-bold text-[#1f1d1b] text-sm truncate serif-font">가야금 선율곡.mp3</h4>
+                            <p id="fileDuration" class="text-[11px] text-gray-500 mt-0.5">00:00 / 00:00</p>
+                        </div>
+                    </div>
+
+                    <!-- 재생 진행 표시 바 -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] text-[#7d6c56] px-1 font-medium">
+                            <span id="currentTimeDisplay">00:00</span>
+                            <span id="totalTimeDisplay">00:00</span>
+                        </div>
+                        <div class="relative h-2 bg-[#e3dac1] rounded-full overflow-hidden cursor-pointer" id="progressBar">
+                            <div id="progressFill" class="absolute inset-y-0 left-0 bg-gradient-to-r from-[#1b4965] to-[#a63131] transition-all duration-100" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- 조율 제어기 (세로 스택) -->
+                    <div class="space-y-4">
+                        
+                        <!-- 1. 박자 (속도) 컨트롤러 -->
+                        <div class="bg-[#fcfbf9] p-4 rounded-lg border border-[#dfa53d]/30 shadow-inner flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="serif-font text-sm font-bold text-[#2a5a43] flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#2a5a43]"></span>
+                                    박자 (Tempo)
+                                </label>
+                                <span class="text-xs font-bold text-[#2a5a43]" id="tempoValue">1.00 배속</span>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-3">소리의 호흡을 당기거나 늦춥니다.</p>
+                            <input type="range" id="tempoSlider" min="0.5" max="2.0" step="0.05" value="1.0" class="w-full">
+                            <div class="flex justify-between text-[10px] text-gray-400 px-1 mt-1.5">
+                                <span>0.5배 (느린장단)</span>
+                                <button id="resetTempo" class="hover:text-[#a63131] font-bold">기본값</button>
+                                <span>2.0배 (빠른장단)</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. 음정 (피치) 컨트롤러 -->
+                        <div class="bg-[#fcfbf9] p-4 rounded-lg border border-[#dfa53d]/30 shadow-inner flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="serif-font text-sm font-bold text-[#a63131] flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-[#a63131]"></span>
+                                    음정 (Pitch)
+                                </label>
+                                <span class="text-xs font-bold text-[#a63131]" id="pitchValue">0 반음</span>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-3">소리의 높낮이를 반음 단위로 조율합니다.</p>
+                            <input type="range" id="pitchSlider" min="-12" max="12" step="1" value="0" class="w-full">
+                            <div class="flex justify-between text-[10px] text-gray-400 px-1 mt-1.5">
+                                <span>-12반음 (낮은 청)</span>
+                                <button id="resetPitch" class="hover:text-[#2a5a43] font-bold">기본값</button>
+                                <span>+12반음 (높은 청)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 작동 버튼 -->
+                    <div class="flex flex-col gap-3 pt-3 border-t border-[#dfa53d]/40">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="playBtn" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#a63131] text-[#fbf9f3] font-bold text-sm rounded-md hover:bg-[#852525] transition-all shadow-md">
+                                <i data-lucide="play" class="w-4 h-4"></i>
+                                <span>가락 재생</span>
+                            </button>
+                            <button id="stopBtn" class="flex items-center justify-center gap-2 px-4 py-3 bg-[#1f1d1b] text-[#fbf9f3] font-bold text-sm rounded-md hover:bg-black transition-all shadow-md">
+                                <i data-lucide="square" class="w-4 h-4"></i>
+                                <span>완전 정지</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="resetAllBtn" class="flex items-center justify-center gap-1.5 px-3 py-2 border border-gray-300 bg-white text-gray-700 text-xs font-medium rounded-md hover:bg-gray-50 transition-all">
+                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                                <span>음률 초기화</span>
+                            </button>
+                            <button id="changeFileBtn" class="flex items-center justify-center gap-1.5 px-3 py-2 border border-[#a63131] bg-white text-[#a63131] text-xs font-bold rounded-md hover:bg-red-50 transition-all">
+                                <i data-lucide="music" class="w-3.5 h-3.5"></i>
+                                <span>새 가락 업로드</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 장식 문구 -->
+                    <div class="flex justify-center items-center gap-3 text-[#d4a359] text-xs pt-2 opacity-80">
+                        <span>✿</span>
+                        <span class="serif-font font-bold text-[10px] tracking-widest text-[#7d6c56]">자연의 울림, 가야금의 맥을 찾아서</span>
+                        <span>✿</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 족자 하단 봉 -->
+        <div class="w-[98%] h-6 bg-gradient-to-r from-[#59422a] via-[#8c6b4f] to-[#59422a] rounded-full shadow-lg z-20 -mt-1.5 flex justify-between items-center px-4">
+            <span class="w-3.5 h-3.5 rounded-full bg-[#dfa53d] border border-[#2c1d11]"></span>
+            <span class="w-3.5 h-3.5 rounded-full bg-[#dfa53d] border border-[#2c1d11]"></span>
+        </div>
+
+        <!-- 족자 끝단 장식 노리개 매듭과 수술 -->
+        <div class="flex justify-center items-start w-full -mt-0.5 animate-norigae">
+            <svg class="w-16 h-28 text-[#a63131] drop-shadow-md" viewBox="0 0 100 150">
+                <line x1="50" y1="0" x2="50" y2="40" stroke="currentColor" stroke-width="4" />
+                <path d="M40,40 C30,30, 70,30, 60,40 C70,50, 30,50, 40,40 Z" fill="none" stroke="currentColor" stroke-width="4" />
+                <path d="M50,40 C35,25, 35,55, 50,40 Z" fill="none" stroke="currentColor" stroke-width="3" />
+                <path d="M50,40 C65,25, 65,55, 50,40 Z" fill="none" stroke="currentColor" stroke-width="3" />
+                <circle cx="50" cy="50" r="10" fill="#dfa53d" stroke="currentColor" stroke-width="2" />
+                <circle cx="50" cy="50" r="4" fill="currentColor" />
+                <rect x="46" y="60" width="8" height="15" rx="3" fill="currentColor" />
+                <path d="M40,75 L45,145 L55,145 L60,75 Z" fill="currentColor" />
+                <path d="M45,75 L38,143 L42,145 L48,75 Z" fill="currentColor" opacity="0.8" />
+                <path d="M55,75 L62,143 L58,145 L52,75 Z" fill="currentColor" opacity="0.8" />
+                <line x1="42" y1="80" x2="47" y2="140" stroke="#fbf9f3" stroke-width="0.5" opacity="0.4" />
+                <line x1="50" y1="80" x2="50" y2="145" stroke="#fbf9f3" stroke-width="0.5" opacity="0.4" />
+                <line x1="58" y1="80" x2="53" y2="140" stroke="#fbf9f3" stroke-width="0.5" opacity="0.4" />
+            </svg>
+        </div>
+
+    </main>
+
+    <!-- 도움말 카드 -->
+    <div class="w-full max-w-sm mx-auto bg-[#fbf9f3]/90 border border-[#dfa53d]/50 rounded-lg p-4 text-xs text-[#52443c] leading-relaxed space-y-2.5 relative z-10 shadow-inner">
+        <h4 class="font-bold text-[#1f1d1b] flex items-center gap-1.5 text-[13px] serif-font border-b border-[#dfa53d]/30 pb-1.5">
+            <svg class="w-4 h-4 text-[#a63131]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            율려 조율법 도움말
+        </h4>
+        <p>• <strong>박자 조율</strong> : 장단의 흐름을 바꿉니다. 배속을 낮추면 가야금의 농현처럼 여운과 정취가 깊어지며, 높이면 흥겨운 자진모리 장단처럼 빨라집니다.</p>
+        <p>• <strong>음정 조율</strong> : 음의 청(Pitch)을 조절합니다. 고유의 청음 속에서 음계를 정교하게 돋우거나 가라앉힙니다.</p>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="relative z-10 w-full max-w-lg mx-auto px-4 mt-8 pt-4 border-t border-[#dfa53d]/30 text-center text-[10px] text-gray-500">
+        <p class="serif-font tracking-widest text-[#7d6c56]">율려 (YUL-RYEO) : 태고의 맑은 우주의 조화를 담은 한국의 조율술</p>
+        <p class="mt-1 font-sans opacity-70">© 2026 율려 소리 조율원. Designed with Heritage Scroll Theme.</p>
+    </footer>
+
+    <!-- 토스트 알림 상자 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-[#1f1d1b] border border-[#dfa53d] text-[#fbf9f3] px-5 py-3 rounded shadow-2xl text-xs z-50 flex items-center gap-2 opacity-0 pointer-events-none transition-opacity duration-300">
+        <span class="text-[#dfa53d]">●</span>
+        <span id="toastMsg" class="serif-font">알림 소리</span>
+    </div>
+
+    <!-- 오디오 제어 스크립트 -->
+    <script>
+        if (window.lucide) lucide.createIcons();
+
+        const audioFileInput = document.getElementById('audioFile');
+        const uploadContainer = document.getElementById('uploadContainer');
+        const loadingStatus = document.getElementById('loadingStatus');
+        const playerSection = document.getElementById('playerSection');
+        
+        const fileNameText = document.getElementById('fileName');
+        const fileDurationText = document.getElementById('fileDuration');
+        const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+        const totalTimeDisplay = document.getElementById('totalTimeDisplay');
+        const progressFill = document.getElementById('progressFill');
+        const progressBar = document.getElementById('progressBar');
+
+        const tempoSlider = document.getElementById('tempoSlider');
+        const tempoValue = document.getElementById('tempoValue');
+        const pitchSlider = document.getElementById('pitchSlider');
+        const pitchValue = document.getElementById('pitchValue');
+
+        const playBtn = document.getElementById('playBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const resetTempoBtn = document.getElementById('resetTempo');
+        const resetPitchBtn = document.getElementById('resetPitch');
+        const resetAllBtn = document.getElementById('resetAllBtn');
+        const changeFileBtn = document.getElementById('changeFileBtn');
+
+        const taegeukDisc = document.getElementById('taegeukDisc');
+
+        let audioPlayer = null;
+        let playInterval = null;
+        let isPlaying = false;
+
+        uploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('bg-[#f4ebd4]');
+        });
+
+        uploadContainer.addEventListener('dragleave', () => {
+            uploadContainer.classList.remove('bg-[#f4ebd4]');
+        });
+
+        uploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('bg-[#f4ebd4]');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        audioFileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('audio/')) {
+                showToast("올바른 소리(음악) 파일만 조율할 수 있습니다.");
+                return;
+            }
+
+            uploadContainer.classList.add('hidden');
+            loadingStatus.classList.remove('hidden');
+            loadingStatus.classList.add('flex');
+
+            const fileReader = new FileReader();
+            fileReader.onload = function(event) {
+                const arrayBuffer = event.target.result;
+                const blob = new Blob([arrayBuffer], { type: file.type });
+                const blobUrl = URL.createObjectURL(blob);
+
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                    clearInterval(playInterval);
+                }
+
+                audioPlayer = new Audio(blobUrl);
+                
+                audioPlayer.addEventListener('loadedmetadata', () => {
+                    loadingStatus.classList.add('hidden');
+                    loadingStatus.classList.remove('flex');
+                    playerSection.classList.remove('hidden');
+                    playerSection.classList.add('flex');
+
+                    fileNameText.textContent = file.name;
+                    const duration = formatTime(audioPlayer.duration);
+                    fileDurationText.textContent = `00:00 / ${duration}`;
+                    totalTimeDisplay.textContent = duration;
+
+                    resetSliders();
+                    setPlayState(false);
+                    showToast("가락 준비 완료. 풍류를 즐겨보십시오.");
+                });
+
+                audioPlayer.addEventListener('ended', () => {
+                    setPlayState(false);
+                });
+
+                audioPlayer.addEventListener('error', () => {
+                    loadingStatus.classList.add('hidden');
+                    loadingStatus.classList.remove('flex');
+                    uploadContainer.classList.remove('hidden');
+                    showToast("선율을 가져오는 과정에 결함이 발생했습니다.");
+                });
+            };
+
+            fileReader.readAsArrayBuffer(file);
+        }
+
+        function applyAudioSettings() {
+            if (!audioPlayer) return;
+
+            const tempo = parseFloat(tempoSlider.value);
+            const pitchSemitones = parseInt(pitchSlider.value);
+            const pitchFactor = Math.pow(2, pitchSemitones / 12);
+
+            if (pitchSemitones === 0) {
+                audioPlayer.preservesPitch = true;
+                audioPlayer.playbackRate = tempo;
+            } else {
+                audioPlayer.preservesPitch = false;
+                audioPlayer.playbackRate = tempo * pitchFactor;
+            }
+
+            updateDiscSpinSpeed();
+        }
+
+        function setPlayState(play) {
+            isPlaying = Boolean(play && audioPlayer);
+            playBtn.innerHTML = `<i data-lucide="${isPlaying ? 'pause' : 'play'}" class="w-4 h-4"></i><span>${isPlaying ? '조율 일시정지' : '가락 재생'}</span>`;
+            if (isPlaying) {
+                audioPlayer.play().catch(() => {
+                    setPlayState(false);
+                    showToast('재생하지 못했습니다. 재생 버튼을 다시 눌러 주세요.');
+                });
+                startProgressTracker();
+                updateDiscSpinSpeed();
+            } else {
+                audioPlayer?.pause();
+                clearInterval(playInterval);
+                taegeukDisc.classList.remove('animate-taegeuk-slow', 'animate-taegeuk-fast');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateDiscSpinSpeed() {
+            if (!isPlaying || !audioPlayer) {
+                taegeukDisc.classList.remove('animate-taegeuk-slow', 'animate-taegeuk-fast');
+                return;
+            }
+
+            const speed = audioPlayer.playbackRate || 1.0;
+            taegeukDisc.classList.remove('animate-taegeuk-slow', 'animate-taegeuk-fast');
+            
+            if (speed > 1.2) {
+                taegeukDisc.classList.add('animate-taegeuk-fast');
+            } else {
+                taegeukDisc.classList.add('animate-taegeuk-slow');
+            }
+        }
+
+        function startProgressTracker() {
+            clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                if (!audioPlayer) return;
+                const cur = audioPlayer.currentTime;
+                const dur = audioPlayer.duration || 0;
+                
+                currentTimeDisplay.textContent = formatTime(cur);
+                fileDurationText.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
+                
+                const percent = (cur / dur) * 100;
+                progressFill.style.width = `${percent}%`;
+            }, 100);
+        }
+
+        progressBar.addEventListener('click', (e) => {
+            if (!audioPlayer) return;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const percentage = clickX / width;
+            audioPlayer.currentTime = percentage * audioPlayer.duration;
+            
+            const cur = audioPlayer.currentTime;
+            progressFill.style.width = `${percentage * 100}%`;
+            currentTimeDisplay.textContent = formatTime(cur);
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "00:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        tempoSlider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            tempoValue.textContent = `${val.toFixed(2)} 배속`;
+            applyAudioSettings();
+        });
+
+        pitchSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            const sign = val > 0 ? '+' : '';
+            pitchValue.textContent = `${sign}${val} 반음`;
+            applyAudioSettings();
+        });
+
+        resetTempoBtn.addEventListener('click', () => {
+            tempoSlider.value = 1.0;
+            tempoValue.textContent = "1.00 배속";
+            applyAudioSettings();
+            showToast("박자를 표준 호흡으로 재설정했습니다.");
+        });
+
+        resetPitchBtn.addEventListener('click', () => {
+            pitchSlider.value = 0;
+            pitchValue.textContent = "0 반음";
+            applyAudioSettings();
+            showToast("음정을 기본 청으로 재설정했습니다.");
+        });
+
+        resetAllBtn.addEventListener('click', () => {
+            resetSliders();
+            applyAudioSettings();
+            showToast("모든 음률을 태초의 소리로 되돌렸습니다.");
+        });
+
+        function resetSliders() {
+            tempoSlider.value = 1.0;
+            tempoValue.textContent = "1.00 배속";
+            pitchSlider.value = 0;
+            pitchValue.textContent = "0 반음";
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (!audioPlayer) return;
+            setPlayState(!isPlaying);
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (!audioPlayer) return;
+            audioPlayer.currentTime = 0;
+            setPlayState(false);
+            progressFill.style.width = "0%";
+            currentTimeDisplay.textContent = "00:00";
+            showToast("연주를 멈추고 첫머리로 회귀했습니다.");
+        });
+
+        changeFileBtn.addEventListener('click', () => {
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer = null;
+            }
+            clearInterval(playInterval);
+            setPlayState(false);
+            audioFileInput.value = '';
+            playerSection.classList.add('hidden');
+            playerSection.classList.remove('flex');
+            uploadContainer.classList.remove('hidden');
+            showToast("새로운 소리를 조율하기 위해 화첩을 엽니다.");
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.style.opacity = '1';
+            toast.style.pointerEvents = 'auto';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.pointerEvents = 'none';
+            }, 2500);
+        }
+    </script>
+<a class="floating-back" href="/class_studio/lessons/folk-song/apps/" style="position:fixed;left:16px;bottom:16px;z-index:9999;padding:12px 20px;border-radius:999px;background:#6b4b36;color:white;font:600 14px sans-serif;text-decoration:none;box-shadow:0 4px 16px #0003" aria-label="웹앱 목록으로 돌아가기">웹앱 목록</a>
+</body>
+</html>

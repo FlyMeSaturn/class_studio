@@ -660,6 +660,18 @@
           "width": 1192,
           "height": 1684
         }
+      ],
+      "webApps": [
+        {
+          "title": "율려 · 전통 소리 조율기",
+          "description": "음원 파일을 선택해 음높이와 재생 속도를 조절합니다.",
+          "path": "files/folk-song/apps/yullyeo.html"
+        },
+        {
+          "title": "모찌의 은하 주파수 변조기",
+          "description": "음원·마이크·UFO 패드로 소리를 만들고 음색과 메아리를 바꿔 봅니다.",
+          "path": "files/folk-song/apps/mochi.html"
+        }
       ]
     },
     {

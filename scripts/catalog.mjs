@@ -13,6 +13,7 @@ export const resourcePaths = item => [
   ...item.files.map(file => file.path),
   ...['photos', 'planPages', 'artifacts'].flatMap(key => (item[key] || []).map(media => media.path)),
   ...(item.videos || []).flatMap(video => [video.path, video.poster]),
+  ...(item.webApps || []).map(app => app.path),
 ];
 
 export async function validateCatalog(data, assetRoot = publicRoot) {
@@ -86,6 +87,16 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       ] }, lesson.id);
     }
   }
+  async function webApps(lesson) {
+    if (lesson.webApps === undefined) return;
+    if (!Array.isArray(lesson.webApps)) { errors.push(`${lesson.id}.webApps: 배열이 필요합니다.`); return; }
+    if (lesson.webApps.length && lesson.status !== 'published') errors.push(`${lesson.id}: 웹앱은 공개 상태에서만 등록할 수 있습니다.`);
+    for (const app of lesson.webApps) {
+      requireText(app.title, `${lesson.id}.webApps.title`);
+      requireText(app.description, `${lesson.id}.webApps.description`);
+      await files({status:'published', files:[{label:app.title, format:'HTML', path:app.path}]}, lesson.id);
+    }
+  }
   for (const lesson of data.lessons || []) {
     for (const k of ['id','title','summary','author','source','overview']) requireText(lesson[k], `lesson.${k}`);
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lesson.id || '')) errors.push('lesson.id: 영문 소문자·숫자·하이픈만 사용합니다.');
@@ -99,6 +110,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     await files(lesson, lesson.id);
     await media(lesson, lesson.id);
     await videos(lesson);
+    await webApps(lesson);
   }
   if (!data.collection) errors.push('collection이 필요합니다.');
   else {
