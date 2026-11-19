@@ -60,8 +60,8 @@ ${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div>
 }
 
 function card(l) {
-  return `<li class="lesson-item"><a class="lesson-card" href="${href(`lessons/${l.id}/`)}">
-<div class="card-meta">${esc(l.subjects.join(' · '))}<span>${esc(l.grades.join(' · '))}</span><span class="card-open">${arrow}</span></div>
+  return `<li class="lesson-item"><a class="lesson-card" data-subject="${esc(l.subjects.length > 1 ? '융합' : l.subjects[0])}" href="${href(`lessons/${l.id}/`)}">
+<div class="card-meta lesson-meta"><span class="card-labels"><span class="card-subjects">${l.subjects.map(subject => `<span class="card-subject" data-subject="${esc(subject)}">${esc(subject)}</span>`).join(' ')} </span><span class="card-grade">${esc(l.grades.join(' · '))}</span></span><span class="card-open">${arrow}</span></div>
 <h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
 </a></li>`;
 }
