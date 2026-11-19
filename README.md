@@ -34,6 +34,7 @@ http://127.0.0.1:4173/class_studio/ 에서 확인합니다. `dist/`는 생성 �
 - `status`: `published`는 실제 자료가 있는 항목, `preparing`은 소개와 준비 안내, `draft`는 사이트에서 제외합니다. 공개 저장소의 초안에도 비공개 정보를 넣지 않습니다.
 - `files`: 공개할 파일만 `public/files/<lesson-id>/`에 복사하고 등록합니다. 파일 크기는 빌드가 읽습니다. 형식과 확장자는 일치해야 합니다.
 - `links`: `label`과 HTTPS `url`로 외부 자료를 등록합니다. 새 탭에서 열리며 쿼리·프레임 주소를 그대로 보존합니다.
+- 외부 링크에 `position: "before-artifacts"`를 지정하면 ‘학생 산출물 보기’ 바로 위에 표시합니다. 중2 음악의 ‘학생 활동지 바로가기’에 적용했습니다.
 - `photos`: `path`, `alt`, `width`, `height`로 갤러리 이미지를 등록합니다. WebP·PNG·JPG를 지원합니다.
 - `artifacts`: `id`, `label`, `path`, `alt`, `width`, `height`로 산출물 이미지를 등록합니다. 수업의 ‘학생 산출물 보기’ 버튼은 `lessons/<lesson-id>/artifacts/`의 갤러리로 이동합니다. 클릭 확대·이전/다음·화살표·Escape 닫기와 뒤로 가기를 지원합니다. ID는 같은 수업 안에서 중복되지 않아야 합니다.
 - `planPages`: PDF를 쪽별 이미지로 렌더링한 `path`, `width`, `height` 목록입니다. 같은 항목의 `files`에 원본 PDF가 있어야 합니다.

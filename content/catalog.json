@@ -594,7 +594,13 @@
           "height": 960
         }
       ],
-      "links": [],
+      "links": [
+        {
+          "label": "학생 활동지 바로가기",
+          "url": "https://docs.google.com/document/d/1eA8KK_kmzIWRF6bEVwMgMnbL45pYrY0-EiBcGaNhl6E/edit?usp=sharing",
+          "position": "before-artifacts"
+        }
+      ],
       "artifacts": [
         {
           "id": "student-work-01-page-01",
