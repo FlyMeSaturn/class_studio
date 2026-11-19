@@ -397,7 +397,8 @@
         {
           "label": "학생 산출물 PDF",
           "format": "PDF",
-          "path": "files/folk-song/student-work-private.pdf"
+          "path": "files/folk-song/student-work-private.pdf",
+          "download": false
         }
       ],
       "planPages": [
@@ -601,6 +602,7 @@
           "position": "before-artifacts"
         }
       ],
+      "showArtifactGalleryLink": false,
       "artifacts": [
         {
           "id": "student-work-01-page-01",

@@ -118,8 +118,8 @@ ${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/
 ${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
 ${l.photos?.length ? action('수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
-${l.artifacts?.length ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
-${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${action(`${f.label} 다운받기`, href(f.path), ' download', download)}`).join('')}
+${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
+${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${f.download !== false ? action(`${f.label} 다운받기`, href(f.path), ' download', download) : ''}`).join('')}
 ${(l.links || []).filter(link => link.position !== 'before-artifacts').map(externalAction).join('')}
 </ul>`;
 }
