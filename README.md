@@ -38,6 +38,7 @@ http://127.0.0.1:4173/class_studio/ 에서 확인합니다. `dist/`는 생성 �
 - `links`: `label`과 HTTPS `url`로 외부 자료를 등록합니다. 새 탭에서 열리며 쿼리·프레임 주소를 그대로 보존합니다.
 - 외부 링크에 `position: "before-artifacts"`를 지정하면 ‘학생 산출물 보기’ 바로 위에 표시합니다. 중2 음악의 ‘학생 활동지 바로가기’에 적용했습니다.
 - `photos`: `path`, `alt`, `width`, `height`로 갤러리 이미지를 등록합니다. WebP·PNG·JPG를 지원합니다.
+- `videos`: 공개용 MP4와 WebP 썸네일을 `public/files/<lesson-id>/`에 두고 `title`, `path`, `poster`를 등록하면 ‘학생 개사곡 듣기’와 팝업 재생을 제공합니다.
 - `artifacts`: `id`, `label`, `path`, `alt`, `width`, `height`로 산출물 이미지를 등록합니다. 수업의 ‘학생 산출물 보기’ 버튼은 `lessons/<lesson-id>/artifacts/`의 갤러리로 이동합니다. 클릭 확대·이전/다음·화살표·Escape 닫기와 뒤로 가기를 지원합니다. ID는 같은 수업 안에서 중복되지 않아야 합니다.
 - `planPages`: PDF를 쪽별 이미지로 렌더링한 `path`, `width`, `height` 목록입니다. 같은 항목의 `files`에 원본 PDF가 있어야 합니다.
 - `updated`: 소개·게시 정보 확인일입니다. 원본 문서 수정일과 구분합니다.

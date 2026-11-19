@@ -9,6 +9,12 @@ export const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;'
 export const href = value => base + value.replace(/^\/+/, '');
 export const sizeLabel = bytes => bytes < 1024 * 1024 ? `${(bytes / 1024).toFixed(1)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
+export const resourcePaths = item => [
+  ...item.files.map(file => file.path),
+  ...['photos', 'planPages', 'artifacts'].flatMap(key => (item[key] || []).map(media => media.path)),
+  ...(item.videos || []).flatMap(video => [video.path, video.poster]),
+];
+
 export async function validateCatalog(data, assetRoot = publicRoot) {
   const errors = [];
   const requireText = (value, label) => { if (typeof value !== 'string' || !value.trim()) errors.push(`${label}: 텍스트가 필요합니다.`); };
@@ -23,7 +29,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
   async function files(item, label) {
     if (!allowedStates.includes(item.status)) errors.push(`${label}: 잘못된 공개 상태`);
     if (!Array.isArray(item.files)) { errors.push(`${label}.files: 배열이 필요합니다.`); return; }
-    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length && !item.artifacts?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
+    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length && !item.artifacts?.length && !item.videos?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
     if (item.status !== 'published' && item.files.length) errors.push(`${label}: 파일은 공개 상태에서만 등록할 수 있습니다.`);
     for (const file of item.files) {
       for (const key of ['label','format','path']) requireText(file[key], `${label}.files.${key}`);
@@ -67,6 +73,19 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       if (item.status !== 'published') errors.push(`${label}: 링크는 공개 상태에서만 등록할 수 있습니다.`);
     }
   }
+  async function videos(lesson) {
+    if (lesson.videos === undefined) return;
+    if (!Array.isArray(lesson.videos)) { errors.push(`${lesson.id}.videos: 배열이 필요합니다.`); return; }
+    if (!lesson.videos.length) return;
+    if (lesson.status !== 'published') errors.push(`${lesson.id}: 영상은 공개 상태에서만 등록할 수 있습니다.`);
+    for (const video of lesson.videos) {
+      requireText(video.title, `${lesson.id}.videos.title`);
+      await files({ status: 'published', files: [
+        { label: video.title, format: 'MP4', path: video.path },
+        { label: '썸네일', format: 'WEBP', path: video.poster },
+      ] }, lesson.id);
+    }
+  }
   for (const lesson of data.lessons || []) {
     for (const k of ['id','title','summary','author','source','overview']) requireText(lesson[k], `lesson.${k}`);
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lesson.id || '')) errors.push('lesson.id: 영문 소문자·숫자·하이픈만 사용합니다.');
@@ -79,6 +98,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     if (!isDate(lesson.updated)) errors.push(`${lesson.id}: 올바른 updated 날짜가 필요합니다.`);
     await files(lesson, lesson.id);
     await media(lesson, lesson.id);
+    await videos(lesson);
   }
   if (!data.collection) errors.push('collection이 필요합니다.');
   else {

@@ -1,6 +1,6 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { root, base, loadCatalog, visibleLessons } from './catalog.mjs';
+import { root, base, loadCatalog, visibleLessons, resourcePaths } from './catalog.mjs';
 const data=await loadCatalog();
 const dist=path.join(root,'dist');
 const failures=[];
@@ -20,7 +20,7 @@ for(const file of all){bytes+=(await stat(file)).size;if(!file.endsWith('.html')
     try{const s=await stat(target);if(s.isDirectory())await stat(path.join(target,'index.html'));}catch{failures.push(`${file}: 없는 내부 링크 ${value}`);}
   }
 }
-const allowed=new Set([...visibleLessons(data),data.collection].filter(x=>x.status==='published').flatMap(x=>[...x.files,...(x.photos || []),...(x.planPages || []),...(x.artifacts || [])].map(f=>f.path)));
+const allowed=new Set([...visibleLessons(data),data.collection].filter(x=>x.status==='published').flatMap(resourcePaths));
 for(const file of all){const rel=path.relative(dist,file).replaceAll('\\','/');if(rel.startsWith('files/')&&!allowed.has(rel))failures.push(`등록되지 않은 공개 파일: ${rel}`);}
 if(bytes>950*1024*1024)failures.push('게시 사이트가 950 MB를 초과합니다.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}

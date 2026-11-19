@@ -383,6 +383,18 @@
         "학교생활을 담아 개사하고 불러 보며 고치기",
         "AI 초안과 자신의 선택을 비교하며 성찰하기"
       ],
+      "videos": [
+        {
+          "title": "옹헤야",
+          "path": "files/folk-song/ongheya-mosaic.mp4",
+          "poster": "files/folk-song/ongheya-poster.webp"
+        },
+        {
+          "title": "통영개타령",
+          "path": "files/folk-song/tongyeong-gaetaryeong-mosaic.mp4",
+          "poster": "files/folk-song/tongyeong-gaetaryeong-poster.webp"
+        }
+      ],
       "files": [
         {
           "label": "지도안 PDF",
@@ -461,18 +473,6 @@
           "alt": "모둠에서 내 노래의 기준을 토의하는 모습",
           "width": 406,
           "height": 304
-        },
-        {
-          "path": "files/folk-song/photo-04.webp",
-          "alt": "옹헤야 학생 개사곡 듣기 QR",
-          "width": 117,
-          "height": 117
-        },
-        {
-          "path": "files/folk-song/photo-05.webp",
-          "alt": "통영개타령 학생 개사곡 듣기 QR",
-          "width": 117,
-          "height": 117
         },
         {
           "path": "files/folk-song/photo-06.webp",
