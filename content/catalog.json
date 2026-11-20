@@ -689,7 +689,7 @@
       "author": "김연성",
       "source": "수업공방 개념 기반 탐구학습 지도안 취합 원고",
       "status": "published",
-      "updated": "2026-11-16",
+      "updated": "2026-11-20",
       "tags": [
         "의사소통",
         "문화",
@@ -713,6 +713,11 @@
           "label": "지도안 HWPX",
           "format": "HWPX",
           "path": "files/language-and-culture/lesson-plan-name-fixed.hwpx"
+        },
+        {
+          "label": "학생 활동지 PDF",
+          "format": "PDF",
+          "path": "files/language-and-culture/student-worksheet.pdf"
         }
       ],
       "planPages": [
@@ -755,13 +760,13 @@
       "photos": [
         {
           "path": "files/language-and-culture/photo-01.webp",
-          "alt": "모둠에서 문화와 언어 자료를 탐구하는 모습",
+          "alt": "학생들이 개념 은행을 활용하여 일반화 문장을 작성하는 모습",
           "width": 646,
           "height": 354
         },
         {
           "path": "files/language-and-culture/photo-02-mosaic.webp",
-          "alt": "친구들과 의견을 나누며 안내서를 만드는 모습",
+          "alt": "학생들이 영문 관광 안내문을 작성하는 모습",
           "width": 646,
           "height": 354
         }
