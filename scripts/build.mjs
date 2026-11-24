@@ -62,7 +62,7 @@ ${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div>
 function subjectTag(subject, inPhotoCaption = false) {
   const name = esc(subject);
   const photoInfo = inPhotoCaption ? ` data-photo-subject="${name}"` : '';
-  return `<span class="subject-tag${inPhotoCaption ? ' photo-subject' : ''}" data-subject="${name}"${photoInfo}>${inPhotoCaption ? `[${name}]` : name}</span>`;
+  return `<span class="subject-tag${inPhotoCaption ? ' photo-subject' : ''}" data-subject="${name}"${photoInfo}>${name}</span>`;
 }
 
 const subjectTags = subjects => `<span class="subject-tags">${subjects.map(subject => subjectTag(subject)).join(' ')}</span>`;
@@ -195,7 +195,7 @@ for (const l of lessons) {
     const galleryTitle = defaultSubject ? '활동 사진 보기' : gallery.label;
     const cards = pictures.map((photo, index) => {
       const subject = gallery.key === 'photos' ? (photo.subject ?? defaultSubject) : undefined;
-      const tag = subject ? `[${esc(subject)}] ` : '';
+      const tag = subject ? `${esc(subject)} ` : '';
       const prefix = subject ? `${subjectTag(subject, true)} ` : '';
       const label = photo.label || photo.alt;
       const caption = `<figcaption>${prefix}${esc(label)}</figcaption>`;

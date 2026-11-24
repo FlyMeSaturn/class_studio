@@ -148,12 +148,12 @@ html.library-page { scroll-padding-top: 92px; }
   background: #fffefc; border-top: 4px solid var(--subject-ink);
   padding-top: 20px;
 }
-[data-subject="과학"] { --subject-ink: #246957; --subject-tint: #e2f1e9; --subject-tag-bg: #9d5cbb; --subject-tag-ink: #080209; }
+[data-subject="과학"] { --subject-ink: #246957; --subject-tint: #e2f1e9; --subject-tag-bg: #e7d6ee; --subject-tag-ink: #5e3673; }
 [data-subject="수학"] { --subject-ink: #465a9c; --subject-tint: #e9edfa; }
 [data-subject="음악"] { --subject-ink: #9b3c61; --subject-tint: #f8e6ee; }
 [data-subject="영어"] { --subject-ink: #99511c; --subject-tint: #fbecd9; }
-[data-subject="역사"] { --subject-ink: #865d20; --subject-tint: #f5ecd8; --subject-tag-bg: #ff843a; --subject-tag-ink: #42200c; }
-[data-subject="미술"] { --subject-ink: #76518e; --subject-tint: #f0e6f7; --subject-tag-bg: #6182d6; --subject-tag-ink: #0b1632; }
+[data-subject="역사"] { --subject-ink: #865d20; --subject-tint: #f5ecd8; --subject-tag-bg: #ffe0ce; --subject-tag-ink: #854319; }
+[data-subject="미술"] { --subject-ink: #76518e; --subject-tint: #f0e6f7; --subject-tag-bg: #d8e0f5; --subject-tag-ink: #385389; }
 .lesson-card[data-subject="융합"] { --subject-ink: #76518e; --subject-tint: #f0e6f7; }
 .lesson-card[data-subject]:hover, .lesson-card[data-subject]:focus-visible {
   border-color: var(--subject-ink); background: var(--subject-tint);
