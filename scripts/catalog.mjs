@@ -54,6 +54,9 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       const pictureIds = new Set();
       for (const picture of item[key]) {
         if (key !== 'planPages') requireText(picture.alt, `${label}.${key}.alt`);
+        if (key === 'photos' && picture.subject !== undefined && (!Array.isArray(item.subjects) || !item.subjects.includes(picture.subject))) {
+          errors.push(`${label}.photos.subject: 수업에 포함된 교과가 필요합니다.`);
+        }
         if (key === 'artifacts') {
           requireText(picture.label, `${label}.artifacts.label`);
           if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(picture.id || '')) errors.push(`${label}: 산출물 ID는 영문 소문자·숫자·하이픈만 사용합니다.`);

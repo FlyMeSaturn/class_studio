@@ -1031,6 +1031,38 @@
       "photoSubject": "미술",
       "photos": [
         {
+          "label": "애민정신과 유교윤리의 수호자 - 세종대왕",
+          "subject": "역사",
+          "path": "files/constellation-myth/history-01.webp",
+          "alt": "세종대왕의 애민정신과 유교윤리를 주제로 수업하는 교실",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "조선의 인성교육 모범 사례집-삼강행실도",
+          "subject": "역사",
+          "path": "files/constellation-myth/history-02.webp",
+          "alt": "화면으로 삼강행실도를 살피며 발표하는 학생들",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "조선의 천문지도 - 천상열차분야지도",
+          "subject": "역사",
+          "path": "files/constellation-myth/history-03.webp",
+          "alt": "천상열차분야지도를 보며 손을 들어 질문에 참여하는 모습",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "ZEP 보드로 별자리 이야기 공유하기",
+          "subject": "역사",
+          "path": "files/constellation-myth/history-04.webp",
+          "alt": "학생들이 ZEP 보드를 보며 모둠에서 별자리 이야기를 나누는 모습",
+          "width": 1920,
+          "height": 1080
+        },
+        {
           "label": "가치를 담은 캐릭터 구상 예시",
           "path": "files/constellation-myth/activity-11.webp",
           "alt": "평화, 유머, 책임을 색과 형태로 표현한 세 가지 캐릭터 구상 예시",

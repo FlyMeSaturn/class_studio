@@ -27,7 +27,7 @@ function page({ title, description, route = '', current = '', body, home = false
   const libraryUrl = href('library/');
   const aboutUrl = href('about/');
   const html = `<!doctype html>
-<html lang="ko"><head>
+<html lang="ko"${route === 'library/' ? ' class="library-page"' : ''}><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} · 수업공방</title><meta name="description" content="${esc(description)}">
 <meta name="theme-color" content="#6b4b36"><link rel="canonical" href="${origin}${href(route)}">
@@ -183,21 +183,23 @@ for (const l of lessons) {
   for (const gallery of [{key:'photos', label:'수업 사진', noun:'사진'}, {key:'artifacts', label:'학생 산출물', noun:'산출물'}]) {
     const pictures = l[gallery.key];
     if (l.status !== 'published' || !pictures?.length) continue;
-    const subject = gallery.key === 'photos' ? l.photoSubject : undefined;
-    const galleryTitle = subject ? '활동 사진 보기' : gallery.label;
-    const prefix = subject ? `<span class="photo-subject" data-photo-subject="${esc(subject)}">[${esc(subject)}]</span> ` : '';
+    const defaultSubject = gallery.key === 'photos' ? l.photoSubject : undefined;
+    const galleryTitle = defaultSubject ? '활동 사진 보기' : gallery.label;
     const cards = pictures.map((photo, index) => {
+      const subject = gallery.key === 'photos' ? (photo.subject ?? defaultSubject) : undefined;
+      const tag = subject ? `[${esc(subject)}] ` : '';
+      const prefix = subject ? `<span class="photo-subject" data-photo-subject="${esc(subject)}">[${esc(subject)}]</span> ` : '';
       const label = photo.label || photo.alt;
       const caption = `<figcaption>${prefix}${esc(label)}</figcaption>`;
       const img = `<img src="${href(photo.path)}" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ${index > 2 ? 'loading="lazy"' : ''} decoding="async">`;
-      return `<li><a class="photo-link" href="${href(photo.path)}" data-photo-index="${index}" aria-label="${subject ? `[${esc(subject)}] ` : ''}${esc(label)} 크게 보기"><figure>${img}${caption}</figure></a></li>`;
+      return `<li><a class="photo-link" href="${href(photo.path)}" data-photo-index="${index}" aria-label="${tag}${esc(label)} 크게 보기"><figure>${img}${caption}</figure></a></li>`;
     }).join('');
     const route = `lessons/${l.id}/${gallery.key}/`;
     await write(`${route}index.html`, page({
-      title: `${l.title} · ${galleryTitle}`, description: `${l.title} ${subject ? '활동 사진' : gallery.label} 갤러리`, route, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(subject ? l.title : `${l.subjects.join(' · ')} · ${l.grades.join(' · ')}`)}</p><h1>${subject ? galleryTitle : esc(l.title)}</h1><p class="gallery-intro">${subject ? '' : `${gallery.label} · `}${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
+      title: `${l.title} · ${galleryTitle}`, description: `${l.title} ${defaultSubject ? '활동 사진' : gallery.label} 갤러리`, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(defaultSubject ? l.title : `${l.subjects.join(' · ')} · ${l.grades.join(' · ')}`)}</p><h1>${defaultSubject ? galleryTitle : esc(l.title)}</h1><p class="gallery-intro">${defaultSubject ? '' : `${gallery.label} · `}${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
 <ul class="photo-gallery">${cards}</ul>
-<dialog class="photo-dialog" aria-label="${subject ? '활동 사진' : gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
+<dialog class="photo-dialog" aria-label="${defaultSubject ? '활동 사진' : gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
 </div>`
     }));
   }
