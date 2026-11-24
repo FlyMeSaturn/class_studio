@@ -41,13 +41,19 @@ const photoDialog = document.querySelector('.photo-dialog');
 if (photoDialog && typeof photoDialog.showModal === 'function') {
   const photos = [...document.querySelectorAll('[data-photo-index]')];
   const full = photoDialog.querySelector('[data-photo-full]');
+  const fullCaption = photoDialog.querySelector('[data-photo-caption]');
   let current = 0;
   const showPhoto = index => {
     current = (index + photos.length) % photos.length;
     const source = photos[current].querySelector('img');
     full.src = photos[current].href;
     full.alt = source.alt;
-    photoDialog.querySelector('[data-photo-caption]').textContent = source.alt;
+    const caption = photos[current].querySelector('figcaption');
+    if (caption.querySelector('[data-photo-subject]')) {
+      fullCaption.replaceChildren(...caption.cloneNode(true).childNodes);
+    } else {
+      fullCaption.textContent = source.alt;
+    }
     photoDialog.querySelector('[data-photo-counter]').textContent = `${current + 1} / ${photos.length}`;
   };
   photos.forEach((link, index) => link.addEventListener('click', event => {

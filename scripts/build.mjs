@@ -119,7 +119,7 @@ function lessonResources(l) {
   return `<ul class="resource-actions">
 ${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
 ${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
-${l.photos?.length ? action('수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
+${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
 ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
 ${l.videos?.length ? action(songGalleryTitle, href(`lessons/${l.id}/songs/`), '', playIcon) : ''}
@@ -183,12 +183,21 @@ for (const l of lessons) {
   for (const gallery of [{key:'photos', label:'수업 사진', noun:'사진'}, {key:'artifacts', label:'학생 산출물', noun:'산출물'}]) {
     const pictures = l[gallery.key];
     if (l.status !== 'published' || !pictures?.length) continue;
+    const subject = gallery.key === 'photos' ? l.photoSubject : undefined;
+    const galleryTitle = subject ? '활동 사진 보기' : gallery.label;
+    const prefix = subject ? `<span class="photo-subject" data-photo-subject="${esc(subject)}">[${esc(subject)}]</span> ` : '';
+    const cards = pictures.map((photo, index) => {
+      const label = photo.label || photo.alt;
+      const caption = `<figcaption>${prefix}${esc(label)}</figcaption>`;
+      const img = `<img src="${href(photo.path)}" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ${index > 2 ? 'loading="lazy"' : ''} decoding="async">`;
+      return `<li><a class="photo-link" href="${href(photo.path)}" data-photo-index="${index}" aria-label="${subject ? `[${esc(subject)}] ` : ''}${esc(label)} 크게 보기"><figure>${subject ? caption + img : img + caption}</figure></a></li>`;
+    }).join('');
     const route = `lessons/${l.id}/${gallery.key}/`;
     await write(`${route}index.html`, page({
-      title: `${l.title} · ${gallery.label}`, description: `${l.title} ${gallery.label} 갤러리`, route, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><p class="gallery-intro">${gallery.label} · ${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
-<ul class="photo-gallery">${pictures.map((p,i) => `<li><a class="photo-link" href="${href(p.path)}" data-photo-index="${i}" aria-label="${esc(p.label || p.alt)} 크게 보기"><figure><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(p.alt)}" ${i>2 ? 'loading="lazy"' : ''} decoding="async"><figcaption>${esc(p.label || p.alt)}</figcaption></figure></a></li>`).join('')}</ul>
-<dialog class="photo-dialog" aria-label="${gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
+      title: `${l.title} · ${galleryTitle}`, description: `${l.title} ${subject ? '활동 사진' : gallery.label} 갤러리`, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(subject ? l.title : `${l.subjects.join(' · ')} · ${l.grades.join(' · ')}`)}</p><h1>${subject ? galleryTitle : esc(l.title)}</h1><p class="gallery-intro">${subject ? '' : `${gallery.label} · `}${pictures.length}장<span>${gallery.noun}을 누르면 크게 볼 수 있습니다.</span></p></div>
+<ul class="photo-gallery">${cards}</ul>
+<dialog class="photo-dialog" aria-label="${subject ? '활동 사진' : gallery.label} 확대 보기"><div class="photo-toolbar"><span data-photo-counter aria-live="polite"></span><button type="button" data-photo-close>닫기 ×</button></div><div class="photo-stage"><button type="button" data-photo-prev aria-label="이전 ${gallery.noun}">←</button><figure><img data-photo-full alt=""><figcaption data-photo-caption></figcaption></figure><button type="button" data-photo-next aria-label="다음 ${gallery.noun}">→</button></div></dialog>
 </div>`
     }));
   }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-24",
   "parts": [
     {
       "id": "inquiry",
@@ -921,7 +921,7 @@
       "id": "jagyeongnu",
       "part": "integration",
       "order": 1,
-      "title": "자격루, 같은 유물을 두 시선으로",
+      "title": "자격루에 숨겨진 역사와 과학",
       "subjects": [
         "과학",
         "역사"
@@ -932,8 +932,8 @@
       "summary": "자격루의 작동 원리와 역사적 의미를 알아보고 조선시대 방문(榜文)으로 씁니다.",
       "author": "수업공방",
       "source": "「전북교육」 제71호 수업공방 소개 원고 · 교과융합 프로젝트",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-24",
       "tags": [
         "자격루",
         "에너지 전환",
@@ -948,13 +948,86 @@
         "에너지 전환 과정과 역사적 의미를 방문으로 표현하기",
         "하나의 산출물을 과학과 역사의 관점에서 살펴보기"
       ],
-      "files": []
+      "files": [],
+      "photoSubject": "역사",
+      "photos": [
+        {
+          "label": "오늘의 탐구 활동지",
+          "path": "files/jagyeongnu/activity-01.webp",
+          "alt": "자격루의 원리와 조선의 시간 제도를 살펴보는 활동지",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "표준 시각은 왜 필요할까",
+          "path": "files/jagyeongnu/activity-02.webp",
+          "alt": "공통된 시간 기준이 필요한 이유를 묻는 수업 화면",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "조선의 하루 읽기",
+          "path": "files/jagyeongnu/activity-03.webp",
+          "alt": "조선시대의 시각 표를 보며 시간을 읽는 방법을 살펴보는 교실",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "옛 시계의 눈금 살펴보기",
+          "path": "files/jagyeongnu/activity-04.webp",
+          "alt": "두 가지 모양의 옛 시계를 화면으로 살펴보는 활동",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "그림으로 살피는 옛 시계",
+          "path": "files/jagyeongnu/activity-05.webp",
+          "alt": "교사가 둥근 시계의 구조를 가리키며 설명하는 모습",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "시계와 종이 사라진다면",
+          "path": "files/jagyeongnu/activity-06.webp",
+          "alt": "학교에서 시각을 알려 주는 도구가 사라졌을 때를 생각해 보는 장면",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "시간을 다르게 읽는다면",
+          "path": "files/jagyeongnu/activity-07.webp",
+          "alt": "시간 기준이 다른 상황을 제시하고 생각을 묻는 장면",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "손을 들어 생각 나누기",
+          "path": "files/jagyeongnu/activity-08.webp",
+          "alt": "교사의 질문을 듣고 손을 든 학생들",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "탐구 활동지에 생각 쓰기",
+          "path": "files/jagyeongnu/activity-09.webp",
+          "alt": "책상에 둘러앉아 활동지에 생각을 정리하는 모습",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "각자의 답 정리하기",
+          "path": "files/jagyeongnu/activity-10.webp",
+          "alt": "교실에서 각자 활동지를 읽고 답을 쓰는 모습",
+          "width": 1920,
+          "height": 1081
+        }
+      ]
     },
     {
       "id": "constellation-myth",
       "part": "integration",
       "order": 2,
-      "title": "신화, 별에 이야기를 붙이다",
+      "title": "별을 잇고, 가치를 지키다",
       "subjects": [
         "역사",
         "과학",
@@ -966,8 +1039,8 @@
       "summary": "나만의 별자리에 조선의 가치관을 담은 신화를 짓고 입체 작품으로 만듭니다.",
       "author": "수업공방",
       "source": "「전북교육」 제71호 수업공방 소개 원고 · 교과융합 프로젝트",
-      "status": "preparing",
-      "updated": "2026-11-15",
+      "status": "published",
+      "updated": "2026-11-24",
       "tags": [
         "별자리",
         "신화",
@@ -982,7 +1055,143 @@
         "이야기의 핵심을 상징적 이미지로 구상하기",
         "이미지를 오브제에 재배치해 입체 작품으로 표현하기"
       ],
-      "files": []
+      "files": [],
+      "photoSubject": "미술",
+      "photos": [
+        {
+          "label": "가치를 담은 캐릭터 구상 예시",
+          "path": "files/constellation-myth/activity-11.webp",
+          "alt": "평화, 유머, 책임을 색과 형태로 표현한 세 가지 캐릭터 구상 예시",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "label": "모둠마다 다른 색",
+          "path": "files/constellation-myth/activity-01.webp",
+          "alt": "모둠별로 곰 오브제에 분홍색과 노란색 물감을 칠하는 손",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "참고 이미지를 보며 채색하기",
+          "path": "files/constellation-myth/activity-02.webp",
+          "alt": "노트북 화면을 참고하면서 파란색과 초록색 오브제를 만드는 모습",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "바탕색 칠하기",
+          "path": "files/constellation-myth/activity-03.webp",
+          "alt": "파란색, 노란색, 초록색으로 곰 오브제의 바탕을 칠하는 모습",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "밤하늘을 닮은 점무늬",
+          "path": "files/constellation-myth/activity-04.webp",
+          "alt": "짙은 파란색 오브제에 흰 점을 찍어 무늬를 만드는 작업",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "그림을 참고해 색 고르기",
+          "path": "files/constellation-myth/activity-05.webp",
+          "alt": "노트북에 띄운 그림을 보며 노란색 오브제를 채색하는 모습",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "함께 쓰는 채색 도구",
+          "path": "files/constellation-myth/activity-06.webp",
+          "alt": "물감과 팔레트를 나눠 쓰며 각자 오브제를 채색하는 책상",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "한 책상에서 여러 캐릭터 만들기",
+          "path": "files/constellation-myth/activity-07.webp",
+          "alt": "모둠 학생들이 서로 다른 색으로 곰 오브제를 채색하는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "밑그림 곁에서 작업하기",
+          "path": "files/constellation-myth/activity-14.webp",
+          "alt": "종이 위 밑그림과 파란 오브제를 옆에 두고 작업하는 손",
+          "width": 1920,
+          "height": 1440
+        },
+        {
+          "label": "연노란색 바탕 완성",
+          "path": "files/constellation-myth/activity-08.webp",
+          "alt": "옅은 노란색 바탕을 고르게 칠한 곰 오브제",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "검은 오브제에 입체감 더하기",
+          "path": "files/constellation-myth/activity-09.webp",
+          "alt": "가느다란 붓으로 검은 곰 오브제에 세부 형태를 그리는 손",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "참고 이미지를 입체로 옮기기",
+          "path": "files/constellation-myth/activity-10.webp",
+          "alt": "참고 이미지 속 인물의 특징을 옮겨 표현한 검은 곰 오브제",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "옅은 바탕에 색 얹기",
+          "path": "files/constellation-myth/activity-12.webp",
+          "alt": "밝은 바탕의 곰 오브제를 손에 들고 색을 더하는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "가느다란 붓으로 세부 채색하기",
+          "path": "files/constellation-myth/activity-13.webp",
+          "alt": "작은 붓으로 오브제의 세부를 채색하는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "초록 캐릭터에 눈 그리기",
+          "path": "files/constellation-myth/activity-15.webp",
+          "alt": "초록색 곰 오브제의 눈과 배를 채색한 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "민트색 캐릭터의 장식 그리기",
+          "path": "files/constellation-myth/activity-16.webp",
+          "alt": "민트색 곰 오브제에 얼굴 무늬와 목걸이를 그리는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "노랑과 주황으로 표현하기",
+          "path": "files/constellation-myth/activity-17.webp",
+          "alt": "노란색과 주황색 오브제를 각각 손에 들고 채색하는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "색을 섞어 작품 마무리하기",
+          "path": "files/constellation-myth/activity-18.webp",
+          "alt": "팔레트 곁에서 민트색 오브제를 들고 채색하는 모습",
+          "width": 1440,
+          "height": 1920
+        },
+        {
+          "label": "빨간 오브제에 무늬 더하기",
+          "path": "files/constellation-myth/activity-19.webp",
+          "alt": "붓을 들고 빨간색 곰 오브제의 세부를 채색하는 모습",
+          "width": 1440,
+          "height": 1920
+        }
+      ]
     }
   ]
 }

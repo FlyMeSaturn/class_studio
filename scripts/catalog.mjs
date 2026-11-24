@@ -106,6 +106,9 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     for (const k of ['subjects','grades','tags','activities']) {
       if (!Array.isArray(lesson[k]) || (k !== 'tags' && !lesson[k].length) || lesson[k].some(x => typeof x !== 'string' || !x.trim())) errors.push(`${lesson.id}.${k}: 텍스트 배열이 필요합니다.`);
     }
+    if (lesson.photoSubject !== undefined && (!lesson.photos?.length || !Array.isArray(lesson.subjects) || !lesson.subjects.includes(lesson.photoSubject))) {
+      errors.push(`${lesson.id}.photoSubject: 활동 사진과 수업에 포함된 교과가 필요합니다.`);
+    }
     if (!isDate(lesson.updated)) errors.push(`${lesson.id}: 올바른 updated 날짜가 필요합니다.`);
     await files(lesson, lesson.id);
     await media(lesson, lesson.id);
