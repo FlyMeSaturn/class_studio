@@ -110,8 +110,8 @@ svg { flex: none; vertical-align: middle; }
 .hero-slogan { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: calc(100% - 64px); max-width: 900px; color: #432c1e; font-family: 'Noto Serif KR', serif; font-size: clamp(26px, 2.65vw, 38px); font-weight: 600; line-height: 1.45; letter-spacing: -.025em; text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .hero-slogan span { display: block; }
 html.library-page { scroll-padding-top: 92px; }
-.library-page body { display: flex; flex-direction: column; min-height: 100dvh; }
-.library-page #main { flex: 1 0 auto; }
+:is(.library-page, .about-page) body { display: flex; flex-direction: column; min-height: 100dvh; }
+:is(.library-page, .about-page) #main { flex: 1 0 auto; }
 .library-page .header-inner { min-height: 80px; }
 .library { padding-top: 18px; }
 .library-heading { display: flex; align-items: center; justify-content: space-between; gap: 32px; }

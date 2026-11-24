@@ -31,8 +31,9 @@ const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${k
 function page({ title, description, route = '', current = '', body, home = false, backHref = '' }) {
   const libraryUrl = href('library/');
   const aboutUrl = href('about/');
+  const pageClass = { 'library/': 'library-page', 'about/': 'about-page' }[route];
   const html = `<!doctype html>
-<html lang="ko"${route === 'library/' ? ' class="library-page"' : ''}><head>
+<html lang="ko"${pageClass ? ` class="${pageClass}"` : ''}><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} · 수업공방</title><meta name="description" content="${esc(description)}">
 <meta name="theme-color" content="#6b4b36"><link rel="canonical" href="${origin}${href(route)}">
