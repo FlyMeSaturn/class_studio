@@ -19,6 +19,11 @@ const backArrow = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" s
 const download = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>';
 const linkIcon = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>';
 const playIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M8 4.8v14.4L20 12z"/></svg>';
+const documentIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v13H6zM13 3v5h5M9 12h6m-6 4h6"/></svg>';
+const presentationIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8m-4-4v4M7 13V9m5 4V7m5 6v-3"/></svg>';
+const albumIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h13a1 1 0 0 1 1 1v12"/><rect x="3" y="8" width="14" height="12" rx="1.5"/><path d="m3 17 4-4 3 3 2-2 5 5"/><circle cx="13" cy="11" r="1"/></svg>';
+const chainIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 13 4-4m-6 6-1 1a3 3 0 0 0 4 4l4-4a3 3 0 0 0 0-4m-2-3 1-1a3 3 0 1 0-4-4L6 8a3 3 0 0 0 0 4" transform="translate(1 0)"/></svg>';
+const resourceIcons = { PPTX: presentationIcon, photo: albumIcon, link: chainIcon, video: playIcon };
 const songGalleryTitle = '학생 개사곡 듣기';
 const webAppsTitle = '음량조절웹앱 예시';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
@@ -119,9 +124,15 @@ function resources(item) {
 
 const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
 
-function previewAction(label, route, title = '', kind = 'PDF') {
-  const name = title && title !== label && !label.startsWith(`${title} `) ? `${esc(title)} · ` : '';
-  return `<li><a class="resource-action resource-preview" href="${href(route)}"><span><strong>${esc(label)}</strong><small>${name}${kind} 미리보기</small></span>${arrow}</a></li>`;
+function resourceAction(title, url, { kind = 'link', subject, detail, external, downloadName } = {}) {
+  const icon = resourceIcons[kind] ?? documentIcon;
+  const fileFormat = /^[A-Z0-9]+$/.test(kind) ? kind : '';
+  const downloadAttr = downloadName === true ? ' download' : downloadName ? ` download="${esc(downloadName)}"` : '';
+  const externalAttr = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+  return `<li><a class="resource-action" href="${url}"${downloadAttr}${externalAttr}>
+<span class="resource-copy"><span class="resource-title">${subject ? subjectTag(subject) : ''}<strong>${esc(title)}</strong></span>${detail ? `<small>${esc(detail)}</small>` : ''}</span>
+<span class="resource-icon"${fileFormat ? ` data-format="${fileFormat}"` : ''}>${icon}${fileFormat ? `<span class="resource-format">${fileFormat}</span>` : ''}</span>
+${external ? '<span class="sr-only"> (새 탭)</span>' : ''}</a></li>`;
 }
 
 function lessonResources(l) {
@@ -129,21 +140,27 @@ function lessonResources(l) {
   const plan = l.files.find(f => f.format === 'HWPX');
   const pdf = l.planPages?.length ? l.files.find(f => f.format === 'PDF') : null;
   const additionalFiles = l.files.filter(f => f !== plan && f !== pdf);
-  const action = (label, url, attributes = '', icon = arrow) => `<li><a class="resource-action" href="${url}"${attributes}><span>${esc(label)}</span>${icon}</a></li>`;
-  const externalAction = link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon);
-  const planAction = l.planPages?.length
-    ? previewAction('지도안 다운받기', `lessons/${l.id}/plan/`)
-    : plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : '';
+  const externalAction = link => resourceAction(link.label, esc(link.url), { external: true });
+  const planAction = pdf
+    ? resourceAction('지도안', href(`lessons/${l.id}/plan/`), { kind: (plan ?? pdf).format, detail: '미리보기' })
+    : plan ? resourceAction('지도안', href(plan.path), { kind: plan.format, detail: '다운로드', downloadName: `수업공방_${l.title}.hwpx` }) : '';
   return `<ul class="resource-actions">
 ${planAction}
-${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title, material.format === 'PPTX' ? 'PPT' : 'PDF')).join('')}
-${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
+${(l.materials || []).map(material => resourceAction(material.label, href(materialRoute(l, material)), {
+    kind: material.format, subject: material.subject, detail: '미리보기',
+  })).join('')}
+${l.photos?.length ? resourceAction(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`), { kind: 'photo' }) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
-${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
-${l.videos?.length ? action(songGalleryTitle, href(`lessons/${l.id}/songs/`), '', playIcon) : ''}
-${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보기`, href(f.path), ' target="_blank" rel="noopener"') : ''}${f.download !== false ? action(`${f.label} 다운받기`, href(f.path), ' download', download) : ''}`).join('')}
+${l.artifacts?.length && l.showArtifactGalleryLink !== false ? resourceAction('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`), { kind: 'photo' }) : ''}
+${l.videos?.length ? resourceAction(songGalleryTitle, href(`lessons/${l.id}/songs/`), { kind: 'video' }) : ''}
+${additionalFiles.map(f => {
+    const url = href(f.path);
+    const opensPdf = f.format === 'PDF' ? resourceAction(f.label, url, { kind: f.format, detail: '바로 보기', external: true }) : '';
+    const downloadFile = f.download !== false ? resourceAction(f.label, url, { kind: f.format, detail: '다운로드', downloadName: true }) : '';
+    return opensPdf + downloadFile;
+  }).join('')}
 ${(l.links || []).filter(link => link.position !== 'before-artifacts').map(externalAction).join('')}
-${l.webApps?.length ? action(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
+${l.webApps?.length ? resourceAction(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
 </ul>`;
 }
 
@@ -222,7 +239,7 @@ ${previewPages(l.planPages, `${l.title} 지도안`)}</div>`
     await write(`${route}index.html`, page({
       title: `${material.title} · 미리보기`, description: `${l.title} 수업 자료 미리보기 및 원본 다운로드`, route, current: 'library', backHref: `lessons/${l.id}/`,
       body: `<div class="shell viewer-shell${isPresentation ? ' ppt-shell' : ''}"${isPresentation ? ' data-ppt-viewer' : ''}>
-<div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(material.title)}</h1>${documentToolbar(material)}</div>
+<div class="viewer-heading"><p>${esc(l.title)}</p><h1>${material.subject ? subjectTag(material.subject) + ' ' : ''}${esc(material.title)}</h1>${documentToolbar(material)}</div>
 ${(isPresentation ? previewSlides : previewPages)(material.pages, material.title)}
 </div>`
     }));

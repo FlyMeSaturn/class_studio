@@ -110,6 +110,9 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(material.id || '') || materialIds.has(material.id)) errors.push(`${label}: 영문 소문자·숫자·하이픈을 사용한 고유한 자료 ID가 필요합니다.`);
       materialIds.add(material.id);
       requireText(material.title, `${label}.title`);
+      if (material.subject !== undefined && (!Array.isArray(lesson.subjects) || !lesson.subjects.includes(material.subject))) {
+        errors.push(`${label}.subject: 수업에 포함된 교과가 필요합니다.`);
+      }
       if (!['PDF', 'PPTX', 'HWPX'].includes(material.format)) errors.push(`${label}: PDF, PPTX 또는 HWPX 파일이 필요합니다.`);
       if (typeof material.downloadName !== 'string' || /[/\\]/.test(material.downloadName) || path.extname(material.downloadName).slice(1).toUpperCase() !== material.format) {
         errors.push(`${label}: 원본 형식과 일치하는 파일명이 필요합니다.`);

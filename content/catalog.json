@@ -407,7 +407,7 @@
           "path": "files/folk-song/lesson-plan-name-fixed.hwpx"
         },
         {
-          "label": "학생 산출물 PDF",
+          "label": "학생 산출물",
           "format": "PDF",
           "path": "files/folk-song/student-work-private.pdf",
           "download": false
@@ -770,7 +770,7 @@
       "materials": [
         {
           "id": "student-worksheet",
-          "label": "학생 활동지 PDF 다운받기",
+          "label": "학생 활동지",
           "title": "학생 활동지",
           "format": "PDF",
           "downloadName": "student-worksheet.pdf",
@@ -1049,8 +1049,9 @@
       "materials": [
         {
           "id": "science-and-technology",
-          "label": "역사 수업 PPT 다운받기",
+          "label": "과학기술의 발전",
           "title": "과학기술의 발전",
+          "subject": "역사",
           "format": "PPTX",
           "downloadName": "역사②_4-3-2_과학기술의 발전.pptx",
           "path": "files/jagyeongnu/materials/science-and-technology/science-and-technology.pptx",
@@ -1175,8 +1176,9 @@
         },
         {
           "id": "joseon-science",
-          "label": "역사 수업 활동지 다운받기",
-          "title": "개념기반탐구학습-조선의 과학",
+          "label": "조선의 과학 활동지",
+          "title": "조선의 과학 활동지",
+          "subject": "역사",
           "format": "HWPX",
           "downloadName": "개념기반탐구학습-조선의 과학.hwpx",
           "path": "files/jagyeongnu/materials/joseon-science/joseon-science.hwpx",
@@ -1347,8 +1349,9 @@
       "materials": [
         {
           "id": "confucian-ethics",
-          "label": "역사 수업 PPT 다운받기",
+          "label": "유교윤리의 보급",
           "title": "유교윤리의 보급",
+          "subject": "역사",
           "format": "PPTX",
           "downloadName": "역사②_4-3-2_유교윤리의 보급.pptx",
           "path": "files/constellation-myth/materials/confucian-ethics/confucian-ethics.pptx",
@@ -1474,8 +1477,9 @@
         },
         {
           "id": "guardian-bearbrick-design",
-          "label": "[미술] 가치 수호자 베어브릭 디자인 PPT 다운받기",
-          "title": "[미술] 가치 수호자 베어브릭 디자인",
+          "label": "가치 수호자 베어브릭 디자인",
+          "title": "가치 수호자 베어브릭 디자인",
+          "subject": "미술",
           "format": "PPTX",
           "downloadName": "가치 수호자 베어브릭 디자인.pptx",
           "path": "files/constellation-myth/materials/guardian-bearbrick-design/guardian-bearbrick-design.pptx",
