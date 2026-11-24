@@ -119,6 +119,11 @@ function resources(item) {
 
 const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
 
+function previewAction(label, route, title = '') {
+  const name = title && title !== label ? `${esc(title)} · ` : '';
+  return `<li><a class="resource-action resource-preview" href="${href(route)}"><span><strong>${esc(label)}</strong><small>${name}PDF 미리보기</small></span>${arrow}</a></li>`;
+}
+
 function lessonResources(l) {
   if (l.status !== 'published') return resources(l);
   const plan = l.files.find(f => f.format === 'HWPX');
@@ -126,10 +131,12 @@ function lessonResources(l) {
   const additionalFiles = l.files.filter(f => f !== plan && f !== pdf);
   const action = (label, url, attributes = '', icon = arrow) => `<li><a class="resource-action" href="${url}"${attributes}><span>${esc(label)}</span>${icon}</a></li>`;
   const externalAction = link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon);
+  const planAction = l.planPages?.length
+    ? previewAction('지도안 다운받기', `lessons/${l.id}/plan/`)
+    : plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : '';
   return `<ul class="resource-actions">
-${(l.materials || []).map(material => `<li><a class="resource-action resource-preview" href="${href(materialRoute(l, material))}"><span><strong>${esc(material.label)}</strong><small>${material.title === material.label ? '' : `${esc(material.title)} · `}PDF 미리보기</small></span>${arrow}</a></li>`).join('')}
-${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
-${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
+${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title)).join('')}
+${planAction}
 ${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
 ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
@@ -143,6 +150,17 @@ ${l.webApps?.length ? action(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
 function pageSelector(pages, label) {
   const options = pages.map((_, index) => `<option value="plan-page-${index + 1}">${index + 1}쪽</option>`).join('');
   return `<label>쪽 이동 <select data-page-select aria-label="${esc(label)} 쪽 이동">${options}</select></label>`;
+}
+
+function documentToolbar({ pages, title, pdf, path, format, downloadName }, zoom = false) {
+  const downloadLabel = format === 'PDF' ? 'PDF 다운받기' : `${format} 원본 다운받기`;
+  return `<div class="viewer-tools material-toolbar">
+<span>PDF 미리보기 · ${pages.length}쪽</span>
+${pages.length > 1 ? pageSelector(pages, title) : ''}
+${zoom ? '<button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button>' : ''}
+<a class="text-link" href="${href(pdf)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a>
+<a class="button material-download" href="${href(path)}" download="${esc(downloadName)}">${download}<span>${esc(downloadLabel)}</span></a>
+</div>`;
 }
 
 function previewPages(pages, title) {
@@ -168,9 +186,15 @@ for (const l of lessons) {
 </div>`
   }));
   if (l.status === 'published' && l.planPages?.length) {
+    const pdf = l.files.find(f => f.format === 'PDF');
+    const source = l.files.find(f => f.format === 'HWPX') ?? pdf;
+    const toolbar = documentToolbar({
+      pages: l.planPages, title: '지도안', pdf: pdf.path, path: source.path, format: source.format,
+      downloadName: `수업공방_${l.title}.${source.format.toLowerCase()}`
+    }, true);
     await write(`lessons/${l.id}/plan/index.html`, page({
       title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span>${pageSelector(l.planPages, '지도안')}<button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1>${toolbar}</div>
 ${previewPages(l.planPages, `${l.title} 지도안`)}</div>`
     }));
   }
@@ -179,13 +203,7 @@ ${previewPages(l.planPages, `${l.title} 지도안`)}</div>`
     await write(`${route}index.html`, page({
       title: `${material.title} · 미리보기`, description: `${l.title} 수업 자료 미리보기 및 원본 다운로드`, route, current: 'library', backHref: `lessons/${l.id}/`,
       body: `<div class="shell viewer-shell">
-<div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(material.title)}</h1>
-<div class="viewer-tools material-toolbar">
-<a class="button material-download" href="${href(material.path)}" download="${esc(material.downloadName)}">${download}<span>${esc(material.format)} 원본 다운받기</span></a>
-<span>PDF 미리보기 · ${material.pages.length}쪽</span>
-${material.pages.length > 1 ? pageSelector(material.pages, material.title) : ''}
-<a class="text-link" href="${href(material.pdf)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a>
-</div></div>
+<div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(material.title)}</h1>${documentToolbar(material)}</div>
 ${previewPages(material.pages, material.title)}
 </div>`
     }));

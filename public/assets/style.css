@@ -383,7 +383,9 @@ html.library-page { scroll-padding-top: 92px; }
 button { font: inherit; cursor: pointer; }
 .viewer-tools button { background: transparent; border: 0; color: var(--accent); min-height: 44px; }
 .material-toolbar { gap: 10px 20px; }
-.material-download { border-radius: 8px; gap: 8px; font-weight: 650; }
+.material-toolbar > span { flex: 1 0 auto; }
+.material-toolbar label { margin-left: 0; }
+.material-download { margin-inline-start: auto; border-radius: 8px; gap: 8px; font-weight: 650; }
 .material-download svg { width: 20px; height: 20px; }
 .plan-document { max-width: 900px; margin-inline: auto; }
 .plan-page { margin: 0 0 30px; scroll-margin-top: 16px; }
@@ -448,6 +450,7 @@ body:has(.photo-dialog[open]) { overflow: hidden; }
   .viewer-shell { padding-top: 20px; }
   .viewer-tools { gap: 10px 16px; }
   .viewer-tools label { margin-left: 0; }
+  .material-toolbar > span { flex: 0 0 auto; }
   .material-download { width: 100%; }
   .plan-page { scroll-margin-top: 16px; margin-bottom: 18px; }
   .photo-gallery { grid-template-columns: 1fr; gap: 24px; }
