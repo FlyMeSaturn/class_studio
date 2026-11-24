@@ -1063,14 +1063,7 @@
           "height": 1080
         },
         {
-          "label": "가치를 담은 캐릭터 구상 예시",
-          "path": "files/constellation-myth/activity-11.webp",
-          "alt": "평화, 유머, 책임을 색과 형태로 표현한 세 가지 캐릭터 구상 예시",
-          "width": 1536,
-          "height": 1024
-        },
-        {
-          "label": "모둠마다 다른 색",
+          "label": "채색하기",
           "path": "files/constellation-myth/activity-01.webp",
           "alt": "모둠별로 곰 오브제에 분홍색과 노란색 물감을 칠하는 손",
           "width": 1920,
@@ -1084,14 +1077,7 @@
           "height": 1440
         },
         {
-          "label": "바탕색 칠하기",
-          "path": "files/constellation-myth/activity-03.webp",
-          "alt": "파란색, 노란색, 초록색으로 곰 오브제의 바탕을 칠하는 모습",
-          "width": 1920,
-          "height": 1440
-        },
-        {
-          "label": "밤하늘을 닮은 점무늬",
+          "label": "채색하기",
           "path": "files/constellation-myth/activity-04.webp",
           "alt": "짙은 파란색 오브제에 흰 점을 찍어 무늬를 만드는 작업",
           "width": 1920,
@@ -1105,91 +1091,42 @@
           "height": 1440
         },
         {
-          "label": "함께 쓰는 채색 도구",
-          "path": "files/constellation-myth/activity-06.webp",
-          "alt": "물감과 팔레트를 나눠 쓰며 각자 오브제를 채색하는 책상",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "한 책상에서 여러 캐릭터 만들기",
+          "label": "채색하기",
           "path": "files/constellation-myth/activity-07.webp",
           "alt": "모둠 학생들이 서로 다른 색으로 곰 오브제를 채색하는 모습",
           "width": 1440,
           "height": 1920
         },
         {
-          "label": "밑그림 곁에서 작업하기",
-          "path": "files/constellation-myth/activity-14.webp",
-          "alt": "종이 위 밑그림과 파란 오브제를 옆에 두고 작업하는 손",
-          "width": 1920,
-          "height": 1440
-        },
-        {
-          "label": "연노란색 바탕 완성",
+          "label": "바탕색 칠하기",
           "path": "files/constellation-myth/activity-08.webp",
           "alt": "옅은 노란색 바탕을 고르게 칠한 곰 오브제",
           "width": 1440,
           "height": 1920
         },
         {
-          "label": "검은 오브제에 입체감 더하기",
-          "path": "files/constellation-myth/activity-09.webp",
-          "alt": "가느다란 붓으로 검은 곰 오브제에 세부 형태를 그리는 손",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "참고 이미지를 입체로 옮기기",
+          "label": "이미지를 참고하여 채색하기",
           "path": "files/constellation-myth/activity-10.webp",
           "alt": "참고 이미지 속 인물의 특징을 옮겨 표현한 검은 곰 오브제",
           "width": 1440,
           "height": 1920
         },
         {
-          "label": "옅은 바탕에 색 얹기",
-          "path": "files/constellation-myth/activity-12.webp",
-          "alt": "밝은 바탕의 곰 오브제를 손에 들고 색을 더하는 모습",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "가느다란 붓으로 세부 채색하기",
+          "label": "세필붓으로 베어브릭 세부 묘사하기",
           "path": "files/constellation-myth/activity-13.webp",
           "alt": "작은 붓으로 오브제의 세부를 채색하는 모습",
           "width": 1440,
           "height": 1920
         },
         {
-          "label": "초록 캐릭터에 눈 그리기",
-          "path": "files/constellation-myth/activity-15.webp",
-          "alt": "초록색 곰 오브제의 눈과 배를 채색한 모습",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "민트색 캐릭터의 장식 그리기",
+          "label": "세필붓으로 베어브릭 세부 묘사하기",
           "path": "files/constellation-myth/activity-16.webp",
           "alt": "민트색 곰 오브제에 얼굴 무늬와 목걸이를 그리는 모습",
           "width": 1440,
           "height": 1920
         },
         {
-          "label": "노랑과 주황으로 표현하기",
-          "path": "files/constellation-myth/activity-17.webp",
-          "alt": "노란색과 주황색 오브제를 각각 손에 들고 채색하는 모습",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "색을 섞어 작품 마무리하기",
-          "path": "files/constellation-myth/activity-18.webp",
-          "alt": "팔레트 곁에서 민트색 오브제를 들고 채색하는 모습",
-          "width": 1440,
-          "height": 1920
-        },
-        {
-          "label": "빨간 오브제에 무늬 더하기",
+          "label": "베어브릭 묘사하기",
           "path": "files/constellation-myth/activity-19.webp",
           "alt": "붓을 들고 빨간색 곰 오브제의 세부를 채색하는 모습",
           "width": 1440,

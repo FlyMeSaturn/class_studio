@@ -59,9 +59,17 @@ ${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div>
   });
 }
 
+function subjectTag(subject, inPhotoCaption = false) {
+  const name = esc(subject);
+  const photoInfo = inPhotoCaption ? ` data-photo-subject="${name}"` : '';
+  return `<span class="subject-tag${inPhotoCaption ? ' photo-subject' : ''}" data-subject="${name}"${photoInfo}>${inPhotoCaption ? `[${name}]` : name}</span>`;
+}
+
+const subjectTags = subjects => `<span class="subject-tags">${subjects.map(subject => subjectTag(subject)).join(' ')}</span>`;
+
 function card(l) {
   return `<li class="lesson-item"><a class="lesson-card" data-subject="${esc(l.subjects.length > 1 ? '융합' : l.subjects[0])}" href="${href(`lessons/${l.id}/`)}">
-<div class="card-meta lesson-meta"><span class="card-labels"><span class="card-subjects">${l.subjects.map(subject => `<span class="card-subject" data-subject="${esc(subject)}">${esc(subject)}</span>`).join(' ')} </span><span class="card-grade">${esc(l.grades.join(' · '))}</span></span><span class="card-open">${arrow}</span></div>
+<div class="card-meta lesson-meta"><span class="card-labels">${subjectTags(l.subjects)}<span class="card-grade">${esc(l.grades.join(' · '))}</span></span><span class="card-open">${arrow}</span></div>
 <h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
 </a></li>`;
 }
@@ -142,7 +150,7 @@ for (const l of lessons) {
     title: l.title, description: l.summary, route: `lessons/${l.id}/`, current: 'library', backHref: `library/#${p.id}`,
     body: `<div class="shell detail-shell">
 <nav class="breadcrumb" aria-label="현재 위치"><a href="${href('library/')}">수업 자료</a><span aria-hidden="true">/</span><a href="${href('library/')}#${p.id}">${p.number} ${esc(p.title)}</a></nav>
-<header class="lesson-heading"><p class="detail-meta"><span>${esc(l.subjects.join(' · '))}</span><span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
+<header class="lesson-heading"><p class="detail-meta">${subjectTags(l.subjects)}<span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
 <div class="lesson-layout"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol><p class="lesson-author"><span>작성자</span> ${esc(l.author)}</p></article>
 <aside class="lesson-resources" aria-label="수업 자료 바로가기">${lessonResources(l)}</aside></div>
 </div>`
@@ -188,7 +196,7 @@ for (const l of lessons) {
     const cards = pictures.map((photo, index) => {
       const subject = gallery.key === 'photos' ? (photo.subject ?? defaultSubject) : undefined;
       const tag = subject ? `[${esc(subject)}] ` : '';
-      const prefix = subject ? `<span class="photo-subject" data-photo-subject="${esc(subject)}">[${esc(subject)}]</span> ` : '';
+      const prefix = subject ? `${subjectTag(subject, true)} ` : '';
       const label = photo.label || photo.alt;
       const caption = `<figcaption>${prefix}${esc(label)}</figcaption>`;
       const img = `<img src="${href(photo.path)}" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ${index > 2 ? 'loading="lazy"' : ''} decoding="async">`;
