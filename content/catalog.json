@@ -973,30 +973,9 @@
           "height": 1081
         },
         {
-          "label": "옛 시계의 눈금 살펴보기",
-          "path": "files/jagyeongnu/activity-04.webp",
-          "alt": "두 가지 모양의 옛 시계를 화면으로 살펴보는 활동",
-          "width": 1920,
-          "height": 1081
-        },
-        {
           "label": "그림으로 살피는 옛 시계",
           "path": "files/jagyeongnu/activity-05.webp",
           "alt": "교사가 둥근 시계의 구조를 가리키며 설명하는 모습",
-          "width": 1920,
-          "height": 1081
-        },
-        {
-          "label": "시계와 종이 사라진다면",
-          "path": "files/jagyeongnu/activity-06.webp",
-          "alt": "학교에서 시각을 알려 주는 도구가 사라졌을 때를 생각해 보는 장면",
-          "width": 1920,
-          "height": 1081
-        },
-        {
-          "label": "시간을 다르게 읽는다면",
-          "path": "files/jagyeongnu/activity-07.webp",
-          "alt": "시간 기준이 다른 상황을 제시하고 생각을 묻는 장면",
           "width": 1920,
           "height": 1081
         },
@@ -1008,15 +987,8 @@
           "height": 1081
         },
         {
-          "label": "탐구 활동지에 생각 쓰기",
-          "path": "files/jagyeongnu/activity-09.webp",
-          "alt": "책상에 둘러앉아 활동지에 생각을 정리하는 모습",
-          "width": 1920,
-          "height": 1081
-        },
-        {
           "label": "각자의 답 정리하기",
-          "path": "files/jagyeongnu/activity-10.webp",
+          "path": "files/jagyeongnu/activity-10-mosaic.webp",
           "alt": "교실에서 각자 활동지를 읽고 답을 쓰는 모습",
           "width": 1920,
           "height": 1081

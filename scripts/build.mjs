@@ -190,7 +190,7 @@ for (const l of lessons) {
       const label = photo.label || photo.alt;
       const caption = `<figcaption>${prefix}${esc(label)}</figcaption>`;
       const img = `<img src="${href(photo.path)}" width="${photo.width}" height="${photo.height}" alt="${esc(photo.alt)}" ${index > 2 ? 'loading="lazy"' : ''} decoding="async">`;
-      return `<li><a class="photo-link" href="${href(photo.path)}" data-photo-index="${index}" aria-label="${subject ? `[${esc(subject)}] ` : ''}${esc(label)} 크게 보기"><figure>${subject ? caption + img : img + caption}</figure></a></li>`;
+      return `<li><a class="photo-link" href="${href(photo.path)}" data-photo-index="${index}" aria-label="${subject ? `[${esc(subject)}] ` : ''}${esc(label)} 크게 보기"><figure>${img}${caption}</figure></a></li>`;
     }).join('');
     const route = `lessons/${l.id}/${gallery.key}/`;
     await write(`${route}index.html`, page({
