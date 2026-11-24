@@ -713,11 +713,6 @@
           "label": "지도안 HWPX",
           "format": "HWPX",
           "path": "files/language-and-culture/lesson-plan-name-fixed.hwpx"
-        },
-        {
-          "label": "학생 활동지 PDF",
-          "format": "PDF",
-          "path": "files/language-and-culture/student-worksheet.pdf"
         }
       ],
       "planPages": [
@@ -771,7 +766,64 @@
           "height": 354
         }
       ],
-      "links": []
+      "links": [],
+      "materials": [
+        {
+          "id": "student-worksheet",
+          "label": "학생 활동지 PDF 다운받기",
+          "title": "학생 활동지",
+          "format": "PDF",
+          "downloadName": "student-worksheet.pdf",
+          "path": "files/language-and-culture/student-worksheet.pdf",
+          "pages": [
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-01.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-02.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-03.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-04.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-05.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-06.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-07.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-08.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/language-and-culture/materials/student-worksheet/page-09.webp",
+              "width": 1232,
+              "height": 1740
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "pressure-and-weather",

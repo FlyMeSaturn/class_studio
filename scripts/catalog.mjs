@@ -14,7 +14,7 @@ export const resourcePaths = item => [
   ...['photos', 'planPages', 'artifacts'].flatMap(key => (item[key] || []).map(media => media.path)),
   ...(item.videos || []).flatMap(video => [video.path, video.poster]),
   ...(item.webApps || []).map(app => app.path),
-  ...(item.materials || []).flatMap(material => [material.path, material.pdf, ...material.pages.map(page => page.path)]),
+  ...(item.materials || []).flatMap(material => [material.path, ...(material.pdf ? [material.pdf] : []), ...material.pages.map(page => page.path)]),
 ];
 
 export async function validateCatalog(data, assetRoot = publicRoot) {
@@ -110,13 +110,15 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(material.id || '') || materialIds.has(material.id)) errors.push(`${label}: 영문 소문자·숫자·하이픈을 사용한 고유한 자료 ID가 필요합니다.`);
       materialIds.add(material.id);
       requireText(material.title, `${label}.title`);
-      if (!['PPTX', 'HWPX'].includes(material.format)) errors.push(`${label}: PPTX 또는 HWPX 원본이 필요합니다.`);
+      if (!['PDF', 'PPTX', 'HWPX'].includes(material.format)) errors.push(`${label}: PDF, PPTX 또는 HWPX 파일이 필요합니다.`);
       if (typeof material.downloadName !== 'string' || /[/\\]/.test(material.downloadName) || path.extname(material.downloadName).slice(1).toUpperCase() !== material.format) {
         errors.push(`${label}: 원본 형식과 일치하는 파일명이 필요합니다.`);
       }
       if (!Array.isArray(material.pages) || !material.pages.length) errors.push(`${label}: PDF 미리보기 페이지가 필요합니다.`);
-      const pdf = {label:'PDF 미리보기',format:'PDF',path:material.pdf};
-      await files({status:lesson.status, files:[material,pdf]}, label);
+      const pdf = material.format === 'PDF' && material.pdf === undefined
+        ? material : {label:'PDF 미리보기',format:'PDF',path:material.pdf};
+      const attachments = pdf === material ? [material] : [material,pdf];
+      await files({status:lesson.status, files:attachments}, label);
       await media({status:lesson.status, files:[pdf], planPages:material.pages}, label);
     }
   }

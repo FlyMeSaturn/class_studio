@@ -120,7 +120,7 @@ function resources(item) {
 const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
 
 function previewAction(label, route, title = '') {
-  const name = title && title !== label ? `${esc(title)} · ` : '';
+  const name = title && title !== label && !label.startsWith(`${title} `) ? `${esc(title)} · ` : '';
   return `<li><a class="resource-action resource-preview" href="${href(route)}"><span><strong>${esc(label)}</strong><small>${name}PDF 미리보기</small></span>${arrow}</a></li>`;
 }
 
@@ -135,8 +135,8 @@ function lessonResources(l) {
     ? previewAction('지도안 다운받기', `lessons/${l.id}/plan/`)
     : plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : '';
   return `<ul class="resource-actions">
-${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title)).join('')}
 ${planAction}
+${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title)).join('')}
 ${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
 ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
@@ -152,7 +152,7 @@ function pageSelector(pages, label) {
   return `<label>쪽 이동 <select data-page-select aria-label="${esc(label)} 쪽 이동">${options}</select></label>`;
 }
 
-function documentToolbar({ pages, title, pdf, path, format, downloadName }, zoom = false) {
+function documentToolbar({ pages, title, path, pdf = path, format, downloadName }, zoom = false) {
   const downloadLabel = format === 'PDF' ? 'PDF 다운받기' : `${format} 원본 다운받기`;
   return `<div class="viewer-tools material-toolbar">
 <span>PDF 미리보기 · ${pages.length}쪽</span>
