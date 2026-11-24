@@ -19,7 +19,7 @@ test('file metadata uses actual bytes and prevents absent files, traversal and f
     const d=structuredClone(source);
     for(const l of d.lessons){
       delete l.photoSubject;
-      Object.assign(l,{status:'preparing',files:[],photos:[],planPages:[],artifacts:[],links:[],videos:[],webApps:[]});
+      Object.assign(l,{status:'preparing',files:[],photos:[],planPages:[],artifacts:[],links:[],videos:[],webApps:[],materials:[]});
     }
     Object.assign(d.lessons[0],{status:'published',files:[{label:'검증용',format:'PDF',path:'files/fixture.pdf',bytes:999}]});
     await validateCatalog(d,temp);assert.equal(d.lessons[0].files[0].bytes,27);

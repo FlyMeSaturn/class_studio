@@ -117,6 +117,8 @@ function resources(item) {
 </li>`).join('')}</ul>`;
 }
 
+const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
+
 function lessonResources(l) {
   if (l.status !== 'published') return resources(l);
   const plan = l.files.find(f => f.format === 'HWPX');
@@ -125,6 +127,7 @@ function lessonResources(l) {
   const action = (label, url, attributes = '', icon = arrow) => `<li><a class="resource-action" href="${url}"${attributes}><span>${esc(label)}</span>${icon}</a></li>`;
   const externalAction = link => action(link.label, esc(link.url), ' target="_blank" rel="noopener noreferrer" aria-label="' + esc(link.label) + ' (새 탭)"', linkIcon);
   return `<ul class="resource-actions">
+${(l.materials || []).map(material => `<li><a class="resource-action resource-preview" href="${href(materialRoute(l, material))}"><span><strong>${esc(material.label)}</strong><small>${material.title === material.label ? '' : `${esc(material.title)} · `}PDF 미리보기</small></span>${arrow}</a></li>`).join('')}
 ${l.planPages?.length ? action('지도안 바로 보기', href(`lessons/${l.id}/plan/`)) : ''}
 ${plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : ''}
 ${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
@@ -135,6 +138,15 @@ ${additionalFiles.map(f => `${f.format === 'PDF' ? action(`${f.label} 바로 보
 ${(l.links || []).filter(link => link.position !== 'before-artifacts').map(externalAction).join('')}
 ${l.webApps?.length ? action(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
 </ul>`;
+}
+
+function pageSelector(pages, label) {
+  const options = pages.map((_, index) => `<option value="plan-page-${index + 1}">${index + 1}쪽</option>`).join('');
+  return `<label>쪽 이동 <select data-page-select aria-label="${esc(label)} 쪽 이동">${options}</select></label>`;
+}
+
+function previewPages(pages, title) {
+  return `<div class="plan-document">${pages.map((page, index) => `<figure id="plan-page-${index + 1}" class="plan-page"><figcaption>${index + 1} / ${pages.length}쪽</figcaption><img src="${href(page.path)}" width="${page.width}" height="${page.height}" alt="${esc(title)} ${index + 1}쪽" ${index ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div>`;
 }
 
 for (const l of lessons) {
@@ -158,8 +170,24 @@ for (const l of lessons) {
   if (l.status === 'published' && l.planPages?.length) {
     await write(`lessons/${l.id}/plan/index.html`, page({
       title: `${l.title} · 지도안`, description: `${l.title} 수업 지도안 바로 보기`, route: `lessons/${l.id}/plan/`, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span><label>쪽 이동 <select data-page-select aria-label="지도안 쪽 이동">${l.planPages.map((_,i) => `<option value="plan-page-${i+1}">${i+1}쪽</option>`).join('')}</select></label><button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
-<div class="plan-document">${l.planPages.map((p,i) => `<figure id="plan-page-${i+1}" class="plan-page"><figcaption>${i+1} / ${l.planPages.length}쪽</figcaption><img src="${href(p.path)}" width="${p.width}" height="${p.height}" alt="${esc(l.title)} 지도안 ${i+1}쪽" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div></div>`
+      body: `<div class="shell viewer-shell"><div class="viewer-heading"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${esc(l.title)}</h1><div class="viewer-tools"><span>지도안 · ${l.planPages.length}쪽</span>${pageSelector(l.planPages, '지도안')}<button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button><a class="text-link" href="${href(l.files.find(f => f.format === 'PDF').path)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a></div></div>
+${previewPages(l.planPages, `${l.title} 지도안`)}</div>`
+    }));
+  }
+  for (const material of l.status === 'published' ? (l.materials || []) : []) {
+    const route = materialRoute(l, material);
+    await write(`${route}index.html`, page({
+      title: `${material.title} · 미리보기`, description: `${l.title} 수업 자료 미리보기 및 원본 다운로드`, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell">
+<div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(material.title)}</h1>
+<div class="viewer-tools material-toolbar">
+<a class="button material-download" href="${href(material.path)}" download="${esc(material.downloadName)}">${download}<span>${esc(material.format)} 원본 다운받기</span></a>
+<span>PDF 미리보기 · ${material.pages.length}쪽</span>
+${material.pages.length > 1 ? pageSelector(material.pages, material.title) : ''}
+<a class="text-link" href="${href(material.pdf)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a>
+</div></div>
+${previewPages(material.pages, material.title)}
+</div>`
     }));
   }
   if (l.status === 'published' && l.videos?.length) {
@@ -251,6 +279,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && l.webApps?.length ? [`lessons/${l.id}/apps/`] : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && l.webApps?.length ? [`lessons/${l.id}/apps/`] : []), ...(l.status === 'published' ? (l.materials || []).map(material => materialRoute(l, material)) : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);

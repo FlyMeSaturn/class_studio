@@ -993,6 +993,165 @@
           "width": 1920,
           "height": 1081
         }
+      ],
+      "materials": [
+        {
+          "id": "science-and-technology",
+          "label": "역사 수업 PPT 다운받기",
+          "title": "과학기술의 발전",
+          "format": "PPTX",
+          "downloadName": "역사②_4-3-2_과학기술의 발전.pptx",
+          "path": "files/jagyeongnu/materials/science-and-technology/science-and-technology.pptx",
+          "pdf": "files/jagyeongnu/materials/science-and-technology/science-and-technology.pdf",
+          "pages": [
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-01.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-02.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-03.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-04.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-05.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-06.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-07.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-08.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-09.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-10.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-11.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-12.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-13.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-14.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-15.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-16.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-17.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-18.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-19.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-20.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-21.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-22.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/jagyeongnu/materials/science-and-technology/page-23.webp",
+              "width": 1500,
+              "height": 1125
+            }
+          ]
+        },
+        {
+          "id": "joseon-science",
+          "label": "역사 수업 활동지 다운받기",
+          "title": "개념기반탐구학습-조선의 과학",
+          "format": "HWPX",
+          "downloadName": "개념기반탐구학습-조선의 과학.hwpx",
+          "path": "files/jagyeongnu/materials/joseon-science/joseon-science.hwpx",
+          "pdf": "files/jagyeongnu/materials/joseon-science/joseon-science.pdf",
+          "pages": [
+            {
+              "path": "files/jagyeongnu/materials/joseon-science/page-01.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/jagyeongnu/materials/joseon-science/page-02.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/jagyeongnu/materials/joseon-science/page-03.webp",
+              "width": 1232,
+              "height": 1740
+            },
+            {
+              "path": "files/jagyeongnu/materials/joseon-science/page-04.webp",
+              "width": 1232,
+              "height": 1740
+            }
+          ]
+        }
       ]
     },
     {
@@ -1131,6 +1290,135 @@
           "alt": "붓을 들고 빨간색 곰 오브제의 세부를 채색하는 모습",
           "width": 1440,
           "height": 1920
+        }
+      ],
+      "materials": [
+        {
+          "id": "confucian-ethics",
+          "label": "역사 수업 PPT 다운받기",
+          "title": "유교윤리의 보급",
+          "format": "PPTX",
+          "downloadName": "역사②_4-3-2_유교윤리의 보급.pptx",
+          "path": "files/constellation-myth/materials/confucian-ethics/confucian-ethics.pptx",
+          "pdf": "files/constellation-myth/materials/confucian-ethics/confucian-ethics.pdf",
+          "pages": [
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-01.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-02.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-03.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-04.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-05.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-06.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-07.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-08.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-09.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-10.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-11.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-12.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-13.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-14.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-15.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-16.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-17.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-18.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-19.webp",
+              "width": 1500,
+              "height": 1125
+            },
+            {
+              "path": "files/constellation-myth/materials/confucian-ethics/page-20.webp",
+              "width": 1500,
+              "height": 1125
+            }
+          ]
+        },
+        {
+          "id": "constellation-worksheet",
+          "label": "별자리 융합수업 학습지",
+          "title": "별자리 융합수업 학습지",
+          "format": "HWPX",
+          "downloadName": "별자리 융합수업 학습지.hwpx",
+          "path": "files/constellation-myth/materials/constellation-worksheet/constellation-worksheet.hwpx",
+          "pdf": "files/constellation-myth/materials/constellation-worksheet/constellation-worksheet.pdf",
+          "pages": [
+            {
+              "path": "files/constellation-myth/materials/constellation-worksheet/page-01.webp",
+              "width": 1232,
+              "height": 1740
+            }
+          ]
         }
       ]
     }

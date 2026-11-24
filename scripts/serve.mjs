@@ -3,7 +3,7 @@ import path from 'node:path';
 import { readFile,stat } from 'node:fs/promises';
 import { root,base } from './catalog.mjs';
 const dir=path.join(root,'dist');
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.mp4':'video/mp4','.woff2':'font/woff2','.pdf':'application/pdf','.txt':'text/plain; charset=utf-8','.hwpx':'application/vnd.hancom.hwpx','.hwp':'application/x-hwp'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.mp4':'video/mp4','.woff2':'font/woff2','.pdf':'application/pdf','.txt':'text/plain; charset=utf-8','.pptx':'application/vnd.openxmlformats-officedocument.presentationml.presentation','.hwpx':'application/vnd.hancom.hwpx','.hwp':'application/x-hwp'};
 http.createServer(async(req,res)=>{
   let url;
   try{url=new URL(req.url,'http://localhost');}catch{res.writeHead(400).end();return;}
