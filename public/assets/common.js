@@ -8,6 +8,77 @@ document.querySelector('[data-plan-zoom]')?.addEventListener('click', event => {
   event.currentTarget.textContent = expanded ? '화면에 맞추기' : '크게 보기';
 });
 
+const pptViewer = document.querySelector('[data-ppt-viewer]');
+if (pptViewer) {
+  const content = pptViewer.querySelector('.ppt-content');
+  const stage = content.querySelector('.ppt-stage');
+  const strip = content.querySelector('.ppt-thumbnails');
+  const thumbnails = [...strip.querySelectorAll('.ppt-thumbnail')];
+  const counter = pptViewer.querySelector('[data-ppt-count]');
+  const previous = content.querySelector('[data-ppt-prev]');
+  const next = content.querySelector('[data-ppt-next]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const last = thumbnails.length - 1;
+  let current = 0;
+  let lastWheel = -Infinity;
+
+  function showSlide(index, animate = false) {
+    const target = Math.max(0, Math.min(last, index));
+    stage.scrollTo({
+      left: target * stage.clientWidth,
+      behavior: animate && !reduceMotion.matches ? 'smooth' : 'instant',
+    });
+    return target;
+  }
+
+  stage.addEventListener('scroll', () => {
+    const index = Math.max(0, Math.min(last, Math.round(stage.scrollLeft / stage.clientWidth)));
+    if (index === current) return;
+    thumbnails[current].removeAttribute('aria-current');
+    current = index;
+    const thumbnail = thumbnails[current];
+    thumbnail.setAttribute('aria-current', 'true');
+    counter.textContent = `슬라이드 ${current + 1} / ${thumbnails.length}`;
+    previous.disabled = current === 0;
+    next.disabled = current === last;
+
+    const item = thumbnail.getBoundingClientRect();
+    const rail = strip.getBoundingClientRect();
+    if (item.left < rail.left || item.right > rail.right) {
+      strip.scrollLeft += item.left - rail.left - (rail.width - item.width) / 2;
+    }
+  }, { passive: true });
+
+  thumbnails.forEach((thumbnail, index) => {
+    thumbnail.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      event.preventDefault();
+      showSlide(index);
+    });
+  });
+  previous.addEventListener('click', () => showSlide(current - 1));
+  next.addEventListener('click', () => showSlide(current + 1));
+
+  content.addEventListener('wheel', event => {
+    if (event.ctrlKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+    const index = current + Math.sign(event.deltaY);
+    if (index < 0 || index > last) return;
+    event.preventDefault();
+    if (event.timeStamp - lastWheel < 250) return;
+    lastWheel = event.timeStamp;
+    showSlide(index, true);
+  }, { passive: false });
+
+  content.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const targets = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: last };
+    if (!Object.hasOwn(targets, event.key)) return;
+    event.preventDefault();
+    const target = showSlide(targets[event.key]);
+    if (event.target.matches('.ppt-thumbnail')) thumbnails[target].focus({ preventScroll: true });
+  });
+}
+
 const songDialog = document.querySelector('.song-dialog');
 if (songDialog && typeof songDialog.showModal === 'function') {
   const player = songDialog.querySelector('video');

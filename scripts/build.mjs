@@ -119,9 +119,9 @@ function resources(item) {
 
 const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
 
-function previewAction(label, route, title = '') {
+function previewAction(label, route, title = '', kind = 'PDF') {
   const name = title && title !== label && !label.startsWith(`${title} `) ? `${esc(title)} · ` : '';
-  return `<li><a class="resource-action resource-preview" href="${href(route)}"><span><strong>${esc(label)}</strong><small>${name}PDF 미리보기</small></span>${arrow}</a></li>`;
+  return `<li><a class="resource-action resource-preview" href="${href(route)}"><span><strong>${esc(label)}</strong><small>${name}${kind} 미리보기</small></span>${arrow}</a></li>`;
 }
 
 function lessonResources(l) {
@@ -136,7 +136,7 @@ function lessonResources(l) {
     : plan ? action('지도안 다운받기', href(plan.path), ` download="${esc(`수업공방_${l.title}.hwpx`)}"`, download) : '';
   return `<ul class="resource-actions">
 ${planAction}
-${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title)).join('')}
+${(l.materials || []).map(material => previewAction(material.label, materialRoute(l, material), material.title, material.format === 'PPTX' ? 'PPT' : 'PDF')).join('')}
 ${l.photos?.length ? action(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`)) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
 ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? action('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`)) : ''}
@@ -155,8 +155,9 @@ function pageSelector(pages, label) {
 function documentToolbar({ pages, title, path, pdf = path, format, downloadName }, zoom = false) {
   const downloadLabel = format === 'PDF' ? 'PDF 다운받기' : `${format} 원본 다운받기`;
   return `<div class="viewer-tools material-toolbar">
-<span>PDF 미리보기 · ${pages.length}쪽</span>
-${pages.length > 1 ? pageSelector(pages, title) : ''}
+${format === 'PPTX'
+  ? `<span data-ppt-count aria-live="polite" aria-atomic="true">슬라이드 1 / ${pages.length}</span>`
+  : `<span>PDF 미리보기 · ${pages.length}쪽</span>${pages.length > 1 ? pageSelector(pages, title) : ''}`}
 ${zoom ? '<button type="button" class="text-link" data-plan-zoom aria-pressed="false">크게 보기</button>' : ''}
 <a class="text-link" href="${href(pdf)}" target="_blank" rel="noopener">PDF 열기<span class="sr-only"> (새 탭)</span></a>
 <a class="button material-download" href="${href(path)}" download="${esc(downloadName)}">${download}<span>${esc(downloadLabel)}</span></a>
@@ -165,6 +166,23 @@ ${zoom ? '<button type="button" class="text-link" data-plan-zoom aria-pressed="f
 
 function previewPages(pages, title) {
   return `<div class="plan-document">${pages.map((page, index) => `<figure id="plan-page-${index + 1}" class="plan-page"><figcaption>${index + 1} / ${pages.length}쪽</figcaption><img src="${href(page.path)}" width="${page.width}" height="${page.height}" alt="${esc(title)} ${index + 1}쪽" ${index ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async"></figure>`).join('')}</div>`;
+}
+
+function previewSlides(pages, title) {
+  const slides = pages.map((page, index) => `<figure id="plan-page-${index + 1}" class="ppt-slide">
+<img src="${href(page.path)}" width="${page.width}" height="${page.height}" alt="${esc(title)} 슬라이드 ${index + 1}" ${index ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async" draggable="false">
+</figure>`).join('');
+  const thumbnails = pages.map((page, index) => `<a class="ppt-thumbnail" href="#plan-page-${index + 1}" aria-label="슬라이드 ${index + 1}"${index === 0 ? ' aria-current="true"' : ''}>
+<img src="${href(page.path)}" width="${page.width}" height="${page.height}" alt="" loading="lazy" decoding="async" draggable="false"><span aria-hidden="true">${index + 1}</span>
+</a>`).join('');
+  return `<div class="ppt-content">
+<div class="ppt-stage" tabindex="0" role="region" aria-label="슬라이드 미리보기" style="--ppt-ratio:${pages[0].width} / ${pages[0].height}">${slides}</div>
+<div class="ppt-navigation">
+<button type="button" class="ppt-step" data-ppt-prev aria-label="이전 슬라이드" disabled>${backArrow}</button>
+<nav class="ppt-thumbnails" aria-label="슬라이드 썸네일">${thumbnails}</nav>
+<button type="button" class="ppt-step" data-ppt-next aria-label="다음 슬라이드"${pages.length === 1 ? ' disabled' : ''}>${arrow}</button>
+</div>
+</div>`;
 }
 
 for (const l of lessons) {
@@ -200,11 +218,12 @@ ${previewPages(l.planPages, `${l.title} 지도안`)}</div>`
   }
   for (const material of l.status === 'published' ? (l.materials || []) : []) {
     const route = materialRoute(l, material);
+    const isPresentation = material.format === 'PPTX';
     await write(`${route}index.html`, page({
       title: `${material.title} · 미리보기`, description: `${l.title} 수업 자료 미리보기 및 원본 다운로드`, route, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell viewer-shell">
+      body: `<div class="shell viewer-shell${isPresentation ? ' ppt-shell' : ''}"${isPresentation ? ' data-ppt-viewer' : ''}>
 <div class="viewer-heading"><p>${esc(l.title)}</p><h1>${esc(material.title)}</h1>${documentToolbar(material)}</div>
-${previewPages(material.pages, material.title)}
+${(isPresentation ? previewSlides : previewPages)(material.pages, material.title)}
 </div>`
     }));
   }
