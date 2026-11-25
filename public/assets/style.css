@@ -422,6 +422,11 @@ button { font: inherit; cursor: pointer; }
 .material-toolbar label { margin-left: 0; }
 .material-download { margin-inline-start: auto; border-radius: 8px; gap: 8px; font-weight: 650; }
 .material-download svg { width: 20px; height: 20px; }
+.lesson-app-downloads { justify-content: flex-end; gap: 10px; }
+.lesson-app-downloads .material-download { margin-inline-start: 0; }
+.lesson-app-downloads .material-download + .material-download { background: var(--paper); border: 1px solid var(--line); color: var(--accent); }
+.lesson-app-downloads .material-download + .material-download:hover { background: var(--tint); border-color: var(--accent); }
+.lesson-app-frame { display: block; width: 100%; height: clamp(36rem, 84dvh, 66rem); border: 1px solid var(--line); border-radius: 8px; background: white; }
 .plan-document { max-width: 900px; margin-inline: auto; }
 .plan-page { margin: 0 0 30px; scroll-margin-top: 16px; }
 .plan-page figcaption { text-align: center; font-size: .8rem; color: var(--muted); padding: 12px; }

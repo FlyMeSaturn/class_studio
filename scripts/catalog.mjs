@@ -13,7 +13,7 @@ export const resourcePaths = item => [
   ...item.files.map(file => file.path),
   ...['photos', 'planPages', 'artifacts'].flatMap(key => (item[key] || []).map(media => media.path)),
   ...(item.videos || []).flatMap(video => [video.path, video.poster]),
-  ...(item.webApps || []).map(app => app.path),
+  ...(item.webApps || []).flatMap(app => app.manual ? [app.path, app.manual] : [app.path]),
   ...(item.materials || []).flatMap(material => [material.path, ...(material.pdf ? [material.pdf] : []), ...material.pages.map(page => page.path)]),
 ];
 
@@ -31,7 +31,7 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
   async function files(item, label) {
     if (!allowedStates.includes(item.status)) errors.push(`${label}: 잘못된 공개 상태`);
     if (!Array.isArray(item.files)) { errors.push(`${label}.files: 배열이 필요합니다.`); return; }
-    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length && !item.artifacts?.length && !item.videos?.length && !item.materials?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
+    if (item.status === 'published' && !item.files.length && !item.links?.length && !item.photos?.length && !item.artifacts?.length && !item.videos?.length && !item.materials?.length && !item.webApps?.length) errors.push(`${label}: 공개 상태에는 실제 파일 또는 자료 링크가 필요합니다.`);
     if (item.status !== 'published' && item.files.length) errors.push(`${label}: 파일은 공개 상태에서만 등록할 수 있습니다.`);
     for (const file of item.files) {
       for (const key of ['label','format','path']) requireText(file[key], `${label}.files.${key}`);
@@ -95,10 +95,26 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     if (lesson.webApps === undefined) return;
     if (!Array.isArray(lesson.webApps)) { errors.push(`${lesson.id}.webApps: 배열이 필요합니다.`); return; }
     if (lesson.webApps.length && lesson.status !== 'published') errors.push(`${lesson.id}: 웹앱은 공개 상태에서만 등록할 수 있습니다.`);
+    const appIds = new Set();
     for (const app of lesson.webApps) {
       requireText(app.title, `${lesson.id}.webApps.title`);
       requireText(app.description, `${lesson.id}.webApps.description`);
-      await files({status:'published', files:[{label:app.title, format:'HTML', path:app.path}]}, lesson.id);
+      if (app.id !== undefined) {
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(app.id || '') || appIds.has(app.id)) errors.push(`${lesson.id}: 영문 소문자·숫자·하이픈을 사용한 고유한 웹앱 ID가 필요합니다.`);
+        appIds.add(app.id);
+      }
+      if (app.subject !== undefined && (!Array.isArray(lesson.subjects) || !lesson.subjects.includes(app.subject))) {
+        errors.push(`${lesson.id}.webApps.subject: 수업에 포함된 교과가 필요합니다.`);
+      }
+      if (app.downloadName !== undefined && (typeof app.downloadName !== 'string' || /[/\\]/.test(app.downloadName) || path.extname(app.downloadName).toLowerCase() !== '.html')) {
+        errors.push(`${lesson.id}.webApps.downloadName: HTML 파일명이 필요합니다.`);
+      }
+      const attachments = [{label:app.title, format:'HTML', path:app.path}];
+      if (app.manual !== undefined) {
+        if (!app.id) errors.push(`${lesson.id}: 설명서는 사이트에서 실행하는 웹앱에 연결해야 합니다.`);
+        attachments.push({label:'사용 설명서', format:'PDF', path:app.manual});
+      }
+      await files({status:'published', files:attachments}, lesson.id);
     }
   }
   async function materials(lesson) {

@@ -23,7 +23,8 @@ const documentIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none
 const presentationIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8m-4-4v4M7 13V9m5 4V7m5 6v-3"/></svg>';
 const albumIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h13a1 1 0 0 1 1 1v12"/><rect x="3" y="8" width="14" height="12" rx="1.5"/><path d="m3 17 4-4 3 3 2-2 5 5"/><circle cx="13" cy="11" r="1"/></svg>';
 const chainIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 13 4-4m-6 6-1 1a3 3 0 0 0 4 4l4-4a3 3 0 0 0 0-4m-2-3 1-1a3 3 0 1 0-4-4L6 8a3 3 0 0 0 0 4" transform="translate(1 0)"/></svg>';
-const resourceIcons = { PPTX: presentationIcon, photo: albumIcon, link: chainIcon, video: playIcon };
+const htmlIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18m-12 3-2.5 2.5L9 16m6-5 2.5 2.5L15 16m-2-5-2 5"/></svg>';
+const resourceIcons = { PPTX: presentationIcon, HTML: htmlIcon, photo: albumIcon, link: chainIcon, video: playIcon };
 const songGalleryTitle = '학생 개사곡 듣기';
 const webAppsTitle = '음량조절웹앱 예시';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
@@ -124,6 +125,9 @@ function resources(item) {
 }
 
 const materialRoute = (lesson, material) => `lessons/${lesson.id}/materials/${material.id}/`;
+const appRoute = (lesson, app) => `lessons/${lesson.id}/apps/${app.id}/`;
+const embeddedApps = lesson => (lesson.webApps || []).filter(app => app.id);
+const linkedApps = lesson => (lesson.webApps || []).filter(app => !app.id);
 
 function resourceAction(title, url, { kind = 'link', subject, detail, external, downloadName } = {}) {
   const icon = resourceIcons[kind] ?? documentIcon;
@@ -150,6 +154,9 @@ ${planAction}
 ${(l.materials || []).map(material => resourceAction(material.label, href(materialRoute(l, material)), {
     kind: material.format, subject: material.subject, detail: '미리보기',
   })).join('')}
+${embeddedApps(l).map(app => resourceAction(app.title, href(appRoute(l, app)), {
+    kind: 'HTML', subject: app.subject, detail: '웹앱 실행',
+  })).join('')}
 ${l.photos?.length ? resourceAction(l.photoSubject ? '활동 사진 보기' : '수업 사진 보기', href(`lessons/${l.id}/photos/`), { kind: 'photo' }) : ''}
 ${(l.links || []).filter(link => link.position === 'before-artifacts').map(externalAction).join('')}
 ${l.artifacts?.length && l.showArtifactGalleryLink !== false ? resourceAction('학생 산출물 보기', href(`lessons/${l.id}/artifacts/`), { kind: 'photo' }) : ''}
@@ -161,7 +168,7 @@ ${additionalFiles.map(f => {
     return opensPdf + downloadFile;
   }).join('')}
 ${(l.links || []).filter(link => link.position !== 'before-artifacts').map(externalAction).join('')}
-${l.webApps?.length ? resourceAction(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
+${linkedApps(l).length ? resourceAction(webAppsTitle, href(`lessons/${l.id}/apps/`)) : ''}
 </ul>`;
 }
 
@@ -205,11 +212,27 @@ function previewSlides(pages, title) {
 
 for (const l of lessons) {
   const p = data.parts.find(p => p.id === l.part);
-  if (l.status === 'published' && l.webApps?.length) {
+  const externalApps = linkedApps(l);
+  if (l.status === 'published' && externalApps.length) {
     const route = `lessons/${l.id}/apps/`;
     await write(`${route}index.html`, page({
       title: webAppsTitle, description: `${l.title} 수업에서 활용하는 소리 조절 웹앱 두 가지`, route, current: 'library', backHref: `lessons/${l.id}/`,
-      body: `<div class="shell reading-page"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${webAppsTitle}</h1><p>사용할 웹앱을 선택해 열어 보세요.</p><ul class="lesson-grid app-grid">${l.webApps.map(app => `<li class="lesson-item"><a class="lesson-card" href="${href(app.path)}" target="_blank" rel="noopener" aria-label="${esc(app.title)} (새 탭)"><div class="card-meta">웹앱 열기<span class="card-open">${linkIcon}</span></div><h2>${esc(app.title)}</h2><p>${esc(app.description)}</p></a></li>`).join('')}</ul></div>`
+      body: `<div class="shell reading-page"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${webAppsTitle}</h1><p>사용할 웹앱을 선택해 열어 보세요.</p><ul class="lesson-grid app-grid">${externalApps.map(app => `<li class="lesson-item"><a class="lesson-card" href="${href(app.path)}" target="_blank" rel="noopener" aria-label="${esc(app.title)} (새 탭)"><div class="card-meta">웹앱 열기<span class="card-open">${linkIcon}</span></div><h2>${esc(app.title)}</h2><p>${esc(app.description)}</p></a></li>`).join('')}</ul></div>`
+    }));
+  }
+  for (const app of l.status === 'published' ? embeddedApps(l) : []) {
+    const route = appRoute(l, app);
+    const appUrl = href(app.path);
+    await write(`${route}index.html`, page({
+      title: app.title, description: app.description, route, current: 'library', backHref: `lessons/${l.id}/`,
+      body: `<div class="shell viewer-shell">
+<div class="viewer-heading"><p>${app.subject ? `${subjectTag(app.subject)} ` : ''}${esc(l.title)}</p><h1>${esc(app.title)}</h1>
+<div class="viewer-tools lesson-app-downloads">
+<a class="button material-download" href="${appUrl}" download="${esc(app.downloadName ?? `${app.title}.html`)}">${download}<span>앱 파일(.html) 다운받기</span></a>
+${app.manual ? `<a class="button material-download" href="${href(app.manual)}" download="사용 설명서.pdf">${download}<span>사용 설명서 다운받기</span></a>` : ''}
+</div></div>
+<iframe class="lesson-app-frame" src="${appUrl}" title="${esc(app.title)}" sandbox="allow-scripts allow-downloads"></iframe>
+</div>`
     }));
   }
   const activities = l.activities.map(activity => typeof activity === 'string'
@@ -337,6 +360,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && l.webApps?.length ? [`lessons/${l.id}/apps/`] : []), ...(l.status === 'published' ? (l.materials || []).map(material => materialRoute(l, material)) : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && linkedApps(l).length ? [`lessons/${l.id}/apps/`] : []), ...(l.status === 'published' ? embeddedApps(l).map(app => appRoute(l, app)) : []), ...(l.status === 'published' ? (l.materials || []).map(material => materialRoute(l, material)) : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);
