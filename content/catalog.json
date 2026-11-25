@@ -1016,6 +1016,38 @@
       "photoSubject": "역사",
       "photos": [
         {
+          "label": "스카이다이버는 어떻게 무사했을까?",
+          "subject": "과학",
+          "path": "files/jagyeongnu/science-skydiver.webp",
+          "alt": "스카이다이버 영상을 보며 교사의 질문을 듣는 교실",
+          "width": 1407,
+          "height": 795
+        },
+        {
+          "label": "학급 공동표에 모둠별 계산값 채우기",
+          "subject": "과학",
+          "path": "files/jagyeongnu/science-shared-table.webp",
+          "alt": "학생이 전자칠판의 학급 공동표에 모둠 계산값을 입력하는 모습",
+          "width": 1920,
+          "height": 1081
+        },
+        {
+          "label": "계산값을 바탕으로 규칙 발견하기",
+          "subject": "과학",
+          "path": "files/jagyeongnu/science-patterns.webp",
+          "alt": "학생들이 전자칠판에 모은 계산값을 함께 살펴보는 모습",
+          "width": 452,
+          "height": 332
+        },
+        {
+          "label": "자격루 모형 만들고 개선안 설계하기",
+          "subject": "과학",
+          "path": "files/jagyeongnu/science-water-clock.webp",
+          "alt": "자격루 모형 옆에서 활동지에 개선안을 그리는 학생",
+          "width": 1920,
+          "height": 1081
+        },
+        {
           "label": "오늘의 탐구 활동지",
           "path": "files/jagyeongnu/activity-01-face-fit.webp",
           "alt": "자격루의 원리와 조선의 시간 제도를 살펴보는 활동지",
