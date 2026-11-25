@@ -53,7 +53,7 @@ ${home ? `<link rel="preload" as="font" href="${href('assets/fonts/NotoSerifKR-S
 <nav aria-label="주 메뉴">${nav('about', aboutUrl, '소개', current)}${nav('library', libraryUrl, '수업자료', current)}${nav('collection', href('collection/'), '자료집', current)}</nav>
 </div></header>
 <main id="main" tabindex="-1">${body}</main>
-${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><a href="${href('about/')}">수업공방 소개</a></div></footer>
+${home ? '' : `<footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-name" href="${base}">수업공방</a><p>2026 교단지원 자료개발 교육연구회</p></div><address class="footer-contact"><strong>Contact</strong><span>JBE 메신저 전주양현중 박유진</span></address></div></footer>
 <a class="floating-back" href="${href(backHref)}" aria-label="뒤로 가기: ${backHref.startsWith('lessons/') ? '수업 페이지로 이동' : backHref.startsWith('library/') ? '수업 목록으로 이동' : '메인 페이지로 이동'}">${backArrow}<span>뒤로 가기</span></a>
 <a class="floating-home" href="${base}" aria-label="HOME: 메인 페이지로 이동" data-home><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 11 9-8 9 8M5 9v12h5v-7h4v7h5V9"/></svg><span>HOME</span></a>`}
 </body></html>`;
@@ -229,11 +229,22 @@ for (const l of lessons) {
 <div class="viewer-heading"><p>${app.subject ? `${subjectTag(app.subject)} ` : ''}${esc(l.title)}</p><h1>${esc(app.title)}</h1>
 <div class="viewer-tools lesson-app-downloads">
 <a class="button material-download" href="${appUrl}" download="${esc(app.downloadName ?? `${app.title}.html`)}">${download}<span>앱 파일(.html) 다운받기</span></a>
-${app.manual ? `<a class="button material-download" href="${href(app.manual)}" download="사용 설명서.pdf">${download}<span>사용 설명서 다운받기</span></a>` : ''}
+${app.manual ? `<a class="button material-download" href="${href(`${route}manual/`)}" aria-label="사용 설명서 다운받기 (PDF 미리보기)">${download}<span>사용 설명서 다운받기</span></a>` : ''}
 </div></div>
 <iframe class="lesson-app-frame" src="${appUrl}" title="${esc(app.title)}" sandbox="allow-scripts allow-downloads"></iframe>
 </div>`
     }));
+    if (app.manual) {
+      const manualRoute = `${route}manual/`;
+      const toolbar = documentToolbar({pages: app.manualPages, title: '사용 설명서', path: app.manual, format: 'PDF', downloadName: '사용 설명서.pdf'});
+      await write(`${manualRoute}index.html`, page({
+        title: '사용 설명서', description: `${app.title}의 PDF 사용 설명서`, route: manualRoute, current: 'library', backHref: route,
+        body: `<div class="shell viewer-shell">
+<div class="viewer-heading"><p>${esc(app.title)}</p><h1>사용 설명서</h1>${toolbar}</div>
+${previewPages(app.manualPages, '사용 설명서')}
+</div>`
+      }));
+    }
   }
   const activities = l.activities.map(activity => typeof activity === 'string'
     ? `<li>${esc(activity)}</li>`
@@ -335,6 +346,12 @@ await write('about/index.html', page({
   title: '수업공방 소개', description: '개념 기반 탐구학습과 교과융합 수업 자료를 개발하는 교육연구회 수업공방.', route: 'about/', current: 'about',
   body: `<div class="shell reading-page"><h1>수업공방 소개</h1><div class="prose">
 <p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p>
+<section aria-labelledby="history-heading">
+<h2 id="history-heading">연혁</h2>
+<ol class="history-list">
+<li><time datetime="2026">2026</time><div><h3>수업공방 시작</h3><p>전주양현중 · 김연성, 박유진, 심재희, 왕가람, 이솔, 임하림, 홍유빈</p></div></li>
+</ol>
+</section>
 </div></div>`
 }));
 
@@ -360,6 +377,6 @@ for (const asset of selected) {
   await copyFile(path.join(publicRoot, asset), target);
 }
 await write('.nojekyll', '');
-const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && linkedApps(l).length ? [`lessons/${l.id}/apps/`] : []), ...(l.status === 'published' ? embeddedApps(l).map(app => appRoute(l, app)) : []), ...(l.status === 'published' ? (l.materials || []).map(material => materialRoute(l, material)) : [])])];
+const routes = ['', 'library/', 'collection/', 'about/', ...lessons.flatMap(l => [`lessons/${l.id}/`, ...(l.status === 'published' && l.planPages?.length ? [`lessons/${l.id}/plan/`] : []), ...(l.status === 'published' && l.photos?.length ? [`lessons/${l.id}/photos/`] : []), ...(l.status === 'published' && l.artifacts?.length ? [`lessons/${l.id}/artifacts/`, ...l.artifacts.map(a => `lessons/${l.id}/artifacts/${a.id}/`)] : []), ...(l.status === 'published' && l.videos?.length ? [`lessons/${l.id}/songs/`] : []), ...(l.status === 'published' && linkedApps(l).length ? [`lessons/${l.id}/apps/`] : []), ...(l.status === 'published' ? embeddedApps(l).flatMap(app => app.manual ? [appRoute(l, app), `${appRoute(l, app)}manual/`] : [appRoute(l, app)]) : []), ...(l.status === 'published' ? (l.materials || []).map(material => materialRoute(l, material)) : [])])];
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${href(r)}</loc></url>`).join('')}</urlset>`);
 console.log(`Built ${routes.length} pages + 404; ${lessons.length} lessons; ${[...lessons, data.collection].flatMap(x => x.files).length} teaching files. Base: ${base}`);

@@ -194,6 +194,8 @@ html.library-page { scroll-padding-top: 92px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 28px; font-size: .8rem; color: var(--muted); }
 .footer-name { font-size: 1.2rem; font-weight: 650; color: var(--accent); text-decoration: none; }
 .footer-inner p { margin-top: 7px; }
+.footer-contact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-style: normal; }
+.footer-contact strong { color: var(--accent); font-weight: 650; }
 .library-page .site-footer { margin-top: 24px; padding-block: 14px max(16px, env(safe-area-inset-bottom)); }
 .breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; padding: 34px 0; color: var(--muted); font-size: .85rem; }
 .detail-shell .breadcrumb { padding: 22px 0; }
@@ -260,9 +262,14 @@ html.library-page { scroll-padding-top: 92px; }
 .resource-icon[data-format="PDF"] { color: #a5353c; background: #fae8ea; }
 .lesson-resources .resource-pending { margin: 0; }
 .reading-page { padding-top: 54px; }
-.prose { max-width: 740px; margin-top: 32px; }
+.prose { margin-top: 32px; }
 .prose p { margin-top: 18px; line-height: 1.95; word-break: keep-all; }
 .prose h2 { font-size: 1.3rem; margin-top: 38px; scroll-margin-top: 30px; }
+.history-list { margin: 12px 0 0; padding: 0; list-style: none; }
+.history-list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 3vw, 32px); padding-block: 14px; border-top: 1px solid var(--line); }
+.history-list time { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+.history-list h3 { font-size: 1rem; }
+.history-list p { margin-top: 4px; color: var(--muted); }
 .book-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 76px; margin-top: 36px; align-items: start; }
 .book-title { display: flex; flex-direction: column; aspect-ratio: 3/4; padding: 28px; background: #e9dfd2; color: var(--accent-dark); }
 .book-title > span { font-size: .85rem; }
@@ -424,8 +431,6 @@ button { font: inherit; cursor: pointer; }
 .material-download svg { width: 20px; height: 20px; }
 .lesson-app-downloads { justify-content: flex-end; gap: 10px; }
 .lesson-app-downloads .material-download { margin-inline-start: 0; }
-.lesson-app-downloads .material-download + .material-download { background: var(--paper); border: 1px solid var(--line); color: var(--accent); }
-.lesson-app-downloads .material-download + .material-download:hover { background: var(--tint); border-color: var(--accent); }
 .lesson-app-frame { display: block; width: 100%; height: clamp(36rem, 84dvh, 66rem); border: 1px solid var(--line); border-radius: 8px; background: white; }
 .plan-document { max-width: 900px; margin-inline: auto; }
 .plan-page { margin: 0 0 30px; scroll-margin-top: 16px; }
