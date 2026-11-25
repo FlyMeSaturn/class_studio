@@ -131,8 +131,20 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
     if (ids.has(lesson.id)) errors.push(`중복 ID: ${lesson.id}`); ids.add(lesson.id);
     if (!parts.some(p => p.id === lesson.part)) errors.push(`${lesson.id}: 잘못된 part`);
     if (!Number.isInteger(lesson.order) || lesson.order < 1) errors.push(`${lesson.id}: 양의 정수 order가 필요합니다.`);
-    for (const k of ['subjects','grades','tags','activities']) {
+    for (const k of ['subjects','grades','tags']) {
       if (!Array.isArray(lesson[k]) || (k !== 'tags' && !lesson[k].length) || lesson[k].some(x => typeof x !== 'string' || !x.trim())) errors.push(`${lesson.id}.${k}: 텍스트 배열이 필요합니다.`);
+    }
+    const activityLabel = `${lesson.id}.activities`;
+    if (!Array.isArray(lesson.activities) || !lesson.activities.length) {
+      errors.push(`${activityLabel}: 활동 목록이 필요합니다.`);
+    } else {
+      const subjects = Array.isArray(lesson.subjects) ? lesson.subjects : [];
+      for (const activity of lesson.activities) {
+        requireText(typeof activity === 'string' ? activity : activity?.label, activityLabel);
+        if (typeof activity !== 'string' && activity?.subject !== '융합' && !subjects.includes(activity?.subject)) {
+          errors.push(`${activityLabel}.subject: 수업에 포함된 교과나 융합을 지정해야 합니다.`);
+        }
+      }
     }
     if (lesson.photoSubject !== undefined && (!lesson.photos?.length || !Array.isArray(lesson.subjects) || !lesson.subjects.includes(lesson.photoSubject))) {
       errors.push(`${lesson.id}.photoSubject: 활동 사진과 수업에 포함된 교과가 필요합니다.`);

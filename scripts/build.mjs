@@ -212,12 +212,15 @@ for (const l of lessons) {
       body: `<div class="shell reading-page"><p>${esc(l.subjects.join(' · '))} · ${esc(l.grades.join(' · '))}</p><h1>${webAppsTitle}</h1><p>사용할 웹앱을 선택해 열어 보세요.</p><ul class="lesson-grid app-grid">${l.webApps.map(app => `<li class="lesson-item"><a class="lesson-card" href="${href(app.path)}" target="_blank" rel="noopener" aria-label="${esc(app.title)} (새 탭)"><div class="card-meta">웹앱 열기<span class="card-open">${linkIcon}</span></div><h2>${esc(app.title)}</h2><p>${esc(app.description)}</p></a></li>`).join('')}</ul></div>`
     }));
   }
+  const activities = l.activities.map(activity => typeof activity === 'string'
+    ? `<li>${esc(activity)}</li>`
+    : `<li><span class="tagged-activity">${subjectTag(activity.subject)}<span>${esc(activity.label)}</span></span></li>`).join('');
   await write(`lessons/${l.id}/index.html`, page({
     title: l.title, description: l.summary, route: `lessons/${l.id}/`, current: 'library', backHref: `library/#${p.id}`,
     body: `<div class="shell detail-shell">
 <nav class="breadcrumb" aria-label="현재 위치"><a href="${href('library/')}">수업 자료</a><span aria-hidden="true">/</span><a href="${href('library/')}#${p.id}">${p.number} ${esc(p.title)}</a></nav>
 <header class="lesson-heading"><p class="detail-meta">${subjectTags(l.subjects)}<span>${esc(l.grades.join(' · '))}</span></p><h1>${esc(l.title)}</h1></header>
-<div class="lesson-layout"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${l.activities.map(a => `<li>${esc(a)}</li>`).join('')}</ol><p class="lesson-author"><span>작성자</span> ${esc(l.author)}</p></article>
+<div class="lesson-layout"><article class="lesson-overview"><h2>수업 개요</h2><p>${esc(l.overview)}</p><h2>수업 활동</h2><ol class="activity-list">${activities}</ol><p class="lesson-author"><span>작성자</span> ${esc(l.author)}</p></article>
 <aside class="lesson-resources" aria-label="수업 자료 바로가기">${lessonResources(l)}</aside></div>
 </div>`
   }));
