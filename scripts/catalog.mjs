@@ -13,7 +13,7 @@ export const resourcePaths = item => [
   ...item.files.map(file => file.path),
   ...['photos', 'planPages', 'artifacts'].flatMap(key => (item[key] || []).map(media => media.path)),
   ...(item.videos || []).flatMap(video => [video.path, video.poster]),
-  ...(item.webApps || []).flatMap(app => app.manual ? [app.path, app.manual] : [app.path]),
+  ...(item.webApps || []).flatMap(app => app.manual ? [app.path, app.manual, ...app.manualPages.map(page => page.path)] : [app.path]),
   ...(item.materials || []).flatMap(material => [material.path, ...(material.pdf ? [material.pdf] : []), ...material.pages.map(page => page.path)]),
 ];
 
@@ -112,7 +112,9 @@ export async function validateCatalog(data, assetRoot = publicRoot) {
       const attachments = [{label:app.title, format:'HTML', path:app.path}];
       if (app.manual !== undefined) {
         if (!app.id) errors.push(`${lesson.id}: 설명서는 사이트에서 실행하는 웹앱에 연결해야 합니다.`);
+        if (!Array.isArray(app.manualPages) || !app.manualPages.length) errors.push(`${lesson.id}: 설명서 미리보기 페이지가 필요합니다.`);
         attachments.push({label:'사용 설명서', format:'PDF', path:app.manual});
+        await media({status:lesson.status, files:attachments, planPages:app.manualPages}, `${lesson.id}.webApps.manual`);
       }
       await files({status:'published', files:attachments}, lesson.id);
     }
