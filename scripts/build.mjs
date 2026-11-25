@@ -356,7 +356,7 @@ await write('about/index.html', page({
 <img src="${href('assets/about-worktable.webp')}" width="1920" height="640" alt="" fetchpriority="high" decoding="async">
 </picture>
 <div class="about-intro-copy">
-<h1>수업공방 소개</h1>
+<h1 class="sr-only">수업공방 소개</h1>
 <p class="about-slogan">${esc(workshopSlogan.join(' '))}</p>
 <p>서로 다른 교과를 가르치는 선생님들이 모여 수업을 연구합니다. 각자의 교실에서 얻은 경험과 아이디어를 나누며, 동료 교사들이 수업에 활용할 수 있는 자료를 함께 만듭니다.</p>
 </div>
