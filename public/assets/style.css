@@ -263,6 +263,17 @@ html.library-page { scroll-padding-top: 92px; }
 .lesson-resources .resource-pending { margin: 0; }
 .reading-page { padding-top: 54px; }
 .about-content { padding-top: clamp(28px, 3.4vw, 50px); }
+.about-intro {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  min-height: clamp(18rem, 28vw, 23rem);
+  padding: clamp(26px, 4.2vw, 64px);
+  overflow: hidden;
+  background: var(--tint);
+}
+.about-intro-copy { width: min(67%, 35rem); }
 .about-intro h1 { color: var(--accent-dark); font-size: clamp(2rem, 3.4vw, 3.25rem); }
 .about-intro p { margin-top: 6px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
 .about-intro .about-slogan {
@@ -272,17 +283,19 @@ html.library-page { scroll-padding-top: 92px; }
   font-size: clamp(1rem, 1.6vw, 1.3rem);
   font-weight: 600;
   line-height: 1.65;
+  text-wrap: balance;
 }
-.about-hero { display: block; margin-top: clamp(22px, 2.8vw, 34px); }
-.about-hero img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 1;
-  max-height: clamp(220px, 43svh, 400px);
-  object-fit: cover;
-  object-position: center 56%;
-  background: var(--tint);
+.about-hero { position: absolute; z-index: -1; inset-block: 0; inset-inline-end: 0; width: 74%; }
+.about-hero img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+.about-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    var(--tint),
+    color-mix(in srgb, var(--tint) 96%, transparent) 27%,
+    color-mix(in srgb, var(--tint) 67%, transparent) 55%,
+    transparent 94%);
 }
 .about-history {
   display: grid;
@@ -402,7 +415,14 @@ html.library-page { scroll-padding-top: 92px; }
   .lesson-overview > p { font-size: .95rem; }
   .reading-page { padding-top: 32px; }
   .reading-page > h1 { font-size: 1.9rem; }
-  .about-hero img { aspect-ratio: 8 / 5; max-height: none; }
+  .about-intro { min-height: auto; padding: 26px 22px; }
+  .about-intro-copy { width: 100%; }
+  .about-hero { width: 90%; }
+  .about-hero::after {
+    background: linear-gradient(to right, var(--tint),
+      color-mix(in srgb, var(--tint) 95%, transparent) 34%,
+      color-mix(in srgb, var(--tint) 80%, transparent));
+  }
   .about-history { grid-template-columns: 1fr; padding-block: 16px; }
   .book-layout { grid-template-columns: 1fr; gap: 30px; margin-top: 28px; }
   .book-title { width: 235px; max-width: 100%; padding: 25px; }

@@ -348,18 +348,19 @@ await write('collection/index.html', page({
 }));
 
 await write('about/index.html', page({
-  title: '수업공방 소개', description: '전주양현중 교사 일곱 명이 함께 수업을 만들고 교실에서 다듬은 자료를 나누는 수업공방입니다.', route: 'about/', current: 'about',
+  title: '수업공방 소개', description: '서로 다른 교과의 선생님들이 수업을 연구하고 자료를 함께 만드는 수업공방입니다.', route: 'about/', current: 'about',
   body: `<div class="shell about-content">
 <header class="about-intro">
-<h1>수업공방 소개</h1>
-<p class="about-slogan">${esc(workshopSlogan.join(' '))}</p>
-<p>“우리도 연구회 한번 해볼까?” 이 한마디에 전주양현중 선생님 일곱 명이 모였습니다.</p>
-<p>함께 짠 수업을 교실에서 해 보고 다시 손봅니다. 그렇게 다듬은 개념 기반 탐구학습과 교과융합 수업 자료를 나눕니다.</p>
-</header>
 <picture class="about-hero">
 <source media="(max-width: 640px)" srcset="${href('assets/about-worktable-mobile.webp')}" width="768" height="480">
-<img src="${href('assets/about-worktable.webp')}" width="1920" height="640" alt="작업대에 펼친 학습지를 보며 수업을 함께 구상하는 교사들의 손" fetchpriority="high" decoding="async">
+<img src="${href('assets/about-worktable.webp')}" width="1920" height="640" alt="" fetchpriority="high" decoding="async">
 </picture>
+<div class="about-intro-copy">
+<h1>수업공방 소개</h1>
+<p class="about-slogan">${esc(workshopSlogan.join(' '))}</p>
+<p>서로 다른 교과를 가르치는 선생님들이 모여 수업을 연구합니다. 각자의 교실에서 얻은 경험과 아이디어를 나누며, 동료 교사들이 수업에 활용할 수 있는 자료를 함께 만듭니다.</p>
+</div>
+</header>
 <section class="about-history" aria-labelledby="history-heading">
 <h2 id="history-heading">연혁</h2>
 <ol class="history-list">
