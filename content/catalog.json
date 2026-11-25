@@ -386,13 +386,13 @@
       "videos": [
         {
           "title": "옹헤야",
-          "path": "files/folk-song/ongheya-mosaic.mp4",
-          "poster": "files/folk-song/ongheya-poster.webp"
+          "path": "files/folk-song/ongheya-face-fit.mp4",
+          "poster": "files/folk-song/ongheya-poster-face-fit.webp"
         },
         {
           "title": "통영개타령",
-          "path": "files/folk-song/tongyeong-gaetaryeong-mosaic.mp4",
-          "poster": "files/folk-song/tongyeong-gaetaryeong-poster.webp"
+          "path": "files/folk-song/tongyeong-gaetaryeong-face-fit.mp4",
+          "poster": "files/folk-song/tongyeong-gaetaryeong-poster-face-fit.webp"
         }
       ],
       "files": [
@@ -1017,35 +1017,35 @@
       "photos": [
         {
           "label": "오늘의 탐구 활동지",
-          "path": "files/jagyeongnu/activity-01.webp",
+          "path": "files/jagyeongnu/activity-01-face-fit.webp",
           "alt": "자격루의 원리와 조선의 시간 제도를 살펴보는 활동지",
           "width": 1920,
           "height": 1081
         },
         {
           "label": "표준 시각은 왜 필요할까",
-          "path": "files/jagyeongnu/activity-02.webp",
+          "path": "files/jagyeongnu/activity-02-face-fit.webp",
           "alt": "공통된 시간 기준이 필요한 이유를 묻는 수업 화면",
           "width": 1920,
           "height": 1081
         },
         {
           "label": "조선의 하루 읽기",
-          "path": "files/jagyeongnu/activity-03.webp",
+          "path": "files/jagyeongnu/activity-03-face-fit.webp",
           "alt": "조선시대의 시각 표를 보며 시간을 읽는 방법을 살펴보는 교실",
           "width": 1920,
           "height": 1081
         },
         {
           "label": "그림으로 살피는 옛 시계",
-          "path": "files/jagyeongnu/activity-05.webp",
+          "path": "files/jagyeongnu/activity-05-face-fit.webp",
           "alt": "교사가 둥근 시계의 구조를 가리키며 설명하는 모습",
           "width": 1920,
           "height": 1081
         },
         {
           "label": "손을 들어 생각 나누기",
-          "path": "files/jagyeongnu/activity-08.webp",
+          "path": "files/jagyeongnu/activity-08-face-fit.webp",
           "alt": "교사의 질문을 듣고 손을 든 학생들",
           "width": 1920,
           "height": 1081
@@ -1339,7 +1339,7 @@
         },
         {
           "label": "참고 이미지를 보며 채색하기",
-          "path": "files/constellation-myth/activity-02.webp",
+          "path": "files/constellation-myth/activity-02-face-fit.webp",
           "alt": "노트북 화면을 참고하면서 파란색과 초록색 오브제를 만드는 모습",
           "width": 1920,
           "height": 1440
@@ -1360,7 +1360,7 @@
         },
         {
           "label": "채색하기",
-          "path": "files/constellation-myth/activity-07.webp",
+          "path": "files/constellation-myth/activity-07-face-fit.webp",
           "alt": "모둠 학생들이 서로 다른 색으로 곰 오브제를 채색하는 모습",
           "width": 1440,
           "height": 1920
@@ -1381,21 +1381,21 @@
         },
         {
           "label": "세필붓으로 베어브릭 세부 묘사하기",
-          "path": "files/constellation-myth/activity-13.webp",
+          "path": "files/constellation-myth/activity-13-face-fit.webp",
           "alt": "작은 붓으로 오브제의 세부를 채색하는 모습",
           "width": 1440,
           "height": 1920
         },
         {
           "label": "세필붓으로 베어브릭 세부 묘사하기",
-          "path": "files/constellation-myth/activity-16.webp",
+          "path": "files/constellation-myth/activity-16-face-fit.webp",
           "alt": "민트색 곰 오브제에 얼굴 무늬와 목걸이를 그리는 모습",
           "width": 1440,
           "height": 1920
         },
         {
           "label": "베어브릭 묘사하기",
-          "path": "files/constellation-myth/activity-19.webp",
+          "path": "files/constellation-myth/activity-19-face-fit.webp",
           "alt": "붓을 들고 빨간색 곰 오브제의 세부를 채색하는 모습",
           "width": 1440,
           "height": 1920
