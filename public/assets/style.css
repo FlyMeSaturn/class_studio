@@ -196,7 +196,7 @@ html.library-page { scroll-padding-top: 92px; }
 .footer-inner p { margin-top: 7px; }
 .footer-contact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-style: normal; }
 .footer-contact strong { color: var(--accent); font-weight: 650; }
-.library-page .site-footer { margin-top: 24px; padding-block: 14px max(16px, env(safe-area-inset-bottom)); }
+:is(.library-page, .about-page) .site-footer { margin-top: 24px; padding-block: 14px max(16px, env(safe-area-inset-bottom)); }
 .breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; padding: 34px 0; color: var(--muted); font-size: .85rem; }
 .detail-shell .breadcrumb { padding: 22px 0; }
 .lesson-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px 24px; padding: 0 0 22px; border-bottom: 1px solid var(--line); }
@@ -262,14 +262,36 @@ html.library-page { scroll-padding-top: 92px; }
 .resource-icon[data-format="PDF"] { color: #a5353c; background: #fae8ea; }
 .lesson-resources .resource-pending { margin: 0; }
 .reading-page { padding-top: 54px; }
-.prose { margin-top: 32px; }
-.prose p { margin-top: 18px; line-height: 1.95; word-break: keep-all; }
-.prose h2 { font-size: 1.3rem; margin-top: 38px; scroll-margin-top: 30px; }
-.history-list { margin: 12px 0 0; padding: 0; list-style: none; }
-.history-list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 3vw, 32px); padding-block: 14px; border-top: 1px solid var(--line); }
-.history-list time { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
-.history-list h3 { font-size: 1rem; }
-.history-list p { margin-top: 4px; color: var(--muted); }
+.about-content { padding-top: clamp(28px, 3.4vw, 50px); }
+.about-intro h1 { color: var(--accent-dark); font-size: clamp(2rem, 3.4vw, 3.25rem); }
+.about-intro p { margin-top: 12px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+.about-hero { display: block; margin-top: clamp(22px, 2.8vw, 34px); }
+.about-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  max-height: clamp(220px, 43svh, 400px);
+  object-fit: cover;
+  object-position: center 56%;
+  background: var(--tint);
+}
+.about-history {
+  display: grid;
+  grid-template-columns: minmax(7rem, .26fr) minmax(0, 1fr);
+  gap: 12px clamp(20px, 4vw, 56px);
+  align-items: start;
+  margin-top: clamp(30px, 4vw, 50px);
+  padding-block: 20px;
+  border-block: 1px solid var(--line);
+}
+.about-history h2 { font-size: clamp(1.3rem, 2vw, 1.8rem); color: var(--accent-dark); }
+.history-list { margin: 0; padding: 0; list-style: none; }
+.history-list li { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: clamp(16px, 3vw, 36px); }
+.history-list time { color: var(--accent); font-size: clamp(1.55rem, 2.7vw, 2.4rem); font-weight: 650; line-height: 1; font-variant-numeric: tabular-nums; }
+.history-list h3 { font-size: clamp(1rem, 1.6vw, 1.25rem); }
+.history-list p { margin-top: 6px; color: var(--muted); font-size: .95rem; word-break: keep-all; overflow-wrap: anywhere; }
+.history-list p strong { margin-inline-end: 6px; color: var(--ink); font-weight: 650; }
 .book-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 76px; margin-top: 36px; align-items: start; }
 .book-title { display: flex; flex-direction: column; aspect-ratio: 3/4; padding: 28px; background: #e9dfd2; color: var(--accent-dark); }
 .book-title > span { font-size: .85rem; }
@@ -300,9 +322,9 @@ html.library-page { scroll-padding-top: 92px; }
   #integration .lesson-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 641px) {
-  .library-page .footer-inner { padding-inline: max(48px, calc(132px - max(0px, (100vw - 1376px) / 2))); }
-  .library-page .footer-inner > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; }
-  .library-page .footer-inner p { margin-top: 0; }
+  :is(.library-page, .about-page) .footer-inner { padding-inline: max(48px, calc(132px - max(0px, (100vw - 1376px) / 2))); }
+  :is(.library-page, .about-page) .footer-inner > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; }
+  :is(.library-page, .about-page) .footer-inner p { margin-top: 0; }
 }
 @media (min-width: 1051px) and (max-height: 820px) {
   html.library-page { scroll-padding-top: 84px; }
@@ -312,7 +334,7 @@ html.library-page { scroll-padding-top: 92px; }
   #integration { margin-top: 14px; }
   .library .lesson-grid { margin-top: 8px; }
   .library .lesson-card { padding-block: 10px 11px; }
-  .library-page .site-footer { margin-top: 14px; padding-block: 11px max(11px, env(safe-area-inset-bottom)); }
+  :is(.library-page, .about-page) .site-footer { margin-top: 14px; padding-block: 11px max(11px, env(safe-area-inset-bottom)); }
 }
 @media (max-width: 1050px) {
   .shell { padding-inline: 32px; }
@@ -357,8 +379,8 @@ html.library-page { scroll-padding-top: 92px; }
   .text-link { font-size: .85rem; gap: 12px; }
   .site-footer { margin-top: 44px; padding: 28px 0 calc(100px + env(safe-area-inset-bottom)); }
   .footer-inner { align-items: start; flex-direction: column; gap: 20px; font-size: .75rem; }
-  .library-page .site-footer { margin-top: 20px; padding-block: 16px calc(76px + env(safe-area-inset-bottom)); }
-  .library-page .footer-inner { gap: 10px; }
+  :is(.library-page, .about-page) .site-footer { margin-top: 20px; padding-block: 16px calc(76px + env(safe-area-inset-bottom)); }
+  :is(.library-page, .about-page) .footer-inner { gap: 10px; }
   .breadcrumb { font-size: .78rem; padding: 24px 0; gap: 8px; }
   .lesson-heading { gap: 8px 14px; padding-bottom: 16px; }
   .lesson-heading h1 { font-size: 1.5rem; min-width: min(100%, 6em); }
@@ -372,8 +394,8 @@ html.library-page { scroll-padding-top: 92px; }
   .lesson-overview > p { font-size: .95rem; }
   .reading-page { padding-top: 32px; }
   .reading-page > h1 { font-size: 1.9rem; }
-  .prose { margin-top: 26px; }
-  .prose h2 { margin-top: 30px; }
+  .about-hero img { aspect-ratio: 8 / 5; max-height: none; }
+  .about-history { grid-template-columns: 1fr; padding-block: 16px; }
   .book-layout { grid-template-columns: 1fr; gap: 30px; margin-top: 28px; }
   .book-title { width: 235px; max-width: 100%; padding: 25px; }
   .book-title h2 { font-size: 1.5rem; margin-top: 20px; }

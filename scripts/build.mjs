@@ -344,15 +344,22 @@ await write('collection/index.html', page({
 
 await write('about/index.html', page({
   title: '수업공방 소개', description: '개념 기반 탐구학습과 교과융합 수업 자료를 개발하는 교육연구회 수업공방.', route: 'about/', current: 'about',
-  body: `<div class="shell reading-page"><h1>수업공방 소개</h1><div class="prose">
+  body: `<div class="shell about-content">
+<header class="about-intro">
+<h1>수업공방 소개</h1>
 <p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p>
-<section aria-labelledby="history-heading">
+</header>
+<picture class="about-hero">
+<source media="(max-width: 640px)" srcset="${href('assets/about-worktable-mobile.webp')}" width="768" height="480">
+<img src="${href('assets/about-worktable.webp')}" width="1920" height="640" alt="작업대에 펼친 학습지를 보며 수업을 함께 구상하는 교사들의 손" fetchpriority="high" decoding="async">
+</picture>
+<section class="about-history" aria-labelledby="history-heading">
 <h2 id="history-heading">연혁</h2>
 <ol class="history-list">
-<li><time datetime="2026">2026</time><div><h3>수업공방 시작</h3><p>전주양현중 · 김연성, 박유진, 심재희, 왕가람, 이솔, 임하림, 홍유빈</p></div></li>
+<li><time datetime="2026">2026</time><div><h3>수업공방 시작</h3><p><strong>전주양현중</strong> 김연성, 박유진, 심재희, 왕가람, 이솔, 임하림, 홍유빈</p></div></li>
 </ol>
 </section>
-</div></div>`
+</div>`
 }));
 
 await write('404.html', page({
@@ -364,6 +371,7 @@ await write('404.html', page({
 const selected = new Set([
   'assets/style.css', 'assets/common.js', 'assets/favicon.svg',
   'assets/class-studio-logo.png', 'assets/workshop-hero.webp',
+  'assets/about-worktable.webp', 'assets/about-worktable-mobile.webp',
   'assets/fonts/PretendardVariable.woff2', 'assets/fonts/OFL.txt',
   'assets/fonts/NotoSerifKR-Slogan600.woff2', 'assets/fonts/NotoSerifKR-OFL.txt',
   'assets/fonts/NotoSerifKR-Slogan.woff2' // Keep the previous face available for cached stylesheets.
