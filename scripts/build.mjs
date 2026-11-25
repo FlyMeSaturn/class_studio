@@ -25,6 +25,11 @@ const albumIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" s
 const chainIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 13 4-4m-6 6-1 1a3 3 0 0 0 4 4l4-4a3 3 0 0 0 0-4m-2-3 1-1a3 3 0 1 0-4-4L6 8a3 3 0 0 0 0 4" transform="translate(1 0)"/></svg>';
 const htmlIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18m-12 3-2.5 2.5L9 16m6-5 2.5 2.5L15 16m-2-5-2 5"/></svg>';
 const resourceIcons = { PPTX: presentationIcon, HTML: htmlIcon, photo: albumIcon, link: chainIcon, video: playIcon };
+const workshopSlogan = [
+  '장인이 정성껏 물건을 만들 듯,',
+  '선생님들이 모여 정성스럽게',
+  '수업 자료를 빚어내는 공간',
+];
 const songGalleryTitle = '학생 개사곡 듣기';
 const webAppsTitle = '음량조절웹앱 예시';
 const nav = (key, url, label, current) => `<a data-nav="${key}" href="${url}"${key === current ? ' aria-current="page"' : ''}>${label}</a>`;
@@ -96,7 +101,7 @@ const home = page({
   body: `<section class="hero" aria-label="수업공방">
 <h1 class="sr-only">수업공방</h1>
 <img class="hero-image" src="${href('assets/workshop-hero.webp')}" width="1672" height="941" alt="수업공방을 표현한 이미지. 햇빛이 드는 나무 작업대에 종이와 수업 카드, 필기도구가 놓여 있습니다." fetchpriority="high" decoding="async">
-<p class="hero-slogan"><span>장인이 정성껏 물건을 만들 듯,</span> <span>선생님들이 모여 정성스럽게</span> <span>수업 자료를 빚어내는 공간</span></p>
+<p class="hero-slogan">${workshopSlogan.map(line => `<span>${esc(line)}</span>`).join(' ')}</p>
 </section>`
 });
 
@@ -343,11 +348,13 @@ await write('collection/index.html', page({
 }));
 
 await write('about/index.html', page({
-  title: '수업공방 소개', description: '개념 기반 탐구학습과 교과융합 수업 자료를 개발하는 교육연구회 수업공방.', route: 'about/', current: 'about',
+  title: '수업공방 소개', description: '전주양현중 교사 일곱 명이 함께 수업을 만들고 교실에서 다듬은 자료를 나누는 수업공방입니다.', route: 'about/', current: 'about',
   body: `<div class="shell about-content">
 <header class="about-intro">
 <h1>수업공방 소개</h1>
-<p>수업공방은 여러 교과의 교사가 모인 교단지원 자료개발 교육연구회입니다. 개념 기반 탐구학습과 교과융합 수업 자료를 개발합니다.</p>
+<p class="about-slogan">${esc(workshopSlogan.join(' '))}</p>
+<p>“우리도 연구회 한번 해볼까?” 이 한마디에 전주양현중 선생님 일곱 명이 모였습니다.</p>
+<p>함께 짠 수업을 교실에서 해 보고 다시 손봅니다. 그렇게 다듬은 개념 기반 탐구학습과 교과융합 수업 자료를 나눕니다.</p>
 </header>
 <picture class="about-hero">
 <source media="(max-width: 640px)" srcset="${href('assets/about-worktable-mobile.webp')}" width="768" height="480">
