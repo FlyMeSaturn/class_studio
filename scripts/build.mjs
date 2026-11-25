@@ -80,7 +80,7 @@ function subjectTag(subject, inPhotoCaption = false) {
 const subjectTags = subjects => `<span class="subject-tags">${subjects.map(subject => subjectTag(subject)).join(' ')}</span>`;
 
 function card(l) {
-  return `<li class="lesson-item"><a class="lesson-card" data-subject="${esc(l.subjects.length > 1 ? '융합' : l.subjects[0])}" href="${href(`lessons/${l.id}/`)}">
+  return `<li class="lesson-item"><a class="lesson-card" href="${href(`lessons/${l.id}/`)}">
 <div class="card-meta lesson-meta"><span class="card-labels">${subjectTags(l.subjects)}<span class="card-grade">${esc(l.grades.join(' · '))}</span></span><span class="card-open">${arrow}</span></div>
 <h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p>
 </a></li>`;
